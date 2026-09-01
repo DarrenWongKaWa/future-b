@@ -1,0 +1,158 @@
+{
+  "hopping": 0.0,
+  "geometry": "N=1 atomic / momenta collapsed",
+  "G0": "1/z (code origin)",
+  "tadpole": "OFF",
+  "metric": "relative L2 of G(z) versus exact_t0_linear_cfe on z=i*nu, nu=geomspace(0.1,20,128), CFE depth 64",
+  "verdict_rule": "B_VC moves toward exact atomic series iff relL2(G_Born_VC, G_exact) < relL2(G_Born, G_exact) on every frozen (g, Omega) cell at hop=0; the opposite strict inequality on every cell is 'B_VC does not move toward exact atomic series'; otherwise inconclusive",
+  "g4_series_coefficients": {
+    "born_one_shot": 0.0,
+    "born_plus_vc_on_G0": 1.0,
+    "scba_constant_cfe": 1.0,
+    "exact_t0_linear_cfe": 2.0
+  },
+  "cfe_depth": 64,
+  "nu": {
+    "min": 0.1,
+    "max": 20.0,
+    "n": 128,
+    "spacing": "geometric"
+  },
+  "cells": [
+    {
+      "g": 0.15,
+      "omega0": 0.5,
+      "relL2_Born_vs_exact": 0.026388651831626395,
+      "relL2_Born_VC_vs_exact": 0.014690617197563394,
+      "relL2_SCBA_vs_exact": 0.014007689555995238,
+      "relL2_Born_vs_SCBA": 0.012260991582107441,
+      "relL2_Born_VC_vs_SCBA": 0.0007024736130820955,
+      "B_VC_closer_to_exact_than_Born": true,
+      "B_VC_closer_to_SCBA_than_Born": true
+    },
+    {
+      "g": 0.15,
+      "omega0": 0.8,
+      "relL2_Born_vs_exact": 0.006819047432899251,
+      "relL2_Born_VC_vs_exact": 0.003576120010638257,
+      "relL2_SCBA_vs_exact": 0.003501234450204599,
+      "relL2_Born_vs_SCBA": 0.00331150505342528,
+      "relL2_Born_VC_vs_SCBA": 7.632290353533462e-05,
+      "B_VC_closer_to_exact_than_Born": true,
+      "B_VC_closer_to_SCBA_than_Born": true
+    },
+    {
+      "g": 0.15,
+      "omega0": 2.0,
+      "relL2_Born_vs_exact": 0.00045310030801495703,
+      "relL2_Born_VC_vs_exact": 0.00022843668482856017,
+      "relL2_SCBA_vs_exact": 0.0002275966180618805,
+      "relL2_Born_vs_SCBA": 0.00022549102664510545,
+      "relL2_Born_VC_vs_SCBA": 8.434386844719355e-07,
+      "B_VC_closer_to_exact_than_Born": true,
+      "B_VC_closer_to_SCBA_than_Born": true
+    },
+    {
+      "g": 0.45,
+      "omega0": 0.5,
+      "relL2_Born_vs_exact": 0.864388230784472,
+      "relL2_Born_VC_vs_exact": 0.7543625850447655,
+      "relL2_SCBA_vs_exact": 0.6519676946224972,
+      "relL2_Born_vs_SCBA": 0.3938809187929445,
+      "relL2_Born_VC_vs_SCBA": 0.15500566881791206,
+      "B_VC_closer_to_exact_than_Born": true,
+      "B_VC_closer_to_SCBA_than_Born": true
+    },
+    {
+      "g": 0.45,
+      "omega0": 0.8,
+      "relL2_Born_vs_exact": 0.3574283685906678,
+      "relL2_Born_VC_vs_exact": 0.23524739910770656,
+      "relL2_SCBA_vs_exact": 0.20704908242505682,
+      "relL2_Born_vs_SCBA": 0.12924430402175752,
+      "relL2_Born_VC_vs_SCBA": 0.023928766301926176,
+      "B_VC_closer_to_exact_than_Born": true,
+      "B_VC_closer_to_SCBA_than_Born": true
+    },
+    {
+      "g": 0.45,
+      "omega0": 2.0,
+      "relL2_Born_vs_exact": 0.028369840747753054,
+      "relL2_Born_VC_vs_exact": 0.015099857584254108,
+      "relL2_SCBA_vs_exact": 0.014643992852369342,
+      "relL2_Born_vs_SCBA": 0.013591773998178978,
+      "relL2_Born_VC_vs_SCBA": 0.00045288551605294255,
+      "B_VC_closer_to_exact_than_Born": true,
+      "B_VC_closer_to_SCBA_than_Born": true
+    },
+    {
+      "g": 0.75,
+      "omega0": 0.5,
+      "relL2_Born_vs_exact": 0.5557046223702948,
+      "relL2_Born_VC_vs_exact": 0.6267665669682214,
+      "relL2_SCBA_vs_exact": 0.6575722120066234,
+      "relL2_Born_vs_SCBA": 0.9541171378410964,
+      "relL2_Born_VC_vs_SCBA": 0.7367800415026292,
+      "B_VC_closer_to_exact_than_Born": false,
+      "B_VC_closer_to_SCBA_than_Born": true
+    },
+    {
+      "g": 0.75,
+      "omega0": 0.8,
+      "relL2_Born_vs_exact": 1.0255485111422293,
+      "relL2_Born_VC_vs_exact": 0.933536070780758,
+      "relL2_SCBA_vs_exact": 0.8410580411204773,
+      "relL2_Born_vs_SCBA": 0.5359600409144257,
+      "relL2_Born_VC_vs_SCBA": 0.22381663275035163,
+      "B_VC_closer_to_exact_than_Born": true,
+      "B_VC_closer_to_SCBA_than_Born": true
+    },
+    {
+      "g": 0.75,
+      "omega0": 2.0,
+      "relL2_Born_vs_exact": 0.1306406196897898,
+      "relL2_Born_VC_vs_exact": 0.07519440580207896,
+      "relL2_SCBA_vs_exact": 0.06980198944251431,
+      "relL2_Born_vs_SCBA": 0.057308100710940106,
+      "relL2_Born_VC_vs_SCBA": 0.005087792046982003,
+      "B_VC_closer_to_exact_than_Born": true,
+      "B_VC_closer_to_SCBA_than_Born": true
+    },
+    {
+      "g": 1.05,
+      "omega0": 0.5,
+      "relL2_Born_vs_exact": 0.6131690886139317,
+      "relL2_Born_VC_vs_exact": 0.6902674043925834,
+      "relL2_SCBA_vs_exact": 0.5476641696347272,
+      "relL2_Born_vs_SCBA": 0.702754200814343,
+      "relL2_Born_VC_vs_SCBA": 0.813727499107281,
+      "B_VC_closer_to_exact_than_Born": false,
+      "B_VC_closer_to_SCBA_than_Born": false
+    },
+    {
+      "g": 1.05,
+      "omega0": 0.8,
+      "relL2_Born_vs_exact": 0.9725619489721572,
+      "relL2_Born_VC_vs_exact": 0.7998494560542936,
+      "relL2_SCBA_vs_exact": 0.4029170565482192,
+      "relL2_Born_vs_SCBA": 1.0794512497466662,
+      "relL2_Born_VC_vs_SCBA": 0.7066573746086037,
+      "B_VC_closer_to_exact_than_Born": true,
+      "B_VC_closer_to_SCBA_than_Born": true
+    },
+    {
+      "g": 1.05,
+      "omega0": 2.0,
+      "relL2_Born_vs_exact": 0.3639434197754593,
+      "relL2_Born_VC_vs_exact": 0.2311360797126667,
+      "relL2_SCBA_vs_exact": 0.205026059243814,
+      "relL2_Born_vs_SCBA": 0.13406860172295704,
+      "relL2_Born_VC_vs_SCBA": 0.02193518676241221,
+      "B_VC_closer_to_exact_than_Born": true,
+      "B_VC_closer_to_SCBA_than_Born": true
+    }
+  ],
+  "verdict": "inconclusive",
+  "default_on_SCBA": "do not add Sigma_VC onto SCBA",
+  "libraries": "Library I = bare Born + bare VC on G0; Library II = SCBA on dressed G; not mixed"
+}
