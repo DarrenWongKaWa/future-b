@@ -1,0 +1,8 @@
+feature,train_mean,train_std,weight,note
+g,0.7038461538461539,0.30788455532599235,-1.6268744595671978,"week4_logistic;features=g,omega,lambda,n/64,log10(r_n),|Sigma_diag|;no_teacher_features;theta_class=0.03;E0_Born_VC=NOT_COMPUTED"
+omega,0.8923076923076922,0.6157691106519846,-0.3414279952210862,"week4_logistic;features=g,omega,lambda,n/64,log10(r_n),|Sigma_diag|;no_teacher_features;theta_class=0.03;E0_Born_VC=NOT_COMPUTED"
+lambda,0.5123076923076924,0.43601334876515574,-0.35709704968919825,"week4_logistic;features=g,omega,lambda,n/64,log10(r_n),|Sigma_diag|;no_teacher_features;theta_class=0.03;E0_Born_VC=NOT_COMPUTED"
+n_over_64,0.028846153846153848,0.014818302891752348,2.471285993359122,"week4_logistic;features=g,omega,lambda,n/64,log10(r_n),|Sigma_diag|;no_teacher_features;theta_class=0.03;E0_Born_VC=NOT_COMPUTED"
+log10_r_n,-1.0526396386639052,1.119615522224702,-2.4820736413951194,"week4_logistic;features=g,omega,lambda,n/64,log10(r_n),|Sigma_diag|;no_teacher_features;theta_class=0.03;E0_Born_VC=NOT_COMPUTED"
+abs_sigma_diag,1.247670162088587,1.658895105224583,0.2383118991062824,"week4_logistic;features=g,omega,lambda,n/64,log10(r_n),|Sigma_diag|;no_teacher_features;theta_class=0.03;E0_Born_VC=NOT_COMPUTED"
+bias,0.0,1.0,-0.7863053090939114,"week4_logistic;features=g,omega,lambda,n/64,log10(r_n),|Sigma_diag|;no_teacher_features;theta_class=0.03;E0_Born_VC=NOT_COMPUTED"

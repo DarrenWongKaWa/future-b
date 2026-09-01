@@ -10,9 +10,11 @@ Keldysh4ai line.
 5. Signed physics stays frozen: \(\xi_k=2t(1-\cos k)\), tadpole OFF in
    libraries, libraries separate, default NO \(\Sigma_{\mathrm{VC}}\) on
    SCBA, missing numbers are `NOT_COMPUTED`.
-6. Do not train a router. Do not start Week 3 unless a human opens it.
+6. This L=2 slice is closed: 切片结项，不是认证. Do not train a
+   router. Do not repair Week 4. Do not start Weeks 7–8.
 7. Do not copy 11A or proxy-POC numbers into the teacher map.
 8. Parent archive remains in Keldysh4ai; do not delete it from here
-   (it was never copied).
+   (it was never copied). Do not merge this extract into Keldysh4ai
+   `main` as “Future B succeeded”.
 
 Fail closed. Never invent PASS. Every claim names an artifact.

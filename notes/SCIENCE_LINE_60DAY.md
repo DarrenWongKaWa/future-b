@@ -3,6 +3,18 @@
 Authority: **HUMAN LOCK 2026-08-31**.  If this plan and
 `notes/REPO_AUDIT.md` disagree, this plan wins.
 
+## Slice status
+
+**切片结项，不是认证.** Closed 2026-09-01 under stop rule 6 below
+(learned gate did not beat the classical rule after cost). Paper 1 is
+not GO. Weeks 7–8 were not opened. Do not repair the learned gate.
+Do not merge this as “Future B succeeded” into Keldysh4ai `main`.
+Record: `notes/SLICE_CLOSEOUT.md`. Method note:
+`notes/METHOD_NOTE.md`.
+
+The weeks below remain the historical order. They are not a license to
+reopen this slice.
+
 ## Scientific order
 
 The next two months test, in this order:
@@ -18,14 +30,21 @@ A later week cannot rescue a failed earlier week.  Fixed diagram blocks and
 the Dyson update remain physics; learning, if admitted at all, is restricted to
 routing/stopping.
 
-The signed conventions are binding:
+Motive (not a result): summing electron–phonon Feynman diagrams is
+accurate and slow; a network, if earned, would accelerate that
+**policy** while remaining a diagrammatic calculation.
+`notes/MOTIVATION.md`.
 
-- \(\xi_k=2t(1-\cos k)\), so \(E_0(g=0)=0\);
-- the translator is \(E_{\rm lecture}=E_{\rm code}-2t\);
+The signed conventions are binding. Local papers and the
+bullet-by-bullet map: `notes/SIGNED_CONVENTION_SOURCES.md` and
+`references/`.
+
+- $\xi_k=2t(1-\cos k)$, so $E_0(g=0)=0$;
+- the translator is $E_{\rm lecture}=E_{\rm code}-2t$;
 - tadpole/Hartree is OFF in the diagrammatic libraries;
-- ED still contains \(g\,n(b+b^\dagger)\);
+- ED still contains $g\,n(b+b^\dagger)$;
 - Library I and Library II remain separate;
-- no \(\Sigma_{\rm VC}\) may be added to SCBA without a written
+- no $\Sigma_{\rm VC}$ may be added to SCBA without a written
   disjoint-diagram memo.
 
 ## Week 0 — completed engineering checkpoint
@@ -38,14 +57,14 @@ phonon-Fock implementation satisfied its signed limits.
 
 ### Recorded output
 
-- Library I and Library II exist separately and differ at \(g/t=0.45\).
+- Library I and Library II exist separately and differ at $g/t=0.45$.
 - `tests/test_ed_limits.py`: **13 passed** at commit `6aa77b7`.
 - `prototypes/future_b_neural_poc/ed_cutoff_table.csv`: **11 data rows**,
-  \(M=0,2,\ldots,20\).
-- At \(g=1.05\), \(\Omega=0.5\), the first cutoff satisfying the signed
-  energy check is \(M=14\), with
-  \(E_0=-1.2711554105515426\) and
-  \(\Delta E_0=3.689\times10^{-5}t\).
+  $M=0,2,\ldots,20$.
+- At $g=1.05$, $\Omega=0.5$, the first cutoff satisfying the signed
+  energy check is $M=14$, with
+  $E_0=-1.2711554105515426$ and
+  $\Delta E_0=3.689\times10^{-5}t$.
 - `GENERIC_MODEL_SUFFICIENT` remains a Born-versus-Born+VC proxy-task result.
   It was not teacher-backed and neither establishes nor falsifies Future B.
 
@@ -62,10 +81,10 @@ gain, and architecture evidence are all **NOT_COMPUTED**.
 Use the existing L=2 implementation without changing the signed conventions.
 Ask whether a usable teacher comparison map exists on the frozen grid
 
-\[
+$$
 g/t\in\{0.15,0.45,0.75,1.05\},\qquad
 \Omega/t\in\{0.5,0.8,2.0\}.
-\]
+$$
 
 ### Required output
 
@@ -85,8 +104,8 @@ convention, write `NOT_COMPUTED`; never substitute an inferred number.
 
 Also produce:
 
-- an atomic-limit audit of \(B_{\rm VC}\) against the continued-fraction
-  coefficient sequences \(1,1,1,\ldots\) and \(1,2,3,\ldots\);
+- an atomic-limit audit of $B_{\rm VC}$ against the continued-fraction
+  coefficient sequences $1,1,1,\ldots$ and $1,2,3,\ldots$;
 - a double-counting memo whose default is **NO adding VC onto SCBA**.
 
 Weak/intermediate labels, any split, and all comparison conventions must be
@@ -107,7 +126,7 @@ and is not architecture evidence.
 ### Prerequisite and question
 
 Week 1 must have produced an admissible teacher map.  Carry forward the signed
-checks \(g=0\) and one-shot Born \(\ne\) SCBA.  Then ask:
+checks $g=0$ and one-shot Born $\ne$ SCBA.  Then ask:
 
 > Does SCBA improve on one-shot Born in weak coupling and lose that advantage
 > in strong coupling when both are judged against ED?
@@ -136,11 +155,11 @@ difference alone does not prove adaptivity or learning is useful.
 Weeks 1–2 must show a structured teacher-backed decision.  Implement the
 classical stopping rule
 
-\[
+$$
 \frac{\|\Delta\Sigma\|}{\|\Sigma\|}<\theta_{\rm class},
-\]
+$$
 
-with \(\theta_{\rm class}\) chosen only on a declared train split.
+with $\theta_{\rm class}$ chosen only on a declared train split.
 
 ### Required output
 
@@ -151,7 +170,7 @@ this week.
 ### Stop rule and claim ceiling
 
 Stop neural escalation if useful extra work is unstructured in
-\((g,\Omega)\), or if the classical gate already matches the fixed-maximum
+$(g,\Omega)$, or if the classical gate already matches the fixed-maximum
 method at the required accuracy–cost point.
 
 After success, the strongest allowed statement is: **a classical adaptive
@@ -251,7 +270,7 @@ occurs:
 2. ED and momentum-space conventions cannot be translated consistently;
 3. Week 2 produces unphysical signs/spectra or fails the weak-coupling sanity
    check;
-4. useful extra computation is unstructured in \((g,\Omega)\);
+4. useful extra computation is unstructured in $(g,\Omega)$;
 5. the classical gate is sufficient, leaving no justified neural question;
 6. the learned gate fails to beat the classical gate after cost;
 7. the matched architecture test shows no gain attributable to typed blocks or
@@ -264,14 +283,14 @@ replacement sweep, relaxed threshold, larger network, or new physical model.
 
 ## Explicitly outside the next two months
 
-- \(\Phi\)-learning or a \(\Phi\)-derivable network;
+- $\Phi$-learning or a $\Phi$-derivable network;
 - Keldysh/nonequilibrium implementation;
 - Anderson–Holstein;
 - GAAFET or any other device application;
 - NQS;
 - DiagMC implementation;
 - transport or realistic-material extensions;
-- adding \(\Sigma_{\rm VC}\) to SCBA;
+- adding $\Sigma_{\rm VC}$ to SCBA;
 - widening a network to repair a negative result;
 - router training before the teacher map and classical gate exist;
 - a new mPFDNN, NQS-tutorial, or LLM–Hartree–Fock reading program;
@@ -302,3 +321,10 @@ The Future B chapter, Berciu–Goodvin, Mitrić et al.,
 Mishchenko–Nagaosa–Prokof'ev, and the cited atomic-limit continued fractions
 may guide interpretation.  They are not new implementation tickets and do not
 start a new reading program.
+
+PDF copies of Goodvin–Berciu–Sawatzky, Ciuchi et al., Barišić & Barišić,
+Mishchenko–Nagaosa–Prokof'ev, Mitrić et al., and Luo–Park–Bernardi
+(2025, planning-only) are in `references/`.
+The Future B chapter fragment stays in the parent tree and was not
+copied. Luo et al. does not authorize a DiagMC implementation or a
+realistic-material teacher.

@@ -1,0 +1,2 @@
+theta_class,admissible,n_train_match,n_test_match,mean_depth_gated_train,mean_depth_gated_test,mean_depth_oracle_test,leftover_decision,note
+0.03,true,6,6,2.5,2.1666666666666665,2.0,true,"week3_gate;r_n=|dSigma|/max(|Sigma|,eps);z_diag=0+i*eta;match=|d_gated|<=|d_fixed|+1e-4t;E0_Born_VC=NOT_COMPUTED;no_train"

@@ -13,9 +13,9 @@ That file was written to disk **before**
 `prototypes/future_b_neural_poc/teacher_map_l2.csv` was generated and
 before any twelve-cell `E0_ED` values were inspected. Labels use only
 
-\[
+$$
 \lambda = \frac{g^2}{2 t \Omega}
-\]
+$$
 
 with `t=1`, cuts `weak: λ<0.2`, `intermediate: 0.2 ≤ λ < 1`,
 `strong: λ ≥ 1` (PROJECT_CONVENTION on this slice).
@@ -83,7 +83,7 @@ accepted value `-1.2711554105515426` at `M=14`,
 Reasons (same for every cell; see CSV `note`):
 
 - Library I (`crossing_block_poc.py`) is periodic with the signed
-  `ξ_k`, but it returns \(\Sigma(k,\omega)/G\), not a ground energy,
+  `ξ_k`, but it returns $\Sigma(k,\omega)/G$, not a ground energy,
   and `PeriodicHolsteinModel` requires `n_k>=4` (not L=2).
 - Library II (`chain_scba.py`) is an **open chain** with off-diagonal
   `-t`, not the signed periodic L=2 Hamiltonian
@@ -95,14 +95,14 @@ Reasons (same for every cell; see CSV `note`):
 
 **inconclusive:** on hop=0, bare Born+VC moves closer to the exact
 linear CFE (`1,2,3,…`) than one-shot Born in 10/12 frozen couplings
-and farther in 2/12, while its \(O(g^4)\) coefficient equals the SCBA
+and farther in 2/12, while its $O(g^4)$ coefficient equals the SCBA
 series (`1,1,1,…`), not the exact series.
 
 Details: `notes/ATOMIC_LIMIT_AUDIT.md`.
 
 ## Double-counting one-sentence verdict
 
-**Default NO:** do not add \(\Sigma_{\rm VC}\) onto SCBA; SCBA already
+**Default NO:** do not add $\Sigma_{\rm VC}$ onto SCBA; SCBA already
 resums non-crossing rainbow / nested Born diagrams and does not sum
 crossed phonon lines, and the libraries stay unmerged.
 
@@ -174,10 +174,10 @@ JSON verdict `inconclusive`.
 - any change to K4AI-592 / K4AI-593
 - router / MLP training
 - Week 2 Born/SCBA comparison tables
-- adding \(\Sigma_{\rm VC}\) onto SCBA
-- changing \(\xi_k\) back to \(-2t\cos k\)
+- adding $\Sigma_{\rm VC}$ onto SCBA
+- changing $\xi_k$ back to $-2t\cos k$
 - tadpole ON in libraries
-- \(\Phi\), Keldysh contour, Anderson–Holstein, GAAFET, NQS, DiagMC
+- $\Phi$, Keldysh contour, Anderson–Holstein, GAAFET, NQS, DiagMC
 - invented diagrammatic `E0` numbers
 - new git worktree, new K4AI number, merge to `main`, git commit
 

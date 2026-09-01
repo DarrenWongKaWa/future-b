@@ -11,9 +11,13 @@ Keldysh4ai tree is archive or a foreign line. Archive is not deleted.
 - `FUTURE_B.md`
 - `notes/CONSTRAINTS_FUTURE_B.md`
 - `notes/SCIENCE_LINE_60DAY.md`
+- `notes/MOTIVATION.md`
 - `notes/LIVE_MANIFEST.md`
 - `notes/SOURCE_PINS.md`
 - `notes/MIGRATION.md`
+- `notes/SIGNED_CONVENTION_SOURCES.md`
+- `notes/CROSSING_BLOCK_SOURCE.md` (formula record only; no POC executable)
+- `references/` (arXiv PDFs listed in `references/README.md`)
 - `AGENT_LOG.md`
 
 ## Week notes (keep)
@@ -22,6 +26,12 @@ Keldysh4ai tree is archive or a foreign line. Archive is not deleted.
 - `notes/WEEK1_REPORT.md`
 - `notes/WEEK2_METRICS_PREREGISTER.md`
 - `notes/WEEK2_REPORT.md`
+- `notes/WEEK3_METRICS_PREREGISTER.md`
+- `notes/WEEK3_REPORT.md`
+- `notes/WEEK4_METRICS_PREREGISTER.md`
+- `notes/WEEK4_REPORT.md`
+- `notes/METHOD_NOTE.md`
+- `notes/SLICE_CLOSEOUT.md` (切片结项，不是认证)
 - `notes/L2_POLE_DEFINITION.md`
 - `notes/L2_POLE_EXTRACTOR.md`
 - `notes/ATOMIC_LIMIT_AUDIT.md`
@@ -37,9 +47,17 @@ Keldysh4ai tree is archive or a foreign line. Archive is not deleted.
 - `prototypes/future_b_neural_poc/l2_periodic_pole.py`
 - `prototypes/future_b_neural_poc/build_teacher_map_l2.py`
 - `prototypes/future_b_neural_poc/build_week2_table.py`
+- `prototypes/future_b_neural_poc/week3_classical_gate.py`
+- `prototypes/future_b_neural_poc/week4_learned_gate.py`
 - `prototypes/future_b_neural_poc/atomic_limit_audit.py`
 - `prototypes/future_b_neural_poc/teacher_map_l2.csv`
 - `prototypes/future_b_neural_poc/week2_born_scba_vs_ed.csv`
+- `prototypes/future_b_neural_poc/week3_depth_scan.csv`
+- `prototypes/future_b_neural_poc/week3_gated_vs_fixed.csv`
+- `prototypes/future_b_neural_poc/week3_theta_selection.csv`
+- `prototypes/future_b_neural_poc/week4_learned_vs_classical.csv`
+- `prototypes/future_b_neural_poc/week4_gate_weights.csv`
+- `prototypes/future_b_neural_poc/week4_verdict.csv`
 - `prototypes/future_b_neural_poc/ed_cutoff_table.csv`
 - `prototypes/future_b_neural_poc/atomic_limit_audit.json`
 - `prototypes/future_b_neural_poc/l2_pole_diagnostics.json`
@@ -50,6 +68,9 @@ Keldysh4ai tree is archive or a foreign line. Archive is not deleted.
 - `tests/test_teacher_map_l2.py`
 - `tests/test_l2_periodic_pole.py`
 - `tests/test_week2_table.py`
+- `tests/test_week3_gate.py`
+- `tests/test_week4_gate.py`
+- `tests/test_slice_closeout.py`
 - `tests/test_atomic_limit_audit.py`
 
 ## Explicitly not live (stay in parent tree only)
