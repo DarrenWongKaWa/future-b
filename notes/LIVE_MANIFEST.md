@@ -1,10 +1,8 @@
 # Future B live file manifest
 
-Live root: `/Users/kawawong/Research/future-b`.
-Do not maintain a second live copy on the parent prototype branch.
-
-Files below are the **live** Future B slice. 11A and K4AI machinery
-were never copied here. Do not fetch them back.
+This repository is the Future B home:
+`/Users/kawawong/Research/future-b`.
+Do not fetch 11A or K4AI machinery back from any parent tree.
 
 ## Operational
 
@@ -39,6 +37,16 @@ were never copied here. Do not fetch them back.
 - `notes/REPO_AUDIT.md` (classification only; not a deletion list)
 - `notes/CLEANUP_PLAN.md` (PLAN ONLY)
 
+## Candidate 1–2 notes (later questions; not Weeks 7–8)
+
+- `notes/C1_METRICS_PREREGISTER.md`
+- `notes/C1_REPORT.md`
+- `notes/C1_STOP.md`
+- `notes/C2_METRICS_PREREGISTER.md`
+- `notes/C2_MA0_FORMULA.md`
+- `notes/C2_REPORT.md`
+- `notes/C12_SWARM_REPORT.md` (joint closeout; `paper1_go` still false)
+
 ## Code and tables
 
 - `src/keldysh4ai/future_b/teacher/holstein_ed.py`
@@ -50,7 +58,11 @@ were never copied here. Do not fetch them back.
 - `prototypes/future_b_neural_poc/week3_classical_gate.py`
 - `prototypes/future_b_neural_poc/week4_learned_gate.py`
 - `prototypes/future_b_neural_poc/atomic_limit_audit.py`
+- `prototypes/future_b_neural_poc/c1_spectral.py`
+- `prototypes/future_b_neural_poc/ma0_l2.py`
 - `prototypes/future_b_neural_poc/teacher_map_l2.csv`
+- `prototypes/future_b_neural_poc/c1_spectral_vs_ed.csv`
+- `prototypes/future_b_neural_poc/c2_ma0_vs_ed.csv`
 - `prototypes/future_b_neural_poc/week2_born_scba_vs_ed.csv`
 - `prototypes/future_b_neural_poc/week3_depth_scan.csv`
 - `prototypes/future_b_neural_poc/week3_gated_vs_fixed.csv`
@@ -72,6 +84,9 @@ were never copied here. Do not fetch them back.
 - `tests/test_week4_gate.py`
 - `tests/test_slice_closeout.py`
 - `tests/test_atomic_limit_audit.py`
+- `tests/test_c1_spectral.py`
+- `tests/test_c2_ma0.py`
+- `tests/test_c12_swarm.py`
 
 ## Explicitly not live (never copied here; do not fetch)
 

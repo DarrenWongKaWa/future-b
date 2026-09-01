@@ -156,3 +156,17 @@
 
 - Do not maintain `prototype/future-b-neural-poc` as a second live
   closeout. Pins, CSVs, and `notes/SLICE_CLOSEOUT.md` live here.
+
+## 2026-09-01 — Candidate 1+2 joint closeout (W3)
+
+- Record: `notes/C12_SWARM_REPORT.md`. Mixed weaker sentence (not
+  Template A or B): C1-T3 PASS-SUFFICIENT and C2-T1 PASS.
+- C1: T1 FAIL 15/17 (exceptions at (1.05,0.5)); T2 no leftover 0/12;
+  T3 PASS-SUFFICIENT (mean test gap \(\approx 4.6\times 10^{-4}\)).
+  Stop. `notes/C1_STOP.md` already on disk. No spectral gate.
+- C2: T1 PASS on (1.05,0.5); T2 PASS (3 remainder cells);
+  T3 PASS; `MA0_ATOMIC=PASS`. No `C2_STOP.md`. No router.
+- `paper1_go` stays false. Week 2/3/4 CSVs not edited. Weeks 7–8 not
+  opened. Swarm does not open a tiny gate.
+- Next: none on Candidate 1. On Candidate 2 a human may later open a
+  tiny gate; this swarm does not.

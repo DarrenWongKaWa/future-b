@@ -43,6 +43,9 @@ Frozen periodic \(L=2\) Holstein, \(\xi_k=2t(1-\cos k)\).
 | Weeks 5–6 method note | written; Paper 1 not GO | `notes/METHOD_NOTE.md` |
 | Weeks 7–8 architecture | **not opened** | Paper 1 is not GO |
 | Router / MLP | **closed**: learned gate did not beat \(\theta=0.03\) | do not widen |
+| Candidate 1 spectra | **stopped** (T1 fail; T3 PASS-SUFFICIENT) | `c1_spectral_vs_ed.csv`, `notes/C1_REPORT.md` |
+| Candidate 2 MA(0) | T1–T3 pass; no router trained | `c2_ma0_vs_ed.csv`, `notes/C2_REPORT.md` |
+| C1+C2 joint | mixed closeout; `paper1_go` still false | `notes/C12_SWARM_REPORT.md` |
 
 ## Do not treat as live Future B evidence
 

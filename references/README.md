@@ -18,6 +18,7 @@ silent overwrite.
 | `1406.4267-mishchenko-nagaosa-prokofev-prl-113-166402.pdf` | Mishchenko, Nagaosa, Prokof’ev, PRL **113**, 166402 (2014) | planning only |
 | `2112.15542-mitric-prl-129-096401.pdf` | Mitrić, Janković, Vukmirović, Tanasković, PRL **129**, 096401 (2022) | planning only (named “Mitrić et al.” in the science line) |
 | `s41567-025-02954-1-luo-park-bernardi-natphys-21-1275-nsfpar.pdf` | Luo, Park, Bernardi, Nat. Phys. **21**, 1275 (2025) | planning only; slow first-principles diagram-sum in `notes/MOTIVATION.md`; not an $L=2$ oracle |
+| `0705.4154-berciu-goodvin-prb-76-165109.pdf` | Berciu & Goodvin, PRB **76**, 165109 (2007) | Candidate 2 MA(0) continued fraction (Eqs. 10–12); not stacked on SCBA |
 
 SHA-256:
 
@@ -28,6 +29,7 @@ e9f6c64d42180d733fb82e9b3feb62f7f3d1b4f5f36259b61b17be32c6998757  cond-mat-06095
 d3275c33ff8ae44529e606c5571facc0070bec7cb34a5f0bca37f1cdf2502486  1406.4267-mishchenko-nagaosa-prokofev-prl-113-166402.pdf
 0c40d2bc57cba98d7592ca6622e973adb677b1aa5286c6f838a644773d86b900  2112.15542-mitric-prl-129-096401.pdf
 db8e51571a608ad4cc390e7064bc237502cf7d26f333f4ed9c40fb119c57cb52  s41567-025-02954-1-luo-park-bernardi-natphys-21-1275-nsfpar.pdf
+123ba942f731a3754821c2b40a3cd1d7346d0803f84f0d4895588de13bf1948b  0705.4154-berciu-goodvin-prb-76-165109.pdf
 ```
 
 Not stored: 11A papers, Jauho Keldysh notes, parent Freeze files,
