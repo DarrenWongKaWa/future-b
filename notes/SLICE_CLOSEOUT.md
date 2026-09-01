@@ -8,8 +8,9 @@ the classical rule after cost).
 Paper 1 is not GO. It is not Freeze, not CERTIFY, not K4AI-592/593,
 not admission to Keldysh4ai `main`, and not a Physics-for-AI result.
 
-Do not merge this record as “Future B succeeded” into Keldysh4ai
-`main`. 11A stays archived and unused.
+The live record is this extract only. Do not maintain a second copy
+on the parent prototype branch. Do not merge this record as “Future B
+succeeded” into Keldysh4ai `main`. 11A stays archived and unused.
 
 ## Allowed sentence (strongest public claim)
 

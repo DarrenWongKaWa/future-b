@@ -11,10 +11,8 @@ Signed-convention papers: [notes/SIGNED_CONVENTION_SOURCES.md](notes/SIGNED_CONV
 PDFs in [references/](references/).
 Motive: [notes/MOTIVATION.md](notes/MOTIVATION.md).
 
-Parent (read-only archive):
-`/Users/kawawong/Research/Keldysh4ai-worktrees/future-b-neural-poc`
-
-Pins: [notes/SOURCE_PINS.md](notes/SOURCE_PINS.md)
+Work only in this directory. Do not maintain the parent prototype
+branch. Pins: [notes/SOURCE_PINS.md](notes/SOURCE_PINS.md).
 
 ## Setup
 

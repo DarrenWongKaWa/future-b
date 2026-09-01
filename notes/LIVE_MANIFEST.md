@@ -1,10 +1,10 @@
 # Future B live file manifest
 
-Extracted sibling: `/Users/kawawong/Research/future-b`.
-Parent: this worktree at the commit recorded in `notes/SOURCE_PINS.md`.
+Live root: `/Users/kawawong/Research/future-b`.
+Do not maintain a second live copy on the parent prototype branch.
 
-Files below are the **live** Future B slice. Everything else in this
-Keldysh4ai tree is archive or a foreign line. Archive is not deleted.
+Files below are the **live** Future B slice. 11A and K4AI machinery
+were never copied here. Do not fetch them back.
 
 ## Operational
 
@@ -73,7 +73,7 @@ Keldysh4ai tree is archive or a foreign line. Archive is not deleted.
 - `tests/test_slice_closeout.py`
 - `tests/test_atomic_limit_audit.py`
 
-## Explicitly not live (stay in parent tree only)
+## Explicitly not live (never copied here; do not fetch)
 
 - `AGENTS.md` full inverse-line contract (preamble points here instead)
 - `experiments/E10_gamma_theta/**`, 11A papers

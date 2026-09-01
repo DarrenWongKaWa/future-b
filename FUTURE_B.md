@@ -1,14 +1,13 @@
 # Future B — live working entry
 
-This repository **is** the slim Future B extract.
+This repository **is** the live Future B extract. Work only here.
 
 - Daily root: `/Users/kawawong/Research/future-b`
-- Parent worktree (provenance, archive):
-  `/Users/kawawong/Research/Keldysh4ai-worktrees/future-b-neural-poc`
-  branch `prototype/future-b-neural-poc`
+- Do **not** keep a second live copy on the parent prototype branch.
 - Do **not** work Future B from `/Users/kawawong/Research/Keldysh4ai` (`main`).
 - Do **not** merge into Keldysh4ai `main`.
-- 11A and old K4AI trees were **not copied** here. They remain in the parent.
+- 11A and old K4AI trees were **not copied** here. Leave them in the
+  parent archive; do not maintain that archive from this slice.
 
 Commit pins: `notes/SOURCE_PINS.md`.
 

@@ -13,8 +13,9 @@ Keldysh4ai line.
 6. This L=2 slice is closed: 切片结项，不是认证. Do not train a
    router. Do not repair Week 4. Do not start Weeks 7–8.
 7. Do not copy 11A or proxy-POC numbers into the teacher map.
-8. Parent archive remains in Keldysh4ai; do not delete it from here
-   (it was never copied). Do not merge this extract into Keldysh4ai
-   `main` as “Future B succeeded”.
+8. Work only in this extract. Do not keep the parent prototype branch
+   in sync. Parent archive was never copied here; do not fetch it.
+   Do not merge this extract into Keldysh4ai `main` as “Future B
+   succeeded”.
 
 Fail closed. Never invent PASS. Every claim names an artifact.
