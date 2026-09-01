@@ -28,3 +28,6 @@ a74fa6ff69bbec31ed00345b623d923839cd1e56
 `main` at extract time: `d35044d` (K4AI-593 record). Not a Future B
 authority. Do not merge the prototype into `main` as part of this
 extract.
+
+Slim extract: `/Users/kawawong/Research/future-b`  
+First commit: `b9d471dd069205a3f7807c8fa0e117b23dca7ba7`
