@@ -14,7 +14,7 @@ CSVs. Regenerating a CSV is a new step; it does not rewrite these pins.
 | Week 1 ED column (12/12) | `6be8a2e` | `teacher_map_l2.csv` ED column; atomic audit inconclusive |
 | Same-origin Born/SCBA poles | `e6a14f6` | `l2_periodic_pole.py`; 12/12 `E0_Born` and `E0_SCBA`; `E0_Born_VC=NOT_COMPUTED` |
 | Week 2 T1–T4 | `a74fa6f` | `week2_born_scba_vs_ed.csv`; `notes/WEEK2_REPORT.md` |
-| L=2 slice closeout (not CERTIFY) | extract HEAD after 2026-09-01 closeout | `notes/SLICE_CLOSEOUT.md`; `notes/METHOD_NOTE.md`; three claim CSVs; `week4_verdict.csv` `paper1_go=false` |
+| L=2 slice closeout (not CERTIFY) | extract `93c302a` | `notes/SLICE_CLOSEOUT.md`; `notes/METHOD_NOTE.md`; three claim CSVs; `week4_verdict.csv` `paper1_go=false` |
 
 Full hashes (parent worktree):
 
@@ -31,4 +31,7 @@ authority. Do not merge the prototype into `main` as part of this
 extract.
 
 Slim extract: `/Users/kawawong/Research/future-b`  
-First commit: `b9d471dd069205a3f7807c8fa0e117b23dca7ba7`
+First commit: `b9d471dd069205a3f7807c8fa0e117b23dca7ba7`  
+Closeout commit: `93c302a7f7a013ab8a16293dae9b147f247a0047`  
+Do not merge that commit, or this branch, into Keldysh4ai `main` as
+“Future B succeeded”.
