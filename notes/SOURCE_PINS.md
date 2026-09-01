@@ -1,8 +1,11 @@
 # Source pins — Future B live slice
 
-Parent repository: `/Users/kawawong/Research/Keldysh4ai`
-Live worktree: `/Users/kawawong/Research/Keldysh4ai-worktrees/future-b-neural-poc`
-Branch: `prototype/future-b-neural-poc`
+Live root: `/Users/kawawong/Research/future-b`.
+Do not maintain a second live copy on the parent prototype branch.
+
+Older Week 0–2 numbers were first recorded in Keldysh4ai
+`prototype/future-b-neural-poc`. Those parent hashes below are
+provenance only.
 
 These commits are immutable references for the numbers in the live
 CSVs. Regenerating a CSV is a new step; it does not rewrite these pins.
@@ -16,7 +19,7 @@ CSVs. Regenerating a CSV is a new step; it does not rewrite these pins.
 | Week 2 T1–T4 | `a74fa6f` | `week2_born_scba_vs_ed.csv`; `notes/WEEK2_REPORT.md` |
 | L=2 slice closeout (not CERTIFY) | extract `93c302a` | `notes/SLICE_CLOSEOUT.md`; `notes/METHOD_NOTE.md`; three claim CSVs; `week4_verdict.csv` `paper1_go=false` |
 
-Full hashes (parent worktree):
+Full hashes (parent provenance, not a live working copy):
 
 ```
 6aa77b7d163d78aa149e29f832a959a6f13005c9
@@ -30,9 +33,7 @@ a74fa6ff69bbec31ed00345b623d923839cd1e56
 authority. Do not merge the prototype into `main` as part of this
 extract.
 
-Slim extract: `/Users/kawawong/Research/future-b`  
+This extract: `/Users/kawawong/Research/future-b`  
 First commit: `b9d471dd069205a3f7807c8fa0e117b23dca7ba7`  
 Closeout commit: `93c302a7f7a013ab8a16293dae9b147f247a0047`  
-Parent prototype closeout: `9695a81` on `prototype/future-b-neural-poc`.
-Do not merge that commit, or this branch, into Keldysh4ai `main` as
-“Future B succeeded”.
+Do not merge this extract into Keldysh4ai `main` as “Future B succeeded”.

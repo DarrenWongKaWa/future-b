@@ -151,3 +151,8 @@
   `paper1_go=false`. No gate repair. No merge to Keldysh4ai `main`.
 - 11A remains archive. Later work, if any, is a new question with a
   new preregister.
+
+## 2026-09-01 — live copy is this extract only
+
+- Do not maintain `prototype/future-b-neural-poc` as a second live
+  closeout. Pins, CSVs, and `notes/SLICE_CLOSEOUT.md` live here.

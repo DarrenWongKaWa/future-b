@@ -30,10 +30,11 @@ delete. A later human may index `archive/11a/`; that is not this step.
 
 ## How to work after this
 
-Preferred editor root: `/Users/kawawong/Research/future-b`.
+Work only in `/Users/kawawong/Research/future-b`. Do not keep the
+parent prototype branch in sync.
 
-Need a number from 11A or an old freeze: open the parent worktree
-read-only. Do not paste those numbers into `teacher_map_l2.csv`.
+Need a number from 11A or an old freeze: that material is not in this
+tree. Do not paste those numbers into `teacher_map_l2.csv`.
 
 Physical conventions are unchanged. Process for the slice remains
 tests + CSV + short log.
