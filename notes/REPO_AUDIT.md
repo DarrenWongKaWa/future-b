@@ -27,26 +27,29 @@ Live scientific constraints that still bind this prototype.
   rescue a failed earlier week.  Source:
   `notes/SCIENCE_LINE_60DAY.md`, `notes/CONSTRAINTS_FUTURE_B.md`.
 - **Signed dispersion and energy origin remain frozen.**
-  \(\xi_k=2t(1-\cos k)\), so \(E_0(g=0)=0\); translator
-  \(E_{\rm lecture}=E_{\rm code}-2t\).  Do not change \(\xi_k\).
+  $\xi_k=2t(1-\cos k)$, so $E_0(g=0)=0$; translator
+  $E_{\rm lecture}=E_{\rm code}-2t$.  Do not change $\xi_k$.
   Executable pin: first line of
   `src/keldysh4ai/future_b/teacher/holstein_ed.py`; limit checks:
   `tests/test_ed_limits.py`.
 - **Tadpole/Hartree is OFF in the diagrammatic libraries; ED retains
-  \(g\,n(b+b^\dagger)\).**  These are two statements, not one.  Do not
+  $g\,n(b+b^\dagger)$.**  These are two statements, not one.  Do not
   turn tadpole ON in Library I/II, and do not strip the ED interaction
   to “match” the libraries.
 - **Two-library firewall.**  Library I is bare Born plus bare VC
   (`prototypes/future_b_neural_poc/crossing_block_poc.py`, provenance
   `prototypes/future_b_neural_poc/CROSSING_BLOCK_SOURCE.md`).  Library II
-  is SCBA with dressed \(G\)
+  is SCBA with dressed $G$
   (`src/keldysh4ai/future_b/hopping/chain_scba.py`).  Kind split and
   double-counting FAIL conditions remain in
   `experiments/FUTURE_B/FUTURE_B_C1_BLOCK_LIBRARY_FREEZE.md`.  No block
-  crosses libraries.  No \(\Sigma_{\rm VC}\) is added to SCBA without a
+  crosses libraries.  No $\Sigma_{\rm VC}$ is added to SCBA without a
   written disjoint-diagram memo; current default is NO.
-- **Evidence hierarchy.**  ED engineering-green \(\ne\) teacher coverage
-  \(\ne\) architecture evidence.  Week 0 record: `tests/test_ed_limits.py`
+  In this extract the formula record is `notes/CROSSING_BLOCK_SOURCE.md`
+  and the paper map is `notes/SIGNED_CONVENTION_SOURCES.md`; parent
+  freeze paths stay archive-only.
+- **Evidence hierarchy.**  ED engineering-green $\ne$ teacher coverage
+  $\ne$ architecture evidence.  Week 0 record: `tests/test_ed_limits.py`
   (13 passed at commit `6aa77b7`),
   `prototypes/future_b_neural_poc/ed_cutoff_table.csv` (11 data rows).
   Strongest allowed Week-0 statement: L=2 ED is engineering-green under
@@ -79,7 +82,7 @@ Live scientific constraints that still bind this prototype.
   A missing Future B quantity is `NOT_COMPUTED`.
 - **Claim ceiling and stop rules of the 60-day plan remain binding.**
   Implementation completeness never upgrades claim strength.  No
-  \(\Phi\)-learning, Keldysh/nonequilibrium, Anderson–Holstein,
+  $\Phi$-learning, Keldysh/nonequilibrium, Anderson–Holstein,
   GAAFET/devices, NQS, DiagMC, transport, realistic materials, new
   mPFDNN/NQS/LLM-HF reading line, or invented numbers.  Do not claim
   Physics-for-AI from this prototype slice.
@@ -141,7 +144,7 @@ numbers; do not change recorded 592/593 states.
   pedagogical labels, not repository task IDs), and evidence under
   `evidence/K4AI-565/` through `evidence/K4AI-591R1/` plus
   `evidence/J-FUTURE_B-*`.  Scientific cautions (kind split,
-  double-counting FAIL, no 11A \(\theta\) in C0) may be cited.  The
+  double-counting FAIL, no 11A $\theta$ in C0) may be cited.  The
   Freeze/CERTIFY lifecycle is not the live meaning of the 60-day
   Weeks 1–8 / C0–C4 planning labels.
 - **Stopped K4AI-594 overbuild.**  Worktree

@@ -1,0 +1,2 @@
+beats_classical,paper1_go,n_train_match,n_test_match,mean_cost_classical_test,mean_cost_learned_test,note
+false,false,6,5,104520.66666666667,99020.33333333333,"week4_logistic;features=g,omega,lambda,n/64,log10(r_n),|Sigma_diag|;no_teacher_features;theta_class=0.03;E0_Born_VC=NOT_COMPUTED"

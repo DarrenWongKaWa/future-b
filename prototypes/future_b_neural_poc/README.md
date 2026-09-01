@@ -7,9 +7,12 @@ Born/SCBA pole extractor. Start from repo-root `FUTURE_B.md`.
 
 - `teacher_map_l2.csv` — 12-cell \(E_0^{\mathrm{ED}}\), \(E_0^{\mathrm{Born}}\), \(E_0^{\mathrm{SCBA}}\)
 - `week2_born_scba_vs_ed.csv` — Week 2 analysis of that map
+- `week3_gated_vs_fixed.csv` — classical residual gate vs depth-64 SCBA
+- `week4_verdict.csv` — learned logistic vs \(\theta=0.03\) (`paper1_go=false`)
 - `ed_cutoff_table.csv` — Week 0 cutoff scan, one strong-corner cell
 - `l2_periodic_pole.py` — \(k\in\{0,\pi\}\) pole extractor
-- `build_teacher_map_l2.py`, `build_week2_table.py`, `atomic_limit_audit.py`
+- `build_teacher_map_l2.py`, `build_week2_table.py`, `week3_classical_gate.py`,
+  `week4_learned_gate.py`, `atomic_limit_audit.py`
 
 ED Hamiltonian: `src/keldysh4ai/future_b/teacher/holstein_ed.py`.
 

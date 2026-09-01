@@ -10,51 +10,51 @@ that file.
 This file is written **before**
 `prototypes/future_b_neural_poc/week2_born_scba_vs_ed.csv` and **before**
 `notes/WEEK2_REPORT.md`. Metrics, bands, and tests T1–T4 depend only
-on the formulas of \((g,\Omega,t)\) and on the signed definitions of
-\(\Delta_X\) and \(\mathrm{rel}_X\). They are not fitted to
-\(|\Delta|\) values. Cuts will not be moved after seeing errors.
+on the formulas of $(g,\Omega,t)$ and on the signed definitions of
+$\Delta_X$ and $\mathrm{rel}_X$. They are not fitted to
+$|\Delta|$ values. Cuts will not be moved after seeing errors.
 
 Week 2 is **analysis of the existing 12-cell map**. It does not rerun
-L=2 ED, train a gate, change \(\eta\), \(L\), dispersion, or tadpole,
+L=2 ED, train a gate, change $\eta$, $L$, dispersion, or tadpole,
 call `chain_scba.py`, edit `holstein_ed.py` or `l2_periodic_pole.py`,
-or invent \(E_0^{\mathrm{Born+VC}}\). It does not start Week 3.
+or invent $E_0^{\mathrm{Born+VC}}$. It does not start Week 3.
 
 ## Corrected Week 2 questions (binding)
 
-1. At weak \(\lambda\), is SCBA closer to ED than one-shot Born?
-2. At strong / adiabatic \(\lambda\), does SCBA lose accuracy versus
+1. At weak $\lambda$, is SCBA closer to ED than one-shot Born?
+2. At strong / adiabatic $\lambda$, does SCBA lose accuracy versus
    ED (not versus Born)?
 
 Do **not** force the sentence “SCBA becomes worse than Born at strong
-coupling.” Ranking SCBA against Born at large \(\lambda\) is not a
+coupling.” Ranking SCBA against Born at large $\lambda$ is not a
 success criterion. T1–T4 below remain the tests.
 
 ## Frozen slice and signed conventions (not reopened)
 
-- \(t = 1\)
-- \(g/t \in \{0.15, 0.45, 0.75, 1.05\}\)
-- \(\Omega/t \in \{0.5, 0.8, 2.0\}\)
+- $t = 1$
+- $g/t \in \{0.15, 0.45, 0.75, 1.05\}$
+- $\Omega/t \in \{0.5, 0.8, 2.0\}$
 - twelve cells
-- \(\xi_k = 2t(1-\cos k)\), so \(E_0(g=0)=0\)
-- translator \(E_{\mathrm{lecture}}=E_{\mathrm{code}}-2t\)
+- $\xi_k = 2t(1-\cos k)$, so $E_0(g=0)=0$
+- translator $E_{\mathrm{lecture}}=E_{\mathrm{code}}-2t$
 - tadpole / Hartree OFF in diagrammatic libraries
 - Library I and Library II remain separate
-- default **NO** \(\Sigma_{\mathrm{VC}}\) on SCBA
+- default **NO** $\Sigma_{\mathrm{VC}}$ on SCBA
 - 11A unused
-- ED green \(\neq\) architecture
-- \(E_0^{\mathrm{Born+VC}}\) stays `NOT_COMPUTED`
+- ED green $\neq$ architecture
+- $E_0^{\mathrm{Born+VC}}$ stays `NOT_COMPUTED`
 
 Immutable input: `prototypes/future_b_neural_poc/teacher_map_l2.csv`
-at teacher-map commit `e6a14f6`. Those \(E_0\) values are not
+at teacher-map commit `e6a14f6`. Those $E_0$ values are not
 recomputed here.
 
-## Dimensionless coupling (formula of \((g,\Omega,t)\) only)
+## Dimensionless coupling (formula of $(g,\Omega,t)$ only)
 
 ```
 λ = g² / (2 t Ω)
 ```
 
-With \(t=1\) this is \(\lambda = g^2/(2\Omega)\). No energy, residual,
+With $t=1$ this is $\lambda = g^2/(2\Omega)$. No energy, residual,
 or pole-search quantity enters the formula.
 
 ## Bands (frozen now; Week 2 only)
@@ -64,20 +64,20 @@ not edit `notes/WEEK1_LABELS_PREREGISTER.md`.
 
 | band         | criterion        |
 |--------------|------------------|
-| weak         | \(\lambda < 0.08\) |
-| intermediate | \(0.08 \le \lambda < 0.80\) |
-| strong       | \(\lambda \ge 0.80\) |
+| weak         | $\lambda < 0.08$ |
+| intermediate | $0.08 \le \lambda < 0.80$ |
+| strong       | $\lambda \ge 0.80$ |
 
-This puts \((g/t,\Omega/t)=(1.05,0.5)\), \(\lambda=1.1025\), in
+This puts $(g/t,\Omega/t)=(1.05,0.5)$, $\lambda=1.1025$, in
 **strong**. Cuts are a PROJECT_CONVENTION on this twelve-cell slice.
 They are not a Holstein phase-diagram claim and not architecture
 evidence.
 
-## Preregistered \(\lambda\) and band for all twelve cells
+## Preregistered $\lambda$ and band for all twelve cells
 
-Computed from the formula above (no \(|\Delta|\) numbers):
+Computed from the formula above (no $|\Delta|$ numbers):
 
-| g/t  | Ω/t | \(\lambda = g^2/(2 t \Omega)\) | band         |
+| g/t  | Ω/t | $\lambda = g^2/(2 t \Omega)$ | band         |
 |------|-----|-------------------------------|--------------|
 | 0.15 | 0.5 | 0.022500                      | weak         |
 | 0.15 | 0.8 | 0.0140625                     | weak         |
@@ -94,14 +94,14 @@ Computed from the formula above (no \(|\Delta|\) numbers):
 
 Counts: 4 weak, 7 intermediate, 1 strong.
 
-Weak cells (\(\lambda<0.08\)): \((0.15,0.5)\), \((0.15,0.8)\),
-\((0.15,2.0)\), \((0.45,2.0)\).
+Weak cells ($\lambda<0.08$): $(0.15,0.5)$, $(0.15,0.8)$,
+$(0.15,2.0)$, $(0.45,2.0)$.
 
-Strong cell: \((1.05,0.5)\) only.
+Strong cell: $(1.05,0.5)$ only.
 
 ## Metrics (definitions only; no numerical evaluation here)
 
-For \(X\in\{\mathrm{Born},\mathrm{SCBA}\}\):
+For $X\in\{\mathrm{Born},\mathrm{SCBA}\}$:
 
 ```
 Δ_X   = E0_X − E0_ED          (positive = underbinding)
@@ -143,7 +143,7 @@ g_over_t,omega_over_t,lambda,band,E0_ED,E0_Born,E0_SCBA,
 delta_Born,delta_SCBA,rel_Born,rel_SCBA,scba_beats_born,note
 ```
 
-`band` \(\in \{\mathrm{weak},\mathrm{intermediate},\mathrm{strong}\}\)
+`band` $\in \{\mathrm{weak},\mathrm{intermediate},\mathrm{strong}\}$
 from the Week-2 cuts above, **not** from Week-1 labels. `E0_*` columns
 must equal the teacher-map values. `E0_Born_VC` is not a column and is
 not invented.
@@ -153,12 +153,12 @@ not invented.
 - training a router, MLP, or GRU
 - starting Week 3 classical gating
 - mixing Library I and Library II
-- adding \(\Sigma_{\mathrm{VC}}\) onto SCBA
-- filling \(E_0^{\mathrm{Born+VC}}\)
-- changing \(\eta\), \(L\), \(\xi_k\), tadpole, or the pole extractor
+- adding $\Sigma_{\mathrm{VC}}$ onto SCBA
+- filling $E_0^{\mathrm{Born+VC}}$
+- changing $\eta$, $L$, $\xi_k$, tadpole, or the pole extractor
 - calling `chain_scba.py`
 - using archive 11A, K4AI-592, or K4AI-593 as Future B proof
 - treating `GENERIC_MODEL_SUFFICIENT` as a teacher-backed result
 - claiming architecture, conservation, or Physics-for-AI
 - enlarging the twelve-cell grid
-- moving the \(\lambda\) cuts after seeing errors
+- moving the $\lambda$ cuts after seeing errors

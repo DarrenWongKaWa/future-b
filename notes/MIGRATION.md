@@ -19,8 +19,11 @@ It does not merge to `main`. It does not delete archive files.
 - 11A numerical records
 - K4AI-592 / 593 statuses
 - other worktrees
-- `chain_scba.py` and `crossing_block_poc.py` as live \(L=2\) solvers
-- router / Week 3 code (none started)
+- `chain_scba.py` and `crossing_block_poc.py` as live $L=2$ solvers
+
+Week 3–4 later ran in this extract and the slice closed
+(`notes/SLICE_CLOSEOUT.md`, 结项不是认证). That did not move 11A
+or merge to Keldysh4ai `main`.
 
 The parent git tree still holds the archive. Prefer archive over
 delete. A later human may index `archive/11a/`; that is not this step.

@@ -9,11 +9,12 @@ CSVs. Regenerating a CSV is a new step; it does not rewrite these pins.
 
 | pin | commit | what it freezes |
 |---|---|---|
-| ED engineering green + cutoff table | `6aa77b7` | `tests/test_ed_limits.py` 13 passed; `ed_cutoff_table.csv`; strong corner \(M=14\), \(E_0=-1.2711554105515426\) |
+| ED engineering green + cutoff table | `6aa77b7` | `tests/test_ed_limits.py` 13 passed; `ed_cutoff_table.csv`; strong corner $M=14$, $E_0=-1.2711554105515426$ |
 | 60-day packet | `d643a36` | `notes/SCIENCE_LINE_60DAY.md`, first constraints/audit |
 | Week 1 ED column (12/12) | `6be8a2e` | `teacher_map_l2.csv` ED column; atomic audit inconclusive |
 | Same-origin Born/SCBA poles | `e6a14f6` | `l2_periodic_pole.py`; 12/12 `E0_Born` and `E0_SCBA`; `E0_Born_VC=NOT_COMPUTED` |
 | Week 2 T1–T4 | `a74fa6f` | `week2_born_scba_vs_ed.csv`; `notes/WEEK2_REPORT.md` |
+| L=2 slice closeout (not CERTIFY) | extract HEAD after 2026-09-01 closeout | `notes/SLICE_CLOSEOUT.md`; `notes/METHOD_NOTE.md`; three claim CSVs; `week4_verdict.csv` `paper1_go=false` |
 
 Full hashes (parent worktree):
 
