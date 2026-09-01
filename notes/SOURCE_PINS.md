@@ -33,5 +33,6 @@ extract.
 Slim extract: `/Users/kawawong/Research/future-b`  
 First commit: `b9d471dd069205a3f7807c8fa0e117b23dca7ba7`  
 Closeout commit: `93c302a7f7a013ab8a16293dae9b147f247a0047`  
+Parent prototype closeout: `9695a81` on `prototype/future-b-neural-poc`.
 Do not merge that commit, or this branch, into Keldysh4ai `main` as
 “Future B succeeded”.
