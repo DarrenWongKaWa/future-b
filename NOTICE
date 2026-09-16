@@ -1,0 +1,19 @@
+Future B
+Copyright (c) 2026 Future B authors
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version. See LICENSE.
+
+UPSTREAM (not Future B inventions):
+- Luo, Park, Bernardi, Nat. Phys. 21, 1275 (2025), FEP-DMC
+- Perturbo (GPL-3), https://perturbo-code.github.io/
+- Quantum ESPRESSO 6.5 (GPL)
+- Luo-Bernardi electron-phonon compression and matrix-product
+  multiband summation as used in the native code
+
+Future B original work includes native bug repairs, analytic delayed
+acceptance adapters, event validation, statistical postprocessing,
+and the scoped R1 evaluator study. Fortran excerpts under
+src/future_b/fortran/ are Perturbo-derived and remain GPL-3.

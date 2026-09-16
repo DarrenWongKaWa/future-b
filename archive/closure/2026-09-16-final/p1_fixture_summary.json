@@ -1,0 +1,16 @@
+{
+  "off_exit": 0,
+  "on_exit": 0,
+  "n_a1": 4372,
+  "a1_fp_match": 4372,
+  "a1_zero_g_env": true,
+  "n_accept_pairs": 6350,
+  "y_reverse": 6350,
+  "counts_line": [
+    "11034",
+    "11034",
+    "11034",
+    "4372"
+  ],
+  "ok": true
+}

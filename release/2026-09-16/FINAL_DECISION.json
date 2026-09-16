@@ -1,0 +1,70 @@
+{
+  "project": "Future B",
+  "project_status": "CLOSED",
+  "closure_date": "2026-09-16",
+  "wrap_up": "scientific wrap-up + GitHub release candidate",
+  "git_commit": "6e5529f481bf0751d6b619bd427aff250c712d55",
+  "environment": {
+    "mode": "SINGLE_HOST",
+    "docker_image": "r5p0-env:ubuntu2004",
+    "docker_digest": "sha256:2082c5082f050fafc807ad1488e3498fe51e0c7951e4ddcf818b3ed39de5f7e1",
+    "arch": "linux/amd64",
+    "slot": "6GiB",
+    "binaries": {
+      "B0": "479b854f533270130bcb4f1023e9593f7c8c798548394560aac5cda3cadac67e",
+      "Bbest": "3c4f4bf9225b7a530303f3f414256a4c25b0a61e0d874a1ae42a46346f24efab",
+      "P1_clean": "f9518a21fc2b8750fb3b7ed6f6e065db398cb2f425969cd718d1dcdef2b2c25c"
+    }
+  },
+  "p1_status": "P1_UNRESOLVED_WITHIN_BUDGET",
+  "p1_correctness": "COMPLETE",
+  "p4_status": "FUTURE_WORK_CANDIDATE",
+  "p5_status": "FUTURE_WORK_CANDIDATE",
+  "r1_status": "VALIDATED_IN_SCOPE_NO_ADDITIONAL_CSE_GAIN_ESTABLISHED",
+  "r1_material_grouped_consumer": "FUTURE_WORK",
+  "ground_state_1pct_status": "NOT_CERTIFIED_NOT_PURSUED",
+  "github_package": "RELEASE_CANDIDATE",
+  "demonstrated_positive_results": [
+    "C0 wq refresh repair with OFF/shadow identity and table check",
+    "C1 swap ~21% coarse-MC hotspot",
+    "analytic P1 DA implemented; a1 rejects skip g/env; committed-Y P1 reverse holds in fixture",
+    "clean P1 production path: fixture dump/reverse gated; independent LINEAR_DA_COUNTS",
+    "real-material free ON DEV for B0/B-best/P1 at 20^3/rank20; formation energy Q~-0.25 eV after E_bare subtraction"
+  ],
+  "demonstrated_negative_results": [
+    "historical Group-v3 NO_DEMONSTRATED_GAIN_FIXED_RECIPE",
+    "fixed-order R1 vs CSE ~0.9992 (evaluator, scoped)",
+    "historical C5 fixture-P1 wall bootstrap intervals include 1"
+  ],
+  "unresolved_results": [
+    "clean P1 vs B-best T-ratio 0.956, bootstrap 0.940-0.972 crosses 0.95; HAC fails on some chains"
+  ],
+  "invalidated_old_claims": [
+    "unshifted ~9.105 eV as formation energy",
+    "C5 status=OK as full statistical pass",
+    "C2_DUMP=0 as fully clean P1 timing",
+    "partial c2_live_fp as complete cache proof"
+  ],
+  "preserved_scoped_results": [
+    "C0 repair_v2",
+    "C1 profile",
+    "C2_tonight and C2_fixture dumps",
+    "C5_dev 18 chains with corrected Q",
+    "M3/M4 R1-CSE tie",
+    "clean P1 confirmation batch (not rerun)"
+  ],
+  "stopped_as_future_work": [
+    "P4 64-parameter antisymmetric ridge",
+    "P5 antisymmetric 128-32-1 network",
+    "R1 real-material grouped consumer",
+    "C6/C7 and 1% ground-state certification"
+  ],
+  "prohibited_extrapolations": [
+    "do not claim 1% ground-state certification",
+    "do not claim neural acceleration of FEP-DMC",
+    "do not claim R1 accelerates real-material FEP-DMC",
+    "do not claim all learning or all grouping is impossible",
+    "do not claim Luo-Bernardi compression or band-product sums as Future B novelty",
+    "do not propose another Future B research cycle"
+  ]
+}

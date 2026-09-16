@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "future-b"
+version = "1.0.0"
+description = "Future B (closed): exact-corrected delayed acceptance and validation tools for first-principles DiagMC"
+requires-python = ">=3.11"
+license = { text = "GPL-3.0-or-later" }
+dependencies = ["numpy>=1.26"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

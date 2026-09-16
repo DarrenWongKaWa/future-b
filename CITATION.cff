@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+title: "Future B: Exact-corrected delayed acceptance and validation tools for first-principles diagrammatic Monte Carlo"
+message: "This project is closed. Cite the software record and the upstream FEP-DMC paper separately."
+type: software
+authors:
+  - family-names: Wong
+    given-names: Kawa
+    alias: DarrenWongKaWa
+version: "1.0.0"
+date-released: "2026-09-16"
+license: GPL-3.0-or-later
+repository-code: "https://github.com/DarrenWongKaWa/future-b"
+abstract: >
+  Closed methods study of exact-corrected analytic delayed acceptance
+  (P1) in Luo EZ / Perturbo FEP-DMC for the LiF electron polaron, plus
+  a scoped fixed-order R1 evaluator. Not a 1% ground-state certification
+  and not a claim of neural or grouped-R1 material acceleration.
+keywords:
+  - diagrammatic Monte Carlo
+  - electron-phonon
+  - polaron
+  - delayed acceptance
+  - LiF
+references:
+  - type: article
+    title: "First-principles diagrammatic Monte Carlo for electron-phonon interactions and polarons"
+    authors:
+      - family-names: Luo
+        given-names: Yao
+      - family-names: Park
+        given-names: Jinsoo
+      - family-names: Bernardi
+        given-names: Marco
+    journal: Nature Physics
+    year: 2025
+    volume: "21"
+    pages: "1275"
+    doi: "10.1038/s41567-025-02954-1"

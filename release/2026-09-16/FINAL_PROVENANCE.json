@@ -1,0 +1,30 @@
+{
+  "git_commit": "6e5529f481bf0751d6b619bd427aff250c712d55",
+  "note": "working tree dirty at wrap-up; native confirm used the recorded binary SHA256s below, not a later commit of docs",
+  "closure_date": "2026-09-16",
+  "protocol_frozen_before_p1_confirm": true,
+  "confirm_not_rerun_in_wrap_up": true,
+  "historical_dirs_not_overwritten": [
+    "research/mainline/CLOSURE/2026-09-14/runs/night1/C0",
+    "research/mainline/CLOSURE/2026-09-14/runs/night1/C1",
+    "research/mainline/CLOSURE/2026-09-14/runs/night1/C2",
+    "research/mainline/CLOSURE/2026-09-14/runs/night1/C2_tonight",
+    "research/mainline/CLOSURE/2026-09-14/runs/night1/C2_fixture",
+    "research/mainline/CLOSURE/2026-09-14/runs/night1/C5_dev",
+    "closure/2026-09-16-final/p1_confirm",
+    "closure/2026-09-16-final/p1_fixture"
+  ],
+  "p1_clean_sha256": "f9518a21fc2b8750fb3b7ed6f6e065db398cb2f425969cd718d1dcdef2b2c25c",
+  "bbest_sha256": "3c4f4bf9225b7a530303f3f414256a4c25b0a61e0d874a1ae42a46346f24efab",
+  "b0_sha256": "479b854f533270130bcb4f1023e9593f7c8c798548394560aac5cda3cadac67e",
+  "confirm_seed_master": 9143600,
+  "bootstrap_seed": 9143610,
+  "E_bare_eV": 9.35487318746596053,
+  "docker": "r5p0-env:ubuntu2004 sha256:2082c5082f050fafc807ad1488e3498fe51e0c7951e4ddcf818b3ed39de5f7e1",
+  "lif_epwan_local": {
+    "path": "FEP-DMC-Data/FEP-DMC-Dataset/LiF-electron/lif-sp3_epwan.h5",
+    "bytes": 423570352,
+    "sha256": "4960618b64f4f1787e7a30aac4c2990ec5632ecbab83a9632f6c659f03da690b",
+    "redistributed": false
+  }
+}

@@ -1,0 +1,5 @@
+- Audited and repaired native DiagMC state (phonon frequency after external add; event logging).
+- Implemented exclusive call-tree timers and analytic delayed acceptance with exact `abs(Re M)` second-stage correction on LiF-electron FEP-DMC.
+- Ran 6-chain real-material DEV; reported formation energy \(Q=E_{\mathrm{polaron}}-E_{\mathrm{bare}}\approx-0.25\,\mathrm{eV}\) at frozen 20³/rank20, not unshifted total energy.
+- Predeclared HAC and bootstrap stopping rules; classified clean P1 as unresolved within budget rather than claiming speedup.
+- Separated scoped negatives (R1 vs CSE; historical Group-v3) from untested extrapolations (learning, grouped material sampling, 1% ground state).
