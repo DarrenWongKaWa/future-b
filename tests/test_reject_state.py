@@ -1,4 +1,4 @@
-"""Stage-1 reject integrity from the bounded native fixture (no replay framework)."""
+"""Archived fixture *record* checks. Does not execute native rollback."""
 
 from __future__ import annotations
 

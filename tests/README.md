@@ -1,10 +1,20 @@
 # Public tests
 
-These do not need LiF HDF5 or Docker:
+Layers (v1.0.1):
+
+| file | layer |
+|---|---|
+| `test_da_balance.py`, `test_forward_reverse.py`, `test_audit_guards.py` | algebra / invalid-input behavior |
+| `test_energy_zero.py`, `test_statistics.py`, `test_reject_state.py` | frozen-record / summary consistency |
+| `test_p1_clean_source.py` | source-structure of shipped Fortran excerpts |
+| `test_r1_oracles.py` | historical R1 *metadata* only |
+| `test_c5_formation_q.py` | frozen C5 Q / HAC labels |
+
+These do not compile `perturbo.x` and are not a native LiF pass.
 
 ```
 pytest tests/test_da_balance.py tests/test_forward_reverse.py \
   tests/test_energy_zero.py tests/test_statistics.py tests/test_r1_oracles.py \
   tests/test_p1_clean_source.py tests/test_reject_state.py \
-  tests/test_c5_formation_q.py -q
+  tests/test_c5_formation_q.py tests/test_audit_guards.py -q
 ```

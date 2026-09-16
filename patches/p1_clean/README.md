@@ -1,7 +1,11 @@
-# Clean P1 patch
+# Clean P1 patch — historical only
 
-`apply_p1_clean.py` copies an owned C2_fixture adapter tree and gates
-dump / after-commit reverse behind `P1_FIXTURE` (default off). DA
-counters live in the update, not in the dump subroutine.
+Not a public install step. `apply_p1_clean.py` needs a private
+C2_fixture adapter tree that is **not** in the GitHub snapshot.
 
-Do not apply to historical C2/C5 evidence directories.
+- Missing `--src` exits non-zero and does **not** delete `--dst`.
+- Existing `--dst` is refused unless `--overwrite`.
+- Do not apply to historical C2/C5 evidence directories.
+
+Native rebuild from public upstream is **not** one-click; see
+`docs/REPRODUCIBILITY.md` and `docs/CAPABILITIES.md`.

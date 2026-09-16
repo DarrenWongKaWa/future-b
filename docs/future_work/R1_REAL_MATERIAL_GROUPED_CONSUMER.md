@@ -29,7 +29,7 @@ The Monte Carlo object is
 with open phonon legs and electron-band matrices carried on that
 specific configuration \(C\).
 
-R1, as implemented in this repository, compiles a **shared-variable
+Historical R1 (not shipped in this public package) compiled a **shared-variable
 weighted sum**
 
 \[

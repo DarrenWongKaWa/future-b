@@ -46,6 +46,9 @@ def test_clean_p1_classification_crosses_threshold():
         == "P1_UNRESOLVED_WITHIN_BUDGET"
     )
     assert rec["classification"] == "P1_UNRESOLVED_WITHIN_BUDGET"
+    # K is reported; it is not a second frozen pass/fail.
+    assert rec["K_ratio_point"] > 1.0
+    assert rec["K_boot_2.5"] < 1.0 < rec["K_boot_97.5"]
 
 
 def test_counter_identity_on_confirm_sums():

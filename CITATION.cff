@@ -6,15 +6,16 @@ authors:
   - family-names: Wong
     given-names: Kawa
     alias: DarrenWongKaWa
-version: "1.0.0"
-date-released: "2026-09-16"
+version: "1.0.1"
+date-released: "2026-09-17"
 license: GPL-3.0-or-later
 repository-code: "https://github.com/DarrenWongKaWa/future-b"
 abstract: >
   Closed methods study of exact-corrected analytic delayed acceptance
-  (P1) in Luo EZ / Perturbo FEP-DMC for the LiF electron polaron, plus
-  a scoped fixed-order R1 evaluator. Not a 1% ground-state certification
-  and not a claim of neural or grouped-R1 material acceleration.
+  (P1) in Luo EZ / Perturbo FEP-DMC for the LiF electron polaron.
+  The public snapshot is a research archive (Python algebra, Fortran
+  excerpts, frozen records). It does not ship the historical R1
+  evaluator, a native one-click plugin, or a 1% ground-state result.
 keywords:
   - diagrammatic Monte Carlo
   - electron-phonon

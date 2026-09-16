@@ -28,7 +28,9 @@ Native LiF chains need:
 | Intel Fortran + HDF5 Fortran 2003 | vendor | no |
 
 Pins: B0 `479b854f…`, B-best `3c4f4bf9…`, clean P1 `f9518a21…`
-(`release/2026-09-16/FINAL_PROVENANCE.json`).
+(`release/2026-09-16/FINAL_PROVENANCE.json`). Those hashes identify
+**binaries**, not a public upstream git revision. `patches/p1_clean`
+is historical-only and needs a private adapter tree.
 
 ## Historical run directories
 

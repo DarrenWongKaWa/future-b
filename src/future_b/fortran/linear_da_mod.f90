@@ -326,9 +326,13 @@ contains
     ell = ell + linear_ld(w2, tL - tPR) - linear_ld(w2, tR - tPR)
     if (ell > clip_log10) ell = clip_log10
     if (ell < -clip_log10) ell = -clip_log10
-    call get_environment_variable('C2_FORCE_A1', env, status=st)
-    if (st==0) then
-       if (trim(adjustl(env))=='1') ell = -clip_log10
+    ! C2_FORCE_A1 is fixture-only. Production (P1_FIXTURE off) ignores it
+    ! so a stale env var cannot break occupancy reverse / detailed balance.
+    if (p1_fixture_on()) then
+      call get_environment_variable('C2_FORCE_A1', env, status=st)
+      if (st==0) then
+         if (trim(adjustl(env))=='1') ell = -clip_log10
+      endif
     endif
   end subroutine
 

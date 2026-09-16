@@ -97,21 +97,35 @@ Released Fortran excerpts are a byte copy of that tree
 `P1_FIXTURE=1`. The 0.956 ratio was **not** rerun after the GitHub
 packaging.
 
-| arm | \(Q\) (eV) | JK SE (meV) | rel. SE | rel. 95% HW | wall \(T\) (s) |
+| arm | \(Q\) (eV) | JK SE (meV) | rel. SE | wall \(T\) (s) | \(K=T\cdot\mathrm{Var}_{\mathrm{JK}}\) |
 |---|---:|---:|---:|---:|---:|
-| B-best | −0.251403 | 2.077 | 0.826% | 2.124% | 32.721 |
-| clean P1 | −0.246614 | 3.350 | 1.358% | 3.491% | 31.293 |
+| B-best | −0.251403 | 2.077 | 0.826% | 32.721 | \(1.412\times 10^{-4}\) |
+| clean P1 | −0.246614 | 3.350 | 1.358% | 31.293 | \(3.511\times 10^{-4}\) |
 
-- Wall ratio \(T_{\mathrm{P1}}/T_{\mathrm{Bbest}} = 0.956\)
-- Bootstrap 2000, seed 9143610: **[0.940, 0.972]**
-- Predeclared 5% threshold: 0.95. The interval **crosses** 0.95.
-- HAC not clean (`hac_ok=false`; B-best chains 0,3; P1 chains 0,2,3).
+Same six-chain workload for \(T\) and \(\mathrm{Var}(\hat Q)\).
+
+- Wall ratio \(T_{\mathrm{P1}}/T_{\mathrm{Bbest}} = 0.956\);
+  bootstrap 2000, seed 9143610: **[0.940, 0.972]**. Crosses 0.95.
+- Cost–variance point ratio \(K_{\mathrm{P1}}/K_{\mathrm{Bbest}} = 2.486\);
+  bootstrap **[0.164, 21.5]** (unusable). HAC not clean
+  (`hac_ok=false`; B-best chains 0,3; P1 chains 0,2,3).
 - Independent counters (6 P1 chains pooled): 1 395 968 eligible;
   463 424 stage-1 rejects (rate 0.332); 932 544 exact-stage;
   30 600 stage-2 rejects; 901 944 accepts.
   Identity \(n_{a1}+n_{a2}+n_{\mathrm{acc}}=n_{\mathrm{eligible}}\) holds.
 
-Classification (frozen rule): **`P1_UNRESOLVED_WITHIN_BUDGET`**.
+FACT: the wall point estimate is a \(\sim 4.4\%\) reduction. The JK
+variance **point** estimate is larger for P1
+(\(\mathrm{SE}\) 3.350 vs 2.077 meV). That is **not** a certified
+statement that P1 is \(2.49\times\) worse at equal precision: HAC
+failed and the \(K\) interval is too wide.
+
+INFERENCE: the unproven implication is
+“fewer expensive calls \(\Rightarrow\) lower equal-precision total
+cost”, not merely “0.956 versus a 0.95 wall threshold”.
+
+Classification (frozen wall-ratio rule): **`P1_UNRESOLVED_WITHIN_BUDGET`**.
+Do not upgrade \(K\) to `P1_NO_PRACTICAL_GAIN` or to a slowdown claim.
 
 Evidence: `benchmarks/p1_vs_bbest/frozen_results.json`,
 `closure/2026-09-16-final/FINAL_PROTOCOL.md`.
@@ -141,10 +155,13 @@ INFERENCE: \(-0.25\,\mathrm{eV}\) matches the order of Luo et al.
 Fig. 2(b) at \(20^3\). It is not their Table 1 value (\(-0.408\,\mathrm{eV}\))
 and not Fan–Migdal/DW (\(-0.538\,\mathrm{eV}\)).
 
-INFERENCE: P1 is a real implementation: it runs on LiF, rejects
-\(\approx 1/3\) of eligible swaps before g/environment, and showed a
-\(\approx 4.4\%\) wall-time point reduction. That is **not** a proven
-\(\ge 5\%\) practical gain under the frozen protocol.
+INFERENCE: P1 is a real implementation: it runs on LiF and rejects
+\(\approx 1/3\) of eligible swaps before g/environment. The clean
+confirm showed a \(\approx 4.4\%\) wall-time **point** reduction and a
+**larger** JK-variance point estimate. Neither a \(\ge 5\%\) wall gain
+nor an equal-precision cost reduction was established. The frozen
+classification is unresolved on the predeclared **wall** rule; \(K\) is
+a diagnostic, not a second pass/fail after seeing the data.
 
 The fixed-setting statistical diagnostic is at the **few-percent**
 level. A 1% ground-state certification was **not attempted**.

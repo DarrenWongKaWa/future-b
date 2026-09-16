@@ -16,15 +16,19 @@ different target and is rejected by tests.
 
 ## Two-stage delayed acceptance
 
-1. **Stage 1 (cheap).** Eligible swaps evaluate
-   \(\ell_{\mathrm{prop}}=\mathrm{clip}(\log P_{k\mathrm{change}},\pm\ln 10)\)
-   from mid-band energies and phonon imaginary times. Draw \(u\sim U(0,1)\).
-   If \(\log u \ge \min(0,\ell_{\mathrm{prop}})\), reject and **return
-   before** `cal_gkq` / environment contraction.
+1. **Stage 1 (cheap).** Eligible swaps evaluate the *unclipped*
+   propagator log-score, then clip to \(\pm\ln 10\) to form
+   \(\ell_{\mathrm{hat}}\). These are different objects. Draw
+   \(u_1\sim U(0,1)\). If \(\log u_1 \ge \min(0,\ell_{\mathrm{hat}})\),
+   reject and **return before** `cal_gkq` / environment contraction.
 2. **Stage 2 (exact).** Otherwise compute the native matrix contraction
-   and accept with
-   \(\log u < \min(0, \ell_R - \ell_{\mathrm{prop}})\).
+   and draw an independent \(u_2\sim U(0,1)\) (native `ran`). Accept if
+   \(\log u_2 < \min(0, \ell_R - \ell_{\mathrm{hat}})\).
    This restores the exact native ratio (Christen–Fox / DA identity).
+   The two uniforms are not the same draw.
+
+`C2_FORCE_A1` is fixture-only (v1.0.1). Production with `P1_FIXTURE` off
+ignores it.
 
 The cheap score is **not** allowed to replace the exact target.
 

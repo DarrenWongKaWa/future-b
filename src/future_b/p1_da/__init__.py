@@ -44,18 +44,36 @@ def delayed_acceptance_prob(pi_old: float, pi_new: float, rhat: float) -> float:
     """Two-stage DA with exact correction.
 
     a = min(1, rhat) * min(1, R / rhat) with R = pi_new / pi_old
-    and pi = abs(Re M) (passed in already as positive reals).
+    and pi = abs(Re M) (passed in already as non-negative reals).
+    Negative weights are errors, not negative probabilities.
     """
-    px, py = float(pi_old), float(pi_new)
-    if py == 0.0 and np.isfinite(px) and px > 0.0:
+    px, py, rh = float(pi_old), float(pi_new), float(rhat)
+    if not np.isfinite(px) or not np.isfinite(py) or not np.isfinite(rh):
+        raise ValueError("DA weights and rhat must be finite")
+    if px < 0.0 or py < 0.0:
+        raise ValueError("DA weights must be >= 0")
+    if py == 0.0 and px > 0.0:
         return 0.0
-    if px <= 0.0 or not np.isfinite(px) or not np.isfinite(py):
-        return float("nan")
+    if px <= 0.0:
+        raise ValueError("DA old weight must be > 0 when new weight is positive")
+    if rh <= 0.0:
+        raise ValueError("rhat must be > 0")
     r = py / px
-    rh = float(rhat)
-    if rh <= 0.0 or not np.isfinite(rh):
-        return float("nan")
     return min(1.0, rh) * min(1.0, r / rh)
+
+
+def stage2_exact_accept(ran: float, ell_r: float, ell_hat: float) -> bool:
+    """Native second-stage accept: log(ran) < min(0, ellR - ell_hat).
+
+    Matches update_swap: log(max(ran, 1e-300)) < min(0, ellR - ell_hat).
+    Dropping `- ell_hat` is a different algorithm.
+    """
+    u, er, eh = float(ran), float(ell_r), float(ell_hat)
+    if not np.isfinite(u) or u <= 0.0:
+        raise ValueError("stage-2 RNG draw must be finite and > 0")
+    if not np.isfinite(er) or not np.isfinite(eh):
+        raise ValueError("ellR and ell_hat must be finite")
+    return math.log(max(u, 1.0e-300)) < min(0.0, er - eh)
 
 
 def occupancy_reverse_row(row: dict) -> dict:

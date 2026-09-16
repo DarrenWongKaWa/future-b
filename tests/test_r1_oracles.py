@@ -28,6 +28,16 @@ def test_material_consumer_is_future_work_not_a_universal_negative():
     assert rec["material_grouped_consumer"] == "FUTURE_WORK"
     assert rec["additional_cse_gain"] == "NO_ADDITIONAL_CSE_GAIN_ESTABLISHED"
     assert FROZEN["material_consumer"] == "FUTURE_WORK"
+    assert rec["evaluator_in_this_package"] is False
+    assert rec["public_release"] == "HISTORICAL_RESULT_METADATA"
+
+
+def test_public_module_has_no_evaluator_entry_points():
+    import future_b.r1_fixed_order as mod
+
+    banned = ("evaluate", "compile", "rebind", "build_plan", "cse")
+    names = set(dir(mod))
+    assert not any(b in names for b in banned)
 
 
 def test_abs_sum_is_not_sum_abs():

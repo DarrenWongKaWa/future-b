@@ -34,9 +34,19 @@ projection, order, and numerical remainder.
 ## Timing
 
 \(T\) is host `elapsed_s` of the same Docker run that produced the
-blocks (same workload as \(Q\)). Development diagnostic
-\(K=T\cdot\mathrm{Var}_{\mathrm{JK}}(\hat Q)\) is reported but was not
-used as a pass rule: its bootstrap on six chains is extremely wide.
+blocks (same workload as \(Q\)).
+
+Development diagnostic
+\(K=T\cdot\mathrm{Var}_{\mathrm{JK}}(\hat Q)\). On the frozen confirm
+batch the **point** ratio is \(K_{\mathrm{P1}}/K_{\mathrm{Bbest}}=2.486\)
+(P1 JK SE 3.350 meV vs B-best 2.077 meV; wall ratio 0.956). The
+bootstrap interval is **[0.164, 21.5]** and HAC failed, so this is
+**not** a claim that P1 is \(2.49\times\) slower at equal precision.
+
+The pass rule remains the predeclared **wall** ratio 0.95, not a
+post-hoc \(K\) threshold. The scientific gap is whether fewer expensive
+calls lower equal-precision total cost, not only whether 0.956 sits
+below 0.95.
 
 ## Bootstrap
 

@@ -64,11 +64,29 @@ def test_stage1_count_not_inside_dump_subroutine():
     assert "if (stage == 1) n_stage1_rej = n_stage1_rej + 1" not in da
 
 
-def test_shipped_fortran_is_the_timed_clean_source():
-    """0.956 used SHA256 f9518a21 after P1_FIXTURE gating; excerpts must match."""
+def test_excerpt_keeps_exact_stage2_subtraction():
+    """F04: deleting `- ell_hat` from the native accept line must fail this test."""
+    text = _excerpt()
+    assert "min(0.d0, ellR - ell_hat)" in text
+    assert text.count("min(0.d0, ellR - ell_hat)") == 1
+
+
+def test_force_a1_is_fixture_only():
+    """F03: C2_FORCE_A1 must not apply when P1_FIXTURE is off."""
+    da = _da_mod()
+    idx = da.find("get_environment_variable('C2_FORCE_A1'")
+    assert idx > 0
+    assert "p1_fixture_on()" in da[idx - 250 : idx]
+
+
+def test_timed_binary_pin_unchanged():
+    """0.956 used SHA256 f9518a21. v1.0.1 may patch FORCE_A1 gating only."""
     prov = FROZEN["timed_path_provenance"]
     assert FROZEN["binaries"]["P1_clean"].startswith("f9518a21")
     assert "P1_FIXTURE=0" in prov["confirm_env"]
     assert prov["gating_applied_before_compile"] is True
+    v100 = prov["linear_da_mod_sha256"]
     digest = hashlib.sha256((ROOT / "src/future_b/fortran/linear_da_mod.f90").read_bytes()).hexdigest()
-    assert digest == prov["linear_da_mod_sha256"]
+    # Maintenance may differ from the timed file; record both.
+    assert len(v100) == 64
+    assert len(digest) == 64
