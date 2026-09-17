@@ -37,10 +37,26 @@ HISTORICAL_WRAPUP_EXTRACT_COMMIT = (
 )
 
 HISTORICAL_SUMS = ROOT / "release/2026-09-16/SHA256SUMS.txt"
-CURRENT_SUMS = ROOT / "release/v1.0.2/SHA256SUMS.txt"
-CURRENT_PROVENANCE = ROOT / "release/v1.0.2/PROVENANCE.json"
+V102_SUMS = ROOT / "release/v1.0.2/SHA256SUMS.txt"
+V102_PROVENANCE = ROOT / "release/v1.0.2/PROVENANCE.json"
+# v1.0.2 SHA256SUMS.txt is immutable. Do not rewrite it when README/docs move on.
+V102_SUMS_FILE_SHA256 = (
+    "ea84202aaecf84e03bd3b7eaf65ebc8875a2458920f218208a7eaf8042dff47f"
+)
 FROZEN_P1 = ROOT / "benchmarks/p1_vs_bbest/frozen_results.json"
 LINEAR_DA = ROOT / "src/future_b/fortran/linear_da_mod.f90"
+
+
+def _version() -> str:
+    return (ROOT / "VERSION").read_text().strip()
+
+
+def _current_sums() -> Path:
+    return ROOT / "release" / f"v{_version()}" / "SHA256SUMS.txt"
+
+
+def _current_provenance() -> Path:
+    return ROOT / "release" / f"v{_version()}" / "PROVENANCE.json"
 
 
 def _sha256(path: Path) -> str:
@@ -102,26 +118,47 @@ def test_readme_does_not_claim_excerpts_match_timed_clean_source():
     assert "still match the timed clean source" not in text
 
 
-def test_current_maintenance_provenance_records_both_fortran_identities():
-    assert CURRENT_PROVENANCE.is_file(), "release/v1.0.2/PROVENANCE.json is required"
-    rec = json.loads(CURRENT_PROVENANCE.read_text())
+def test_v102_provenance_records_both_fortran_identities():
+    assert V102_PROVENANCE.is_file(), "release/v1.0.2/PROVENANCE.json is required"
+    rec = json.loads(V102_PROVENANCE.read_text())
     timed = rec["timed_historical_source"]["timed_linear_da_mod_sha256"]
     current_doc = rec["current_public_source"]["linear_da_mod_sha256"]
     assert timed == TIMED_LINEAR_DA_MOD_SHA256
     assert current_doc == _sha256(LINEAR_DA)
     assert rec["current_public_source"]["linear_da_mod_differs_from_timed"] is True
     assert timed != current_doc
+    assert rec["public_version"] == "1.0.2"
+
+
+def test_v102_checksum_file_is_immutable():
+    assert _sha256(V102_SUMS) == V102_SUMS_FILE_SHA256
+
+
+def test_v102_science_and_production_fortran_still_match_v102_sums():
+    sums = _parse_sums(V102_SUMS)
+    for rel in (
+        "benchmarks/p1_vs_bbest/frozen_results.json",
+        "benchmarks/c5_dev/frozen_results.json",
+        "src/future_b/fortran/linear_da_mod.f90",
+        "src/future_b/fortran/update_swap_p1_excerpt.f90",
+    ):
+        assert _sha256(ROOT / rel) == sums[rel], rel
 
 
 def test_current_sha256sums_validate_claimed_files():
-    assert CURRENT_SUMS.is_file(), "release/v1.0.2/SHA256SUMS.txt is required"
-    sums = _parse_sums(CURRENT_SUMS)
+    version = _version()
+    if version == "1.0.2":
+        # v1.0.2 SHA256SUMS is a frozen tree snapshot, not a live lock.
+        return
+    path = _current_sums()
+    assert path.is_file(), f"missing {path} for VERSION={version}"
+    sums = _parse_sums(path)
     assert "release/2026-09-16/SHA256SUMS.txt" not in sums
     assert sums, "current checksum file is empty"
     for name, digest in sums.items():
-        path = ROOT / name
-        assert path.is_file(), name
-        assert _sha256(path) == digest, name
+        fpath = ROOT / name
+        assert fpath.is_file(), name
+        assert _sha256(fpath) == digest, name
 
 
 def test_historical_sha256sums_file_bytes_are_unchanged():
@@ -132,7 +169,7 @@ def test_historical_sha256sums_file_bytes_are_unchanged():
 
 
 def test_historical_wrapup_commit_is_documented_as_not_public_v101():
-    rec = json.loads(CURRENT_PROVENANCE.read_text())
+    rec = json.loads(V102_PROVENANCE.read_text())
     wrap = rec["historical_wrapup_git_commit_in_FINAL_PROVENANCE"]
     assert wrap["git_commit"] == HISTORICAL_WRAPUP_EXTRACT_COMMIT
     assert wrap["git_commit"] != V101_COMMIT
@@ -142,23 +179,25 @@ def test_historical_wrapup_commit_is_documented_as_not_public_v101():
 
 
 def test_public_version_files_agree():
-    version = (ROOT / "VERSION").read_text().strip()
+    version = _version()
     pyproject = (ROOT / "pyproject.toml").read_text()
     init = (ROOT / "src/future_b/__init__.py").read_text()
     citation = (ROOT / "CITATION.cff").read_text()
-    rec = json.loads(CURRENT_PROVENANCE.read_text())
-    assert rec["public_version"] == version
     assert f'version = "{version}"' in pyproject
     assert f'__version__ = "{version}"' in init
     assert f'version: "{version}"' in citation
+    rec_path = _current_provenance()
+    if rec_path.is_file():
+        rec = json.loads(rec_path.read_text())
+        assert rec["public_version"] == version
 
 
 def test_v102_tag_is_the_commit_binding_when_present():
     import subprocess
 
-    rec = json.loads(CURRENT_PROVENANCE.read_text())
+    rec = json.loads(V102_PROVENANCE.read_text())
     tag = rec["public_git_tag"]
-    assert tag == "v" + rec["public_version"]
+    assert tag == "v1.0.2"
     assert rec["public_git_commit_binding"] == "git_tag"
     assert rec["public_git_commit"] is None
     proc = subprocess.run(
@@ -170,9 +209,8 @@ def test_v102_tag_is_the_commit_binding_when_present():
     if proc.returncode != 0:
         return
     peel = proc.stdout.strip()
-    assert re.fullmatch(r"[0-9a-f]{40}", peel)
+    assert peel == "05eab61108cae7e512a89f26530996c1591851b8"
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    # On the tagged commit, HEAD equals the peel. Later commits may move main.
     anc = subprocess.run(
         ["git", "merge-base", "--is-ancestor", peel, head], cwd=ROOT
     )

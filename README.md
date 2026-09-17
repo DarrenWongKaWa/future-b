@@ -79,6 +79,7 @@ Quantum ESPRESSO 6.5, Perturbo/FEP-DMC, Intel Fortran, HDF5 Fortran
 ## Documentation
 
 - [What is actually shipped](docs/CAPABILITIES.md)
+- [GitHub vs sdist vs wheel](docs/DISTRIBUTIONS.md)
 - [v1.0.1 maintenance](docs/MAINTENANCE_1.0.1.md)
 - [v1.0.2 provenance repair](docs/MAINTENANCE_1.0.2.md)
 - [Provenance (public source vs timed source vs frozen result)](docs/PROVENANCE.md)
