@@ -1,0 +1,69 @@
+{
+  "schema": "future-b-maintenance-provenance-v1",
+  "public_version": "1.1.0",
+  "public_git_tag": "v1.1.0",
+  "public_git_commit_binding": "git_tag",
+  "public_git_commit": null,
+  "public_git_commit_note": "This JSON is part of the tagged tree, so it does not store a self-referential commit SHA. After tagging, verify with: git rev-parse v1.1.0^{}.",
+  "parent_public_release": {
+    "version": "1.0.3",
+    "git_commit": "e2735a1603ad4351e3b84d1ec9109adb20d0d426",
+    "git_tag": null,
+    "note": "v1.0.3 packaging+pin candidate; not tagged when this record was written."
+  },
+  "science_origin": {
+    "scientific_result_origin_release": "v1.0.0",
+    "git_commit": "77835ca15e5846863aeab8ad32ebfbb46f66353c",
+    "classification": "P1_UNRESOLVED_WITHIN_BUDGET",
+    "benchmark_record_paths": [
+      "benchmarks/p1_vs_bbest/frozen_results.json",
+      "benchmarks/c5_dev/frozen_results.json"
+    ]
+  },
+  "timed_historical_source": {
+    "timed_binary_sha256": "f9518a21fc2b8750fb3b7ed6f6e065db398cb2f425969cd718d1dcdef2b2c25c",
+    "timed_linear_da_mod_sha256": "004b23b66e00f4ca20e2cc683c8e99124f12713549fcc02363e0e0afc37854df",
+    "historical_experiment_id": "closure/2026-09-16-final/p1_confirm",
+    "historical_environment": "Docker r5p0-env:ubuntu2004 sha256:2082c5082f050fafc807ad1488e3498fe51e0c7951e4ddcf818b3ed39de5f7e1"
+  },
+  "current_public_source": {
+    "linear_da_mod_sha256": "c541444f2d591d4e280e12c28958534b6a89a2fd7f91dabb7df46223fac9acd8",
+    "linear_da_mod_differs_from_timed": true,
+    "diff": "v1.0.1 F03: C2_FORCE_A1 is read only if p1_fixture_on(); production P1_FIXTURE=0 path is unchanged versus the timed binary. v1.1.0 did not edit this file."
+  },
+  "packaging": {
+    "c2_oracle_runtime_module": false,
+    "c2_oracle_historical_path": "historical/c2_oracle.py",
+    "sdist_self_testing": true,
+    "wheel_is_not_research_archive": true,
+    "c0_adapter_in_wheel": false,
+    "c0_adapter_in_sdist": true
+  },
+  "public_fep_dmc_upstream": {
+    "record": "provenance/UPSTREAM_FEP_DMC.json",
+    "repository": "https://github.com/yaoluo/FEP-DMC",
+    "reference_commit": "05d08449cffdbd0dfbbbf5009add5cc887bc754b",
+    "role": "prospective_public_integration_baseline",
+    "historical_donor_equivalence": "not_established"
+  },
+  "c0_public_adapter": {
+    "record": "provenance/C0_PUBLIC_PATCH.json",
+    "kind": "source_transform",
+    "build_level_established": 0,
+    "p1_implemented": false,
+    "runtime_lif_validated": false,
+    "preimage_sha256": "6c97c694f76df18e9adee7b79666b480f1de5b00f30e8bb5ba08510289e43571",
+    "postimage_sha256": "be3a2215ab257e12aaaba1a0a3cca8714a4174c0fee890bb881cd75a32b9a235"
+  },
+  "historical_checksum_files": [
+    "release/2026-09-16/SHA256SUMS.txt",
+    "archive/closure/2026-09-16-final/SHA256SUMS.txt",
+    "release/v1.0.2/SHA256SUMS.txt",
+    "release/v1.0.3/SHA256SUMS.txt"
+  ],
+  "this_release_checksum_file": "release/v1.1.0/SHA256SUMS.txt",
+  "scientific_result_unchanged": true,
+  "performance_experiment_rerun": false,
+  "algorithm_changed": false,
+  "speedup_claim_added": false
+}
