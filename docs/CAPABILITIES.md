@@ -1,6 +1,7 @@
 # What the public snapshot actually provides
 
-v1.0.1 is a **methods-study archive**, not a general DiagMC library.
+v1.0.2 is a **methods-study archive** (science frozen at v1.0.0;
+v1.0.1/v1.0.2 are maintenance), not a general DiagMC library.
 
 | Capability | In this snapshot | Entry |
 |---|---|---|

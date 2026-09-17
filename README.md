@@ -5,9 +5,9 @@ screening, event-level correctness checks, correlated-Monte-Carlo
 statistics, fixed-order graph reuse, and negative/unresolved benchmark
 results.
 
-**Project status: CLOSED** (`v1.0.0` frozen; `v1.0.1` maintenance).
-This is a **methods-study archive**, not an AI acceleration framework
-and not a drop-in FEP-DMC plugin.
+**Project status: CLOSED** (`v1.0.0` science frozen; `v1.0.1` /
+`v1.0.2` maintenance). This is a **methods-study archive**, not an AI
+acceleration framework and not a drop-in FEP-DMC plugin.
 
 Future B is a source-and-results archive of exact-corrected analytic
 delayed acceptance in first-principles DiagMC. The public snapshot
@@ -62,8 +62,10 @@ python3.12 -m venv .venv
 ```
 
 This checks algebra, energy zero, frozen statistics, and that the
-shipped Fortran excerpts still match the timed clean source. It does
-**not** run native `perturbo.x`.
+shipped Fortran excerpts keep the timed production path while recording
+that the public `linear_da_mod.f90` is **not** byte-identical to the
+timed confirm-tree file (v1.0.1 F03 gating). It does **not** run native
+`perturbo.x`. See [docs/PROVENANCE.md](docs/PROVENANCE.md).
 
 ## Full LiF native runs
 
@@ -77,7 +79,8 @@ Quantum ESPRESSO 6.5, Perturbo/FEP-DMC, Intel Fortran, HDF5 Fortran
 
 - [What is actually shipped](docs/CAPABILITIES.md)
 - [v1.0.1 maintenance](docs/MAINTENANCE_1.0.1.md)
-- [Provenance (binary ↔ 0.956)](docs/PROVENANCE.md)
+- [v1.0.2 provenance repair](docs/MAINTENANCE_1.0.2.md)
+- [Provenance (public source vs timed source vs frozen result)](docs/PROVENANCE.md)
 - [Scientific result](docs/SCIENTIFIC_RESULT.md)
 - [P1 method](docs/METHOD_P1.md)
 - [Statistics](docs/STATISTICS.md)
