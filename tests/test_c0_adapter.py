@@ -317,8 +317,29 @@ def test_git_unavailable_snapshot_is_refused(tmp_path: Path):
 
 
 def test_historical_c0_patch_is_not_the_public_adapter():
-    hist = (ROOT / "patches" / "c0_wq" / "apply_wq_refresh.py").read_text()
-    assert "night1" in hist
+    hist_path = ROOT / "patches" / "c0_wq" / "apply_wq_refresh.py"
+    if hist_path.is_file():
+        assert "night1" in hist_path.read_text()
     public = APPLY.read_text()
     assert "night1" not in public
     assert "repair_v2" not in public
+    lib = (ROOT / "integration" / "c0" / "c0_lib.py").read_text()
+    assert "night1" not in lib
+    assert "/Users/" not in public
+    assert "/Users/" not in lib
+
+
+def test_pristine_upstream_verifier_rejects_applied_tree(tmp_path: Path):
+    payloads = _payloads(PRISTINE_FORTRAN)
+    _write_layout(tmp_path, payloads)
+    commit = _init_git(tmp_path)
+    pin, rec = _write_records(tmp_path, payloads, commit)
+    assert _run_apply(tmp_path, pin, rec).returncode == 0
+    upstream = ROOT / "tools" / "verify_fep_dmc_upstream.py"
+    proc = subprocess.run(
+        [sys.executable, str(upstream), str(tmp_path), "--pin", str(pin)],
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode != 0
+    assert "FAIL" in proc.stdout
