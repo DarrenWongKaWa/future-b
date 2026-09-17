@@ -18,6 +18,7 @@ include docs/UPSTREAM_FEP_DMC.md
 include docs/C0_PUBLIC_ADAPTER.md
 include docs/P1_PUBLIC_ADAPTER.md
 include docs/P1_PUBLIC_ADAPTER_DESIGN.md
+include docs/METHOD_P1.md
 include docs/LIMITATIONS.md
 include docs/MAINTENANCE_1.1.0.md
 include provenance/UPSTREAM_FEP_DMC.json

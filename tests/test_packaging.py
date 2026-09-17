@@ -50,6 +50,7 @@ SDIST_TEST_DATA = (
     "integration/p1/p1_lib.py",
     "integration/p1/linear_da_mod.f90",
     "docs/P1_PUBLIC_ADAPTER.md",
+    "docs/METHOD_P1.md",
     "release/v1.2.0/SHA256SUMS.txt",
     "release/v1.2.0/PROVENANCE.json",
 )

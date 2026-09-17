@@ -29,6 +29,8 @@ DEFAULT_P1 = ROOT / "provenance" / "P1_PUBLIC_PATCH.json"
 UPSTREAM_TOOL = ROOT / "tools" / "verify_fep_dmc_upstream.py"
 JJ_UPDATES = "perturbo-fep-dmc/pert-src/diagMC_JJ_updates.f90"
 MAKEFILE = "perturbo-fep-dmc/pert-src/makefile"
+JJ_DRIVER = "perturbo-fep-dmc/pert-src/diagMC_JJ.f90"
+MODULE_REL = "perturbo-fep-dmc/pert-src/linear_da_mod.f90"
 
 STATE_P1 = "P1_APPLIED"
 STATE_C0_P1 = "C0_P1_APPLIED"
@@ -163,20 +165,29 @@ def classify(tree: Path, pin: dict, rec: dict, p1: dict | None = None) -> tuple[
         if not path.is_file():
             return STATE_UNKNOWN, f"missing {rel}"
         hashes[rel] = sha256_path(path)
+    for rel in (JJ_DRIVER, MODULE_REL):
+        extra = tree / rel
+        if extra.is_file():
+            hashes[rel] = sha256_path(extra)
 
     if p1 and "states" in p1:
         st = p1["states"]
-        p1_only = st.get("PUBLIC_P1_APPLIED", {})
-        both = st.get("PUBLIC_C0_P1_APPLIED", {})
-        if (
-            hashes.get(JJ_UPDATES) == p1_only.get(JJ_UPDATES)
-            and hashes.get(MAKEFILE) == p1_only.get(MAKEFILE)
-        ):
+
+        def match_p1_state(name: str) -> bool:
+            wanted = st.get(name) or {}
+            if not wanted:
+                return False
+            return all(hashes.get(rel) == digest for rel, digest in wanted.items())
+
+        if match_p1_state("PUBLIC_P1_APPLIED"):
+            want_mod = p1.get("module_sha256")
+            if want_mod and hashes.get(MODULE_REL) != want_mod:
+                return STATE_UNKNOWN, "P1 module identity mismatch"
             return STATE_P1, "P1 applied, C0 not applied"
-        if (
-            hashes.get(JJ_UPDATES) == both.get(JJ_UPDATES)
-            and hashes.get(MAKEFILE) == both.get(MAKEFILE)
-        ):
+        if match_p1_state("PUBLIC_C0_P1_APPLIED"):
+            want_mod = p1.get("module_sha256")
+            if want_mod and hashes.get(MODULE_REL) != want_mod:
+                return STATE_UNKNOWN, "P1 module identity mismatch"
             return STATE_C0_P1, "C0 and P1 applied"
 
     others = [rel for rel in files if rel != target_rel]

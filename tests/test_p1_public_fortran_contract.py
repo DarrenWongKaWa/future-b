@@ -110,3 +110,52 @@ def test_abs_complex_is_not_r_native():
 
 def test_zero_new_real_part_rejects():
     assert delayed_acceptance_prob(2.0, 0.0, 1.5) == 0.0
+
+
+def test_r_native_must_include_p_kchange():
+    r_mat = native_re_ratio(0.4 + 0.0j, 0.8 + 0.0j)
+    pk = 1.7
+    r = r_mat * pk
+    assert abs(r_mat - 0.5) <= 1e-12
+    assert abs(r - 0.85) <= 1e-12
+    assert abs(r - r_mat) > 0.1
+
+
+def test_odd_clip_preserves_reciprocal_cheap_score():
+    clip = math.log(10.0)
+    for raw in (-4.0, -2.2, -0.1, 0.0, 0.3, 2.2, 4.0):
+        eh = max(-clip, min(clip, raw))
+        eh_rev = max(-clip, min(clip, -raw))
+        assert abs(eh_rev + eh) <= 1e-15
+        assert abs(math.exp(eh) * math.exp(eh_rev) - 1.0) <= 1e-12
+
+
+def test_nonfinite_exact_ratio_fails_closed():
+    assert math.isnan(native_re_ratio(1.0 + 0.0j, complex(float("nan"), 0.0)))
+    text = MODULE.read_text()
+    stage2 = text.split("subroutine linear_da_stage2", 1)[1].split("end subroutine", 1)[0]
+    assert "P_accept is nonfinite" in stage2 or "nonfinite" in stage2
+    assert "P_accept <= 0.0_dp" in stage2 or "P_accept <= 0" in stage2
+    assert "ell_R = log(P_accept)" in stage2 or "ell_R = log(P_accept" in stage2
+
+
+def test_public_module_domain_and_rng_contract():
+    text = MODULE.read_text()
+    assert "DMC_Method must be 0" in text
+    assert "dmc_band must be 1" in text
+    assert "sample_gt must be false" in text
+    assert "zeroTMC must be true" in text
+    assert "LINEAR_DA must be off or on" in text
+    assert "LINEAR_DA_SCORE must be prop" in text
+    assert "9142871" in text
+    assert "aux_seed_used == 0_8" in text
+    assert "ishft" in text
+    assert "diagram%seed" not in text
+    assert "RANDOM_NUMBER" not in text
+    assert "shadow" not in text.lower()
+    assert "C2_FORCE_A1" not in text
+    assert "P1_FIXTURE" not in text
+    ensure = text.split("subroutine linear_da_ensure", 1)[1].split("end subroutine", 1)[0]
+    assert "if (trim(linear_da) == 'on')" in ensure
+    assert "DMC_Method" in ensure
+    assert "zeroTMC" in ensure

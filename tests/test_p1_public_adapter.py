@@ -53,7 +53,7 @@ subroutine add_external_ph(diagram, stat)
 end subroutine
 
 subroutine update_swap(diagram, stat)
-      use DiagMC 
+      use DiagMC
 
       implicit none
       real(dp) :: P_accept, P_kchange, ran, factor
@@ -424,3 +424,41 @@ def test_altered_makefile_or_driver_is_unknown(tmp_path: Path):
     v2 = _run(VERIFY, tmp_path, args)
     assert v2.returncode == 1
     assert "UNKNOWN" in v2.stdout
+
+
+def test_altered_driver_or_missing_module_is_unknown(tmp_path: Path):
+    payloads = _payloads()
+    _write_layout(tmp_path, payloads)
+    commit = _init_git(tmp_path)
+    pin, rec = _write_pin_and_p1(tmp_path, payloads, commit)
+    args = _p1_args(pin, rec)
+    assert _run(APPLY, tmp_path, args).returncode == 0
+    driver = tmp_path / JJ_DRIVER
+    orig = driver.read_bytes()
+    driver.write_bytes(orig + b"!x\n")
+    v = _run(VERIFY, tmp_path, args)
+    assert v.returncode == 1
+    assert "UNKNOWN" in v.stdout
+    driver.write_bytes(orig)
+    assert _run(VERIFY, tmp_path, args).returncode == 0
+    (tmp_path / MODULE_REL).unlink()
+    v2 = _run(VERIFY, tmp_path, args)
+    assert v2.returncode == 1
+    assert "UNKNOWN" in v2.stdout
+
+
+def test_p1_transform_does_not_rewrite_c0_region():
+    import p1_lib
+
+    c0 = _c0_src(PRISTINE_UPDATES)
+
+    def _body(src: str, name: str) -> str:
+        a = src.index(f"subroutine {name}")
+        b = src.index("end subroutine", a)
+        return src[a:b]
+
+    patched = p1_lib.transform_updates(c0)
+    assert _body(c0, "add_external_ph") == _body(patched, "add_external_ph")
+    assert _body(c0, "add_ph") == _body(patched, "add_ph")
+    assert C0_LINE in _body(patched, "add_external_ph")
+    assert "linear_da_eval" in _body(patched, "update_swap")
