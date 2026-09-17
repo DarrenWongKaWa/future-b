@@ -13,6 +13,11 @@ include docs/PUBLIC_MANIFEST.md
 include docs/SCIENTIFIC_RESULT.md
 include docs/CAPABILITIES.md
 include docs/MAINTENANCE_1.0.3.md
+include docs/SOURCE_ATTRIBUTION.md
+include docs/UPSTREAM_FEP_DMC.md
+include docs/LIMITATIONS.md
+include provenance/UPSTREAM_FEP_DMC.json
+include tools/verify_fep_dmc_upstream.py
 include tests/README.md
 include benchmarks/p1_vs_bbest/frozen_results.json
 include benchmarks/c5_dev/frozen_results.json
