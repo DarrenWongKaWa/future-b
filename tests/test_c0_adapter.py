@@ -189,6 +189,18 @@ def test_dry_run_does_not_write(tmp_path: Path):
     assert leftover == []
 
 
+def test_apply_preserves_executable_mode(tmp_path: Path):
+    payloads = _payloads(PRISTINE_FORTRAN)
+    _write_layout(tmp_path, payloads)
+    target = tmp_path / TARGET
+    target.chmod(target.stat().st_mode | 0o111)
+    commit = _init_git(tmp_path)
+    pin, rec = _write_records(tmp_path, payloads, commit)
+    proc = _run_apply(tmp_path, pin, rec)
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    assert target.stat().st_mode & 0o111
+
+
 def test_apply_inserts_exactly_one_refresh(tmp_path: Path):
     payloads = _payloads(PRISTINE_FORTRAN)
     _write_layout(tmp_path, payloads)

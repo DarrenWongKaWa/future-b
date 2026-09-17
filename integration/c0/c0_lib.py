@@ -177,8 +177,10 @@ def classify(tree: Path, pin: dict, rec: dict) -> tuple[str, str]:
 
 def atomic_write(path: Path, data: bytes) -> None:
     tmp = path.with_name(path.name + ".futureb-c0.tmp")
+    mode = path.stat().st_mode
     try:
         tmp.write_bytes(data)
+        os.chmod(tmp, mode)
         os.replace(tmp, path)
     finally:
         if tmp.exists():
