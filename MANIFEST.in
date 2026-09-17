@@ -15,9 +15,16 @@ include docs/CAPABILITIES.md
 include docs/MAINTENANCE_1.0.3.md
 include docs/SOURCE_ATTRIBUTION.md
 include docs/UPSTREAM_FEP_DMC.md
+include docs/C0_PUBLIC_ADAPTER.md
 include docs/LIMITATIONS.md
+include docs/MAINTENANCE_1.1.0.md
 include provenance/UPSTREAM_FEP_DMC.json
+include provenance/C0_PUBLIC_PATCH.json
 include tools/verify_fep_dmc_upstream.py
+include integration/c0/apply_c0.py
+include integration/c0/verify_c0.py
+include integration/c0/c0_lib.py
+include integration/c0/README.md
 include tests/README.md
 include benchmarks/p1_vs_bbest/frozen_results.json
 include benchmarks/c5_dev/frozen_results.json
@@ -32,6 +39,9 @@ include release/v1.0.2/PROVENANCE.json
 include release/v1.0.3/SHA256SUMS.txt
 include release/v1.0.3/PROVENANCE.json
 include release/v1.0.3/RELEASE_NOTES.md
+include release/v1.1.0/SHA256SUMS.txt
+include release/v1.1.0/PROVENANCE.json
+include release/v1.1.0/RELEASE_NOTES.md
 recursive-include tests *.py
 recursive-include src/future_b *.py *.f90
 global-exclude *.pyc

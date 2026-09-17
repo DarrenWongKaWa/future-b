@@ -33,10 +33,17 @@ SDIST_TEST_DATA = (
     "release/v1.0.3/SHA256SUMS.txt",
     "release/v1.0.3/PROVENANCE.json",
     "provenance/UPSTREAM_FEP_DMC.json",
+    "provenance/C0_PUBLIC_PATCH.json",
     "tools/verify_fep_dmc_upstream.py",
+    "integration/c0/apply_c0.py",
+    "integration/c0/verify_c0.py",
+    "integration/c0/c0_lib.py",
     "docs/UPSTREAM_FEP_DMC.md",
+    "docs/C0_PUBLIC_ADAPTER.md",
     "docs/SOURCE_ATTRIBUTION.md",
     "docs/LIMITATIONS.md",
+    "release/v1.1.0/SHA256SUMS.txt",
+    "release/v1.1.0/PROVENANCE.json",
 )
 
 PRIVATE_PATH_NEEDLES = (

@@ -43,6 +43,13 @@ V102_PROVENANCE = ROOT / "release/v1.0.2/PROVENANCE.json"
 V102_SUMS_FILE_SHA256 = (
     "ea84202aaecf84e03bd3b7eaf65ebc8875a2458920f218208a7eaf8042dff47f"
 )
+V103_SUMS = ROOT / "release/v1.0.3/SHA256SUMS.txt"
+V103_PROVENANCE = ROOT / "release/v1.0.3/PROVENANCE.json"
+# v1.0.3 SHA256SUMS.txt is immutable. Do not rewrite it for v1.1.0.
+V103_SUMS_FILE_SHA256 = (
+    "f2bb278dee11f5ae1002a9420f0e095b14cd54cffef904f13d7d81935032f418"
+)
+V103_CANDIDATE_COMMIT = "e2735a1603ad4351e3b84d1ec9109adb20d0d426"
 FROZEN_P1 = ROOT / "benchmarks/p1_vs_bbest/frozen_results.json"
 LINEAR_DA = ROOT / "src/future_b/fortran/linear_da_mod.f90"
 
@@ -134,8 +141,26 @@ def test_v102_checksum_file_is_immutable():
     assert _sha256(V102_SUMS) == V102_SUMS_FILE_SHA256
 
 
+def test_v103_checksum_file_is_immutable():
+    assert V103_SUMS.is_file()
+    assert _sha256(V103_SUMS) == V103_SUMS_FILE_SHA256
+    rec = json.loads(V103_PROVENANCE.read_text())
+    assert rec["public_version"] == "1.0.3"
+
+
 def test_v102_science_and_production_fortran_still_match_v102_sums():
     sums = _parse_sums(V102_SUMS)
+    for rel in (
+        "benchmarks/p1_vs_bbest/frozen_results.json",
+        "benchmarks/c5_dev/frozen_results.json",
+        "src/future_b/fortran/linear_da_mod.f90",
+        "src/future_b/fortran/update_swap_p1_excerpt.f90",
+    ):
+        assert _sha256(ROOT / rel) == sums[rel], rel
+
+
+def test_v103_science_and_production_fortran_still_match_v103_sums():
+    sums = _parse_sums(V103_SUMS)
     for rel in (
         "benchmarks/p1_vs_bbest/frozen_results.json",
         "benchmarks/c5_dev/frozen_results.json",
