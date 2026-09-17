@@ -12,10 +12,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 APPLY = ROOT / "integration" / "p1" / "apply_p1.py"
 VERIFY = ROOT / "integration" / "p1" / "verify_p1.py"
+P1_LIB = ROOT / "integration" / "p1" / "p1_lib.py"
 MODULE = ROOT / "integration" / "p1" / "linear_da_mod.f90"
 RECORD = ROOT / "provenance" / "P1_PUBLIC_PATCH.json"
 C0_APPLY = ROOT / "integration" / "c0" / "apply_c0.py"
 UPSTREAM_TOOL = ROOT / "tools" / "verify_fep_dmc_upstream.py"
+sys.path.insert(0, str(ROOT / "integration" / "p1"))
 
 JJ_UPDATES = "perturbo-fep-dmc/pert-src/diagMC_JJ_updates.f90"
 JJ_DRIVER = "perturbo-fep-dmc/pert-src/diagMC_JJ.f90"
@@ -61,9 +63,11 @@ subroutine update_swap(diagram, stat)
       call cal_gkq_vtex_int( vRn, vRn%gkq )
       P_accept = abs(factor) * P_kchange
       call random_number_omp(diagram%seed,ran)
+
       if(ran<P_accept) then
          stat%accept(7) = stat%accept(7) + 1
       end if
+
 end subroutine
 """
 
@@ -147,6 +151,65 @@ def _run(script: Path, tree: Path, extra: list[str]) -> subprocess.CompletedProc
     )
 
 
+def _c0_src(updates: str) -> str:
+    return updates.replace(C0_ANCHOR + "\n", C0_ANCHOR + "\n" + C0_LINE + "\n", 1)
+
+
+def _local_p1_record(payloads: dict[str, bytes]) -> dict:
+    import p1_lib
+
+    mod = MODULE.read_bytes()
+    upd = payloads[JJ_UPDATES].decode()
+    mk = payloads[MAKEFILE].decode()
+    drv = payloads[JJ_DRIVER].decode()
+    c0u = _c0_src(upd)
+    p1u = p1_lib.transform_updates(upd)
+    p1c0u = p1_lib.transform_updates(c0u)
+    p1mk = p1_lib.transform_makefile(mk)
+    p1drv = p1_lib.transform_driver(drv)
+    return {
+        "schema_version": 1,
+        "adapter": "p1_delayed_acceptance",
+        "architecture": "C",
+        "module_sha256": _sha(mod),
+        "historical_donor_equivalence": "not_established",
+        "states": {
+            "PUBLIC_PRISTINE": {
+                JJ_UPDATES: _sha(payloads[JJ_UPDATES]),
+                MAKEFILE: _sha(payloads[MAKEFILE]),
+                JJ_DRIVER: _sha(payloads[JJ_DRIVER]),
+            },
+            "PUBLIC_C0_APPLIED": {
+                JJ_UPDATES: _sha(c0u.encode()),
+                MAKEFILE: _sha(payloads[MAKEFILE]),
+                JJ_DRIVER: _sha(payloads[JJ_DRIVER]),
+            },
+            "PUBLIC_P1_APPLIED": {
+                JJ_UPDATES: _sha(p1u.encode()),
+                MAKEFILE: _sha(p1mk.encode()),
+                JJ_DRIVER: _sha(p1drv.encode()),
+            },
+            "PUBLIC_C0_P1_APPLIED": {
+                JJ_UPDATES: _sha(p1c0u.encode()),
+                MAKEFILE: _sha(p1mk.encode()),
+                JJ_DRIVER: _sha(p1drv.encode()),
+            },
+        },
+    }
+
+
+def _write_pin_and_p1(tree: Path, payloads: dict[str, bytes], commit: str) -> tuple[Path, Path]:
+    pin = tree / "pin.json"
+    rec = tree / "p1.json"
+    pin.write_text(json.dumps(_pin(payloads, commit)))
+    rec.write_text(json.dumps(_local_p1_record(payloads)))
+    return pin, rec
+
+
+def _p1_args(pin: Path, rec: Path) -> list[str]:
+    return ["--pin", str(pin), "--record", str(rec)]
+
+
 def test_p1_tools_and_record_exist():
     assert APPLY.is_file(), "integration/p1/apply_p1.py is required"
     assert VERIFY.is_file(), "integration/p1/verify_p1.py is required"
@@ -174,11 +237,10 @@ def test_dry_run_zero_writes(tmp_path: Path):
     payloads = _payloads()
     _write_layout(tmp_path, payloads)
     commit = _init_git(tmp_path)
-    pin = tmp_path / "pin.json"
-    pin.write_text(json.dumps(_pin(payloads, commit)))
+    pin, rec = _write_pin_and_p1(tmp_path, payloads, commit)
     before = {rel: (tmp_path / rel).read_bytes() for rel in payloads}
     mtimes = {rel: (tmp_path / rel).stat().st_mtime_ns for rel in payloads}
-    proc = _run(APPLY, tmp_path, ["--pin", str(pin), "--dry-run"])
+    proc = _run(APPLY, tmp_path, _p1_args(pin, rec) + ["--dry-run"])
     assert proc.returncode == 0, proc.stdout + proc.stderr
     assert "DRY_RUN" in proc.stdout
     assert "PUBLIC_PRISTINE" in proc.stdout
@@ -192,30 +254,30 @@ def test_pristine_apply_and_idempotent(tmp_path: Path):
     payloads = _payloads()
     _write_layout(tmp_path, payloads)
     commit = _init_git(tmp_path)
-    pin = tmp_path / "pin.json"
-    pin.write_text(json.dumps(_pin(payloads, commit)))
-    first = _run(APPLY, tmp_path, ["--pin", str(pin)])
+    pin, rec = _write_pin_and_p1(tmp_path, payloads, commit)
+    args = _p1_args(pin, rec)
+    first = _run(APPLY, tmp_path, args)
     assert first.returncode == 0, first.stdout + first.stderr
-    v = _run(VERIFY, tmp_path, ["--pin", str(pin)])
+    v = _run(VERIFY, tmp_path, args)
     assert v.returncode == 0, v.stdout + v.stderr
     assert "PUBLIC_P1_APPLIED" in v.stdout
     text = (tmp_path / JJ_UPDATES).read_text()
     assert "linear_da_eval" in text
     assert text.find("linear_da_eval") < text.find("cal_gkq_vtex_int")
-    assert "ell_R - ell_hat" in text or "ell_R-ell_hat" in text
+    assert "linear_da_stage2" in text
     assert "P_accept = abs(factor) * P_kchange" in text
-    assert "abs(factor) * P_kchange" in text
     assert "abs(mat_new)" not in text
+    assert "ell_R - ell_hat" in MODULE.read_text()
     mk = (tmp_path / MAKEFILE).read_text()
     assert "linear_da_mod.f90 \\" in mk
     assert mk.find("diagMC.f90") < mk.find("linear_da_mod.f90") < mk.find("diagMC_debug.f90")
     drv = (tmp_path / JJ_DRIVER).read_text()
     assert "linear_da_ensure" in drv
-    assert drv.find("setup_dqmc") < drv.find("linear_da_ensure")
-    assert drv.find("acceptance") < drv.find("linear_da_report")
+    assert drv.find("call setup_dqmc()") < drv.find("call linear_da_ensure()")
+    assert drv.find("'acceptance = '") < drv.find("call linear_da_report()")
     assert (tmp_path / MODULE_REL).is_file()
     after = {rel: (tmp_path / rel).read_bytes() for rel in (JJ_UPDATES, JJ_DRIVER, MAKEFILE, MODULE_REL)}
-    second = _run(APPLY, tmp_path, ["--pin", str(pin)])
+    second = _run(APPLY, tmp_path, args)
     assert second.returncode == 2, second.stdout + second.stderr
     assert "ALREADY_APPLIED" in second.stdout
     for rel, data in after.items():
@@ -236,12 +298,9 @@ def test_c0_then_p1_and_p1_then_c0_match(tmp_path: Path):
     for name, tree in (("a", a), ("b", b)):
         _write_layout(tree, payloads)
         commit = _init_git(tree)
-        pin = tree / "pin.json"
-        pin.write_text(json.dumps(_pin(payloads, commit)))
+        pin, rec = _write_pin_and_p1(tree, payloads, commit)
         c0_pre = payloads[JJ_UPDATES]
-        c0_src = payloads[JJ_UPDATES].decode().replace(
-            C0_ANCHOR + "\n", C0_ANCHOR + "\n" + C0_LINE + "\n", 1
-        )
+        c0_src = _c0_src(payloads[JJ_UPDATES].decode())
         c0_rec = tree / "c0.json"
         c0_rec.write_text(
             json.dumps(
@@ -261,8 +320,8 @@ def test_c0_then_p1_and_p1_then_c0_match(tmp_path: Path):
                 }
             )
         )
-        args_c0 = ["--pin", str(pin), "--record", str(c0_rec)]
-        args_p1 = ["--pin", str(pin)]
+        args_c0 = ["--pin", str(pin), "--record", str(c0_rec), "--p1-record", str(rec)]
+        args_p1 = _p1_args(pin, rec) + ["--c0-record", str(c0_rec)]
         if name == "a":
             r1 = _run(C0_APPLY, tree, args_c0)
             assert r1.returncode == 0, r1.stdout + r1.stderr
@@ -289,9 +348,8 @@ def test_wrong_commit_refused(tmp_path: Path):
     payloads = _payloads()
     _write_layout(tmp_path, payloads)
     _init_git(tmp_path)
-    pin = tmp_path / "pin.json"
-    pin.write_text(json.dumps(_pin(payloads, "b" * 40)))
-    proc = _run(APPLY, tmp_path, ["--pin", str(pin)])
+    pin, rec = _write_pin_and_p1(tmp_path, payloads, "b" * 40)
+    proc = _run(APPLY, tmp_path, _p1_args(pin, rec))
     assert proc.returncode == 1
     assert (tmp_path / JJ_UPDATES).read_bytes() == payloads[JJ_UPDATES]
 
@@ -300,13 +358,12 @@ def test_dirty_pinned_source_refused(tmp_path: Path):
     payloads = _payloads()
     _write_layout(tmp_path, payloads)
     commit = _init_git(tmp_path)
-    pin = tmp_path / "pin.json"
-    pin.write_text(json.dumps(_pin(payloads, commit)))
+    pin, rec = _write_pin_and_p1(tmp_path, payloads, commit)
     target = tmp_path / JJ_UPDATES
     target.write_bytes(target.read_bytes() + b"! dirty\n")
-    proc = _run(APPLY, tmp_path, ["--pin", str(pin)])
+    proc = _run(APPLY, tmp_path, _p1_args(pin, rec))
     assert proc.returncode == 1
-    v = _run(VERIFY, tmp_path, ["--pin", str(pin)])
+    v = _run(VERIFY, tmp_path, _p1_args(pin, rec))
     assert v.returncode == 1
     assert "UNKNOWN" in v.stdout
 
@@ -329,7 +386,26 @@ def test_missing_and_duplicate_swap_anchor_refused(tmp_path: Path):
         commit = _init_git(tree)
         pin = tree / "pin.json"
         pin.write_text(json.dumps(_pin(payloads, commit)))
-        proc = _run(APPLY, tree, ["--pin", str(pin)])
+        st = {
+            JJ_UPDATES: _sha(payloads[JJ_UPDATES]),
+            MAKEFILE: _sha(payloads[MAKEFILE]),
+            JJ_DRIVER: _sha(payloads[JJ_DRIVER]),
+        }
+        rec = tree / "p1.json"
+        rec.write_text(
+            json.dumps(
+                {
+                    "module_sha256": _sha(MODULE.read_bytes()),
+                    "states": {
+                        "PUBLIC_PRISTINE": st,
+                        "PUBLIC_C0_APPLIED": st,
+                        "PUBLIC_P1_APPLIED": st,
+                        "PUBLIC_C0_P1_APPLIED": st,
+                    },
+                }
+            )
+        )
+        proc = _run(APPLY, tree, _p1_args(pin, rec))
         assert proc.returncode == 1, kind + proc.stdout + proc.stderr
 
 
@@ -337,18 +413,14 @@ def test_altered_makefile_or_driver_is_unknown(tmp_path: Path):
     payloads = _payloads()
     _write_layout(tmp_path, payloads)
     commit = _init_git(tmp_path)
-    pin = tmp_path / "pin.json"
-    pin.write_text(json.dumps(_pin(payloads, commit)))
-    assert _run(APPLY, tmp_path, ["--pin", str(pin)]).returncode == 0
+    pin, rec = _write_pin_and_p1(tmp_path, payloads, commit)
+    args = _p1_args(pin, rec)
+    assert _run(APPLY, tmp_path, args).returncode == 0
     (tmp_path / MAKEFILE).write_bytes((tmp_path / MAKEFILE).read_bytes() + b"#x\n")
-    v = _run(VERIFY, tmp_path, ["--pin", str(pin)])
+    v = _run(VERIFY, tmp_path, args)
     assert v.returncode == 1
     assert "UNKNOWN" in v.stdout
-    # restore makefile, break driver
-    git = ["git", "-C", str(tmp_path), "checkout", "--", MAKEFILE]
-    subprocess.check_call(git)
-    # re-apply to restore makefile from P1? checkout restores vanilla makefile
-    # After vanilla makefile restore the tree is partial P1.
-    v2 = _run(VERIFY, tmp_path, ["--pin", str(pin)])
+    subprocess.check_call(["git", "-C", str(tmp_path), "checkout", "--", MAKEFILE])
+    v2 = _run(VERIFY, tmp_path, args)
     assert v2.returncode == 1
     assert "UNKNOWN" in v2.stdout
