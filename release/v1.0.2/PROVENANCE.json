@@ -1,0 +1,52 @@
+{
+  "schema": "future-b-maintenance-provenance-v1",
+  "public_version": "1.0.2",
+  "public_git_tag": "v1.0.2",
+  "public_git_commit_binding": "git_tag",
+  "public_git_commit": null,
+  "public_git_commit_note": "This JSON is part of the tagged tree, so it does not store a self-referential commit SHA. After tagging, verify with: git rev-parse v1.0.2^{}. Do not use a self-hash of this file as the release identity.",
+  "parent_public_release": {
+    "version": "1.0.1",
+    "git_commit": "e418d88153c31f767486a016014cf71c0d091dce",
+    "archive": "FutureB_v1.0.1_e418d88.tar.gz",
+    "archive_sha256": "e35c17f7afad2e3fe80ccbf63b115c6a184a4455d00c0e93ee9cac882fff51f8"
+  },
+  "science_origin": {
+    "scientific_result_origin_release": "v1.0.0",
+    "git_commit": "77835ca15e5846863aeab8ad32ebfbb46f66353c",
+    "classification": "P1_UNRESOLVED_WITHIN_BUDGET",
+    "benchmark_record_paths": [
+      "benchmarks/p1_vs_bbest/frozen_results.json",
+      "benchmarks/c5_dev/frozen_results.json"
+    ]
+  },
+  "timed_historical_source": {
+    "timed_binary_sha256": "f9518a21fc2b8750fb3b7ed6f6e065db398cb2f425969cd718d1dcdef2b2c25c",
+    "timed_linear_da_mod_sha256": "004b23b66e00f4ca20e2cc683c8e99124f12713549fcc02363e0e0afc37854df",
+    "historical_experiment_id": "closure/2026-09-16-final/p1_confirm",
+    "historical_environment": "Docker r5p0-env:ubuntu2004 sha256:2082c5082f050fafc807ad1488e3498fe51e0c7951e4ddcf818b3ed39de5f7e1",
+    "bbest_binary_sha256": "3c4f4bf9225b7a530303f3f414256a4c25b0a61e0d874a1ae42a46346f24efab"
+  },
+  "current_public_source": {
+    "linear_da_mod_sha256": "c541444f2d591d4e280e12c28958534b6a89a2fd7f91dabb7df46223fac9acd8",
+    "linear_da_mod_differs_from_timed": true,
+    "diff": "v1.0.1 F03: C2_FORCE_A1 is read only if p1_fixture_on(); production P1_FIXTURE=0 path is unchanged versus the timed binary"
+  },
+  "historical_wrapup_git_commit_in_FINAL_PROVENANCE": {
+    "git_commit": "6e5529f481bf0751d6b619bd427aff250c712d55",
+    "meaning": "Commit on the private live extract (2026-09-01, Candidate 1 spectral stop / MA(0) remainder). Recorded in FINAL_PROVENANCE.json while that wrap-up working tree was dirty. Not a public GitHub commit. Not v1.0.0 (77835ca) and not v1.0.1 (e418d88). Native confirm used the timed binary SHA256s, not this commit.",
+    "immutable_files": [
+      "release/2026-09-16/FINAL_PROVENANCE.json",
+      "archive/closure/2026-09-16-final/FINAL_PROVENANCE.json"
+    ]
+  },
+  "historical_checksum_files": [
+    "release/2026-09-16/SHA256SUMS.txt",
+    "archive/closure/2026-09-16-final/SHA256SUMS.txt"
+  ],
+  "this_release_checksum_file": "release/v1.0.2/SHA256SUMS.txt",
+  "scientific_result_unchanged": true,
+  "performance_experiment_rerun": false,
+  "algorithm_changed": false,
+  "speedup_claim_added": false
+}
