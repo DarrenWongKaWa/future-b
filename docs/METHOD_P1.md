@@ -67,3 +67,8 @@ score. Do **not** reverse by flipping both \(\Delta t\) and \(\Delta E\).
 - Not a proof of \(\ge 5\%\) wall-clock gain (see
   [STATISTICS.md](STATISTICS.md)).
 - Not a 1% ground-state certification.
+
+Public vanilla-FEP-DMC adapter: **not implemented**. Design:
+[P1_PUBLIC_ADAPTER_DESIGN.md](P1_PUBLIC_ADAPTER_DESIGN.md). This
+historical method note describes the private-tree algorithm; it is
+not the public apply/verify contract.
