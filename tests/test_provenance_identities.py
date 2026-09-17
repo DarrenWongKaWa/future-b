@@ -151,3 +151,29 @@ def test_public_version_files_agree():
     assert f'version = "{version}"' in pyproject
     assert f'__version__ = "{version}"' in init
     assert f'version: "{version}"' in citation
+
+
+def test_v102_tag_is_the_commit_binding_when_present():
+    import subprocess
+
+    rec = json.loads(CURRENT_PROVENANCE.read_text())
+    tag = rec["public_git_tag"]
+    assert tag == "v" + rec["public_version"]
+    assert rec["public_git_commit_binding"] == "git_tag"
+    assert rec["public_git_commit"] is None
+    proc = subprocess.run(
+        ["git", "rev-parse", "--verify", f"{tag}^{{commit}}"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if proc.returncode != 0:
+        return
+    peel = proc.stdout.strip()
+    assert re.fullmatch(r"[0-9a-f]{40}", peel)
+    head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    # On the tagged commit, HEAD equals the peel. Later commits may move main.
+    anc = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", peel, head], cwd=ROOT
+    )
+    assert anc.returncode == 0

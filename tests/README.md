@@ -1,12 +1,13 @@
 # Public tests
 
-Layers (v1.0.1):
+Layers (v1.0.2):
 
 | file | layer |
 |---|---|
 | `test_da_balance.py`, `test_forward_reverse.py`, `test_audit_guards.py` | algebra / invalid-input behavior |
 | `test_energy_zero.py`, `test_statistics.py`, `test_reject_state.py` | frozen-record / summary consistency |
 | `test_p1_clean_source.py` | source-structure of shipped Fortran excerpts |
+| `test_provenance_identities.py` | public vs timed vs frozen checksum identities |
 | `test_r1_oracles.py` | historical R1 *metadata* only |
 | `test_c5_formation_q.py` | frozen C5 Q / HAC labels |
 

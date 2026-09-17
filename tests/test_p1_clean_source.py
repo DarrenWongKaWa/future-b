@@ -80,13 +80,15 @@ def test_force_a1_is_fixture_only():
 
 
 def test_timed_binary_pin_unchanged():
-    """0.956 used SHA256 f9518a21. v1.0.1 may patch FORCE_A1 gating only."""
+    """0.956 used SHA256 f9518a21. Public linear_da_mod may differ (F03)."""
     prov = FROZEN["timed_path_provenance"]
-    assert FROZEN["binaries"]["P1_clean"].startswith("f9518a21")
+    assert FROZEN["binaries"]["P1_clean"] == (
+        "f9518a21fc2b8750fb3b7ed6f6e065db398cb2f425969cd718d1dcdef2b2c25c"
+    )
     assert "P1_FIXTURE=0" in prov["confirm_env"]
     assert prov["gating_applied_before_compile"] is True
-    v100 = prov["linear_da_mod_sha256"]
-    digest = hashlib.sha256((ROOT / "src/future_b/fortran/linear_da_mod.f90").read_bytes()).hexdigest()
-    # Maintenance may differ from the timed file; record both.
-    assert len(v100) == 64
-    assert len(digest) == 64
+    timed = prov["linear_da_mod_sha256"]
+    current = hashlib.sha256((ROOT / "src/future_b/fortran/linear_da_mod.f90").read_bytes()).hexdigest()
+    assert timed == "004b23b66e00f4ca20e2cc683c8e99124f12713549fcc02363e0e0afc37854df"
+    assert current == "c541444f2d591d4e280e12c28958534b6a89a2fd7f91dabb7df46223fac9acd8"
+    assert timed != current

@@ -57,7 +57,8 @@ python3.12 -m venv .venv
 .venv/bin/pytest tests/test_da_balance.py tests/test_forward_reverse.py \
   tests/test_energy_zero.py tests/test_statistics.py tests/test_r1_oracles.py \
   tests/test_p1_clean_source.py tests/test_reject_state.py \
-  tests/test_c5_formation_q.py tests/test_audit_guards.py -q
+  tests/test_c5_formation_q.py tests/test_audit_guards.py \
+  tests/test_provenance_identities.py -q
 .venv/bin/python examples/lif_small_fixture/recompute_q.py
 ```
 
