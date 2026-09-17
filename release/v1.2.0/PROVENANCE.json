@@ -1,0 +1,59 @@
+{
+  "schema": "future-b-maintenance-provenance-v1",
+  "public_version": "1.2.0",
+  "public_git_tag": "v1.2.0",
+  "public_git_commit_binding": "git_tag",
+  "public_git_commit": null,
+  "public_git_commit_note": "This JSON is part of the tagged tree, so it does not store a self-referential commit SHA. After tagging, verify with: git rev-parse v1.2.0^{}.",
+  "parent_public_release": {
+    "version": "1.1.0",
+    "git_commit": "3bc9098888cafc8c88eaa19ad63009fcae56f6a6",
+    "git_tag": null,
+    "note": "v1.1.0 C0 adapter candidate. P1 design-only commit e146b588 remains on the 1.1.0 version line."
+  },
+  "science_origin": {
+    "scientific_result_origin_release": "v1.0.0",
+    "git_commit": "77835ca15e5846863aeab8ad32ebfbb46f66353c",
+    "classification": "P1_UNRESOLVED_WITHIN_BUDGET",
+    "benchmark_record_paths": [
+      "benchmarks/p1_vs_bbest/frozen_results.json",
+      "benchmarks/c5_dev/frozen_results.json"
+    ]
+  },
+  "timed_historical_source": {
+    "timed_binary_sha256": "f9518a21fc2b8750fb3b7ed6f6e065db398cb2f425969cd718d1dcdef2b2c25c",
+    "timed_linear_da_mod_sha256": "004b23b66e00f4ca20e2cc683c8e99124f12713549fcc02363e0e0afc37854df",
+    "historical_experiment_id": "closure/2026-09-16-final/p1_confirm"
+  },
+  "current_public_source": {
+    "linear_da_mod_sha256": "c541444f2d591d4e280e12c28958534b6a89a2fd7f91dabb7df46223fac9acd8",
+    "linear_da_mod_differs_from_timed": true,
+    "diff": "Historical archive src/future_b/fortran/linear_da_mod.f90 is unchanged. Public production module is integration/p1/linear_da_mod.f90."
+  },
+  "packaging": {
+    "c2_oracle_runtime_module": false,
+    "sdist_self_testing": true,
+    "wheel_is_not_research_archive": true,
+    "p1_adapter_in_wheel": false,
+    "p1_adapter_in_sdist": true
+  },
+  "public_p1_adapter": {
+    "record": "provenance/P1_PUBLIC_PATCH.json",
+    "kind": "source_transform",
+    "architecture": "C",
+    "build_level_established": 0,
+    "runtime_lif_validated": false,
+    "historical_donor_equivalence": "not_established"
+  },
+  "historical_checksum_files": [
+    "release/2026-09-16/SHA256SUMS.txt",
+    "release/v1.0.2/SHA256SUMS.txt",
+    "release/v1.0.3/SHA256SUMS.txt",
+    "release/v1.1.0/SHA256SUMS.txt"
+  ],
+  "this_release_checksum_file": "release/v1.2.0/SHA256SUMS.txt",
+  "scientific_result_unchanged": true,
+  "performance_experiment_rerun": false,
+  "algorithm_changed": false,
+  "speedup_claim_added": false
+}
