@@ -1,0 +1,30 @@
+# Sdist = buildable/testable source, not the full GitHub research artifact.
+include README.md
+include LICENSE
+include NOTICE
+include VERSION
+include CITATION.cff
+include pyproject.toml
+include setup.py
+include MANIFEST.in
+include docs/DISTRIBUTIONS.md
+include docs/PROVENANCE.md
+include docs/PUBLIC_MANIFEST.md
+include docs/SCIENTIFIC_RESULT.md
+include docs/CAPABILITIES.md
+include tests/README.md
+include benchmarks/p1_vs_bbest/frozen_results.json
+include benchmarks/c5_dev/frozen_results.json
+include benchmarks/c5_dev/c5_per_chain_diagnostics.csv
+include benchmarks/r1_fixed_order/frozen_results.json
+include patches/p1_clean/apply_p1_clean.py
+include patches/p1_clean/README.md
+include release/2026-09-16/SHA256SUMS.txt
+include release/2026-09-16/FINAL_PROVENANCE.json
+include release/v1.0.2/SHA256SUMS.txt
+include release/v1.0.2/PROVENANCE.json
+recursive-include tests *.py
+recursive-include src/future_b *.py *.f90
+global-exclude *.pyc
+global-exclude __pycache__
+prune historical
