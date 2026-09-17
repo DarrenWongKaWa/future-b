@@ -8,7 +8,7 @@ There are **three** identities:
 
 | identity | what it is | where it lives |
 |---|---|---|
-| **A. Public repository source** | the GitHub tree you cloned (`v1.0.3` maintenance) | this checkout; `release/v1.0.3/` |
+| **A. Public repository source** | the GitHub tree you cloned (`v1.1.0` maintenance) | this checkout; `release/v1.1.0/` |
 | **B. Historical timed experiment source** | Fortran compiled into the 0.956 binary | SHA256 pins below; **not** byte-identical to A |
 | **C. Frozen scientific result** | LiF Q, wall ratio, HAC, K, classification | `benchmarks/` from **v1.0.0**; unchanged since |
 
@@ -16,10 +16,9 @@ A is **not** B. v1.0.1 gated `C2_FORCE_A1` behind `P1_FIXTURE` (F03).
 That is a fixture-safety edit. It is **not** a new timing run and it
 does **not** change the frozen result (C).
 
-Canonical machine-readable record: [`release/v1.0.3/PROVENANCE.json`](../release/v1.0.3/PROVENANCE.json).
-Current-tree checksums: [`release/v1.0.3/SHA256SUMS.txt`](../release/v1.0.3/SHA256SUMS.txt).
-v1.0.2 provenance is historical and immutable:
-[`release/v1.0.2/`](../release/v1.0.2/).
+Canonical machine-readable record: [`release/v1.1.0/PROVENANCE.json`](../release/v1.1.0/PROVENANCE.json).
+Current-tree checksums: [`release/v1.1.0/SHA256SUMS.txt`](../release/v1.1.0/SHA256SUMS.txt).
+v1.0.2 and v1.0.3 provenance records are historical and immutable.
 Do **not** use [`release/2026-09-16/SHA256SUMS.txt`](../release/2026-09-16/SHA256SUMS.txt)
 as a checksum of the current tree (see [PUBLIC_MANIFEST.md](PUBLIC_MANIFEST.md)).
 
@@ -38,8 +37,10 @@ Future B patches sit **on top of** Perturbo. Fortran excerpts under
 The public yaoluo/FEP-DMC checkout Future B will target for later
 integration work is pinned in
 [`provenance/UPSTREAM_FEP_DMC.json`](../provenance/UPSTREAM_FEP_DMC.json).
-That pin is **not** the proven private timed donor and is **not** a
-working adapter. See [UPSTREAM_FEP_DMC.md](UPSTREAM_FEP_DMC.md).
+That pin is **not** the proven private timed donor. C0 may be applied
+to it as a source transform
+([C0_PUBLIC_ADAPTER.md](C0_PUBLIC_ADAPTER.md)); that is not a compiled
+plugin and not P1. See [UPSTREAM_FEP_DMC.md](UPSTREAM_FEP_DMC.md).
 
 ## Future B original work
 
@@ -109,7 +110,7 @@ Origin release: **v1.0.0** (`77835ca`). Classification
 `P1_UNRESOLVED_WITHIN_BUDGET`. Records:
 `benchmarks/p1_vs_bbest/frozen_results.json`,
 `benchmarks/c5_dev/frozen_results.json`.
-v1.0.1, v1.0.2, and v1.0.3 did not change those files.
+v1.0.1, v1.0.2, v1.0.3, and v1.1.0 did not change those files.
 
 ## Historical wrap-up git commit `6e5529f`
 

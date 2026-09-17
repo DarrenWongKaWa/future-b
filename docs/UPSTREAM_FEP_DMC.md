@@ -5,8 +5,10 @@ integration *development*. It does **not** assert that this public
 commit is byte-identical to the private source tree that produced the
 frozen timing binary.
 
-Pinned identity is **not** integration support. Future B cannot yet be
-applied automatically to that upstream.
+Pinned identity is the supported checkout for the C0 **source**
+adapter ([C0_PUBLIC_ADAPTER.md](C0_PUBLIC_ADAPTER.md)). That is not
+P1, not a compiled plugin, and not automatic application of Future B
+as a whole.
 
 | field | value |
 |---|---|
@@ -45,6 +47,6 @@ serves them (LF). `core.autocrlf` conversions will fail the hash check.
 Pinned files: `diagMC_JJ_updates.f90` (swap / `add_external_ph`),
 `diagMC.f90` (`Gel` / `Dph`), `pert_param.f90` (`zeroTMC`, `DMC_Method`),
 `pert-src/makefile` (object list a future module would join). This is
-not a compile or runtime compatibility claim. Pinned upstream identity
-does not yet mean Future B can be applied automatically to that
-upstream.
+not a compile or runtime compatibility claim. C0 may be applied to
+this pin as a source transform. That is not a complete FEP-DMC
+extension.

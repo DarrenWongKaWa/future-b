@@ -18,7 +18,9 @@ The **public** FEP-DMC reference checkout is pinned in
 (`05d08449cffdbd0dfbbbf5009add5cc887bc754b`). That pin is a prospective
 integration baseline. Equivalence to the **private timed donor** that
 built binary `f9518a21…` is **not established**. Do not treat the binary
-SHA256 as a source commit. Pinned identity is not a working adapter.
+SHA256 as a source commit. C0 may be applied to the pin as a source
+transform ([C0_PUBLIC_ADAPTER.md](C0_PUBLIC_ADAPTER.md)); that is not
+P1 and not a compiled plugin.
 See [UPSTREAM_FEP_DMC.md](UPSTREAM_FEP_DMC.md).
 
 Team public-release permission is an owner confirmation, not something

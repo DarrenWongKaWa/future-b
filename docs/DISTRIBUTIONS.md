@@ -15,10 +15,12 @@ The sdist is **not** a dump of the GitHub tree. It includes only what
 is required to install and run `pytest` from the unpacked tarball.
 
 Historical native adapters (`patches/`, `historical/c2_oracle.py`) are
-repository artifacts. They are not a supported runtime API and are not
-a public FEP-DMC plugin. The public FEP-DMC **pin**
-([UPSTREAM_FEP_DMC.md](UPSTREAM_FEP_DMC.md)) is source identity, not
-an installer.
+repository artifacts. They are not a supported runtime API.
+
+`integration/c0` is the public C0 **source** adapter. It ships in the
+GitHub tree and in the sdist so those tests can run. It is **not** in
+the wheel. The pin ([UPSTREAM_FEP_DMC.md](UPSTREAM_FEP_DMC.md)) is
+still required before apply. This is not a compiled plugin.
 
 See [CAPABILITIES.md](CAPABILITIES.md) for what the snapshot can and
 cannot do.

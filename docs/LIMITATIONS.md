@@ -22,8 +22,10 @@
 - **P4/P5** were not trained. **R1 material consumer** was not
   implemented. **C6/C7** were not started.
 - **Upstream.** Luo–Bernardi compression and band-product sums are not
-  Future B novelty. A public FEP-DMC commit is pinned for identity
-  only; that pin is not a working adapter and is not the proven timed
-  donor.
-- **Pinned upstream identity does not yet mean Future B can be applied
-  automatically to that upstream.**
+  Future B novelty. A public FEP-DMC commit is pinned. C0 can be
+  applied as a **source transform** to that pin only. The pin is not
+  the proven timed donor.
+- **C0 is LEVEL 0 source validation.** It is not a `perturbo.x` build,
+  not a LiF runtime result, and not P1.
+- **Pinned upstream identity plus C0 does not mean Future B is a
+  complete FEP-DMC extension.**

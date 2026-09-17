@@ -241,7 +241,7 @@ def test_docs_quote_full_reference_commit_and_deny_adapter():
     assert commit in (ROOT / "docs" / "SOURCE_ATTRIBUTION.md").read_text()
     limitations = (ROOT / "docs" / "LIMITATIONS.md").read_text()
     assert (
-        "Pinned upstream identity does not yet mean Future B can be applied"
+        "Pinned upstream identity plus C0 does not mean Future B is a"
         in limitations
     )
     assert rec["historical_donor_equivalence"] == "not_established"

@@ -1,7 +1,7 @@
 # What the public snapshot actually provides
 
-v1.0.3 is a **methods-study archive** (science frozen at v1.0.0;
-v1.0.1–v1.0.3 are maintenance), not a general DiagMC library.
+v1.1.0 is a **methods-study archive** (science frozen at v1.0.0;
+v1.0.1–v1.1.0 are maintenance), not a general DiagMC library.
 
 | Capability | In this snapshot | Entry |
 |---|---|---|
@@ -14,7 +14,8 @@ v1.0.1–v1.0.3 are maintenance), not a general DiagMC library.
 | Raw clean-P1 block \(N,D,\tau\) series | **no** | summary-only |
 | Fortran excerpts (`linear_da_mod`, `update_swap`) | source archive; also wheel package-data | `future_b/fortran/` |
 | One-click native P1 plugin from public Perturbo | **no** | historical `patches/p1_clean` |
-| Public FEP-DMC source identity | pin only | `provenance/UPSTREAM_FEP_DMC.json` |
+| Public FEP-DMC source identity | pin | `provenance/UPSTREAM_FEP_DMC.json` |
+| C0 `wq` refresh on pinned public source | source transform only | `integration/c0` |
 | R1 recursive evaluator / CSE kernels | **no** | `r1_fixed_order` is metadata |
 | Wheel = full research archive | **no** | wheel is the Python helper |
 

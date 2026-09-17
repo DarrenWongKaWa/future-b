@@ -1,6 +1,6 @@
 # Public tests
 
-Layers (v1.0.3):
+Layers (v1.1.0):
 
 | file | layer |
 |---|---|
@@ -10,6 +10,7 @@ Layers (v1.0.3):
 | `test_provenance_identities.py` | public vs timed vs frozen checksum identities |
 | `test_packaging.py` | sdist/wheel boundaries; no private-path runtime |
 | `test_fep_dmc_upstream.py` | public FEP-DMC pin + fail-closed verifier (no network) |
+| `test_c0_adapter.py` | public C0 apply/verify contract (no network, no compiler) |
 | `test_r1_oracles.py` | historical R1 *metadata* only |
 | `test_c5_formation_q.py` | frozen C5 Q / HAC labels |
 
