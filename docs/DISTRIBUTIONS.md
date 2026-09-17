@@ -16,7 +16,9 @@ is required to install and run `pytest` from the unpacked tarball.
 
 Historical native adapters (`patches/`, `historical/c2_oracle.py`) are
 repository artifacts. They are not a supported runtime API and are not
-a public FEP-DMC plugin.
+a public FEP-DMC plugin. The public FEP-DMC **pin**
+([UPSTREAM_FEP_DMC.md](UPSTREAM_FEP_DMC.md)) is source identity, not
+an installer.
 
 See [CAPABILITIES.md](CAPABILITIES.md) for what the snapshot can and
 cannot do.

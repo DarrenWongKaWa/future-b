@@ -14,6 +14,7 @@ v1.0.1–v1.0.3 are maintenance), not a general DiagMC library.
 | Raw clean-P1 block \(N,D,\tau\) series | **no** | summary-only |
 | Fortran excerpts (`linear_da_mod`, `update_swap`) | source archive; also wheel package-data | `future_b/fortran/` |
 | One-click native P1 plugin from public Perturbo | **no** | historical `patches/p1_clean` |
+| Public FEP-DMC source identity | pin only | `provenance/UPSTREAM_FEP_DMC.json` |
 | R1 recursive evaluator / CSE kernels | **no** | `r1_fixed_order` is metadata |
 | Wheel = full research archive | **no** | wheel is the Python helper |
 

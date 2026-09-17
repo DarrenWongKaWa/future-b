@@ -9,6 +9,7 @@ Layers (v1.0.3):
 | `test_p1_clean_source.py` | source-structure of shipped Fortran excerpts |
 | `test_provenance_identities.py` | public vs timed vs frozen checksum identities |
 | `test_packaging.py` | sdist/wheel boundaries; no private-path runtime |
+| `test_fep_dmc_upstream.py` | public FEP-DMC pin + fail-closed verifier (no network) |
 | `test_r1_oracles.py` | historical R1 *metadata* only |
 | `test_c5_formation_q.py` | frozen C5 Q / HAC labels |
 

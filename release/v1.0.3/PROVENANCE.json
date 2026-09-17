@@ -36,6 +36,14 @@
     "sdist_self_testing": true,
     "wheel_is_not_research_archive": true
   },
+  "public_fep_dmc_upstream": {
+    "record": "provenance/UPSTREAM_FEP_DMC.json",
+    "repository": "https://github.com/yaoluo/FEP-DMC",
+    "reference_commit": "05d08449cffdbd0dfbbbf5009add5cc887bc754b",
+    "role": "prospective_public_integration_baseline",
+    "historical_donor_equivalence": "not_established",
+    "integration_support": false
+  },
   "historical_checksum_files": [
     "release/2026-09-16/SHA256SUMS.txt",
     "archive/closure/2026-09-16-final/SHA256SUMS.txt",

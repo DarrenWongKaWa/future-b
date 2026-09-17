@@ -35,6 +35,12 @@ as a checksum of the current tree (see [PUBLIC_MANIFEST.md](PUBLIC_MANIFEST.md))
 Future B patches sit **on top of** Perturbo. Fortran excerpts under
 `src/future_b/fortran/` and `patches/` are GPL-3 derived.
 
+The public yaoluo/FEP-DMC checkout Future B will target for later
+integration work is pinned in
+[`provenance/UPSTREAM_FEP_DMC.json`](../provenance/UPSTREAM_FEP_DMC.json).
+That pin is **not** the proven private timed donor and is **not** a
+working adapter. See [UPSTREAM_FEP_DMC.md](UPSTREAM_FEP_DMC.md).
+
 ## Future B original work
 
 - `add_external_ph` \(\omega_q\) refresh

@@ -13,7 +13,13 @@ Public excerpts are GPL-3 because they derive from Perturbo/FEP-DMC.
 Upstream citations: Luo, Park, Bernardi, Nat. Phys. **21**, 1275 (2025);
 Perturbo https://perturbo-code.github.io/ ; QE 6.5.
 
-Exact upstream git revision of the donor Perturbo tree is **not** in
-this snapshot (F09/F13). Do not treat binary SHA256 `f9518a21…` as a
-source commit. Team public-release permission is an owner confirmation,
-not something this file certifies.
+The **public** FEP-DMC reference checkout is pinned in
+[`provenance/UPSTREAM_FEP_DMC.json`](../provenance/UPSTREAM_FEP_DMC.json)
+(`05d08449cffdbd0dfbbbf5009add5cc887bc754b`). That pin is a prospective
+integration baseline. Equivalence to the **private timed donor** that
+built binary `f9518a21…` is **not established**. Do not treat the binary
+SHA256 as a source commit. Pinned identity is not a working adapter.
+See [UPSTREAM_FEP_DMC.md](UPSTREAM_FEP_DMC.md).
+
+Team public-release permission is an owner confirmation, not something
+this file certifies.

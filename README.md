@@ -80,9 +80,10 @@ Quantum ESPRESSO 6.5, Perturbo/FEP-DMC, Intel Fortran, HDF5 Fortran
 
 - [What is actually shipped](docs/CAPABILITIES.md)
 - [GitHub vs sdist vs wheel](docs/DISTRIBUTIONS.md)
+- [Public FEP-DMC pin (identity, not an adapter)](docs/UPSTREAM_FEP_DMC.md)
 - [v1.0.1 maintenance](docs/MAINTENANCE_1.0.1.md)
 - [v1.0.2 provenance repair](docs/MAINTENANCE_1.0.2.md)
-- [v1.0.3 packaging](docs/MAINTENANCE_1.0.3.md)
+- [v1.0.3 packaging and public FEP-DMC pin](docs/MAINTENANCE_1.0.3.md)
 - [Provenance (public source vs timed source vs frozen result)](docs/PROVENANCE.md)
 - [Scientific result](docs/SCIENTIFIC_RESULT.md)
 - [P1 method](docs/METHOD_P1.md)

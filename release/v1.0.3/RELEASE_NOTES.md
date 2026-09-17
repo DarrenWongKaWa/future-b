@@ -11,3 +11,7 @@
   under `historical/`.
 - GitHub research artifact, PyPI sdist, and wheel are documented as
   three different objects.
+- Public FEP-DMC source identity is pinned
+  (`05d08449cffdbd0dfbbbf5009add5cc887bc754b`) as a prospective
+  integration baseline. Historical donor equivalence is not established.
+  The pin is not a working adapter.
