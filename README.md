@@ -5,8 +5,8 @@ screening, event-level correctness checks, correlated-Monte-Carlo
 statistics, fixed-order graph reuse, and negative/unresolved benchmark
 results.
 
-**Project status: CLOSED** (`v1.0.0` science frozen; `v1.0.1` /
-`v1.0.2` maintenance). This is a **methods-study archive**, not an AI
+**Project status: CLOSED** (`v1.0.0` science frozen; `v1.0.1`–`v1.0.3`
+maintenance). This is a **methods-study archive**, not an AI
 acceleration framework and not a drop-in FEP-DMC plugin.
 
 Future B is a source-and-results archive of exact-corrected analytic
@@ -82,6 +82,7 @@ Quantum ESPRESSO 6.5, Perturbo/FEP-DMC, Intel Fortran, HDF5 Fortran
 - [GitHub vs sdist vs wheel](docs/DISTRIBUTIONS.md)
 - [v1.0.1 maintenance](docs/MAINTENANCE_1.0.1.md)
 - [v1.0.2 provenance repair](docs/MAINTENANCE_1.0.2.md)
+- [v1.0.3 packaging](docs/MAINTENANCE_1.0.3.md)
 - [Provenance (public source vs timed source vs frozen result)](docs/PROVENANCE.md)
 - [Scientific result](docs/SCIENTIFIC_RESULT.md)
 - [P1 method](docs/METHOD_P1.md)

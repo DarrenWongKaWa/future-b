@@ -1,6 +1,6 @@
 # Public tests
 
-Layers (v1.0.2):
+Layers (v1.0.3):
 
 | file | layer |
 |---|---|
@@ -8,6 +8,7 @@ Layers (v1.0.2):
 | `test_energy_zero.py`, `test_statistics.py`, `test_reject_state.py` | frozen-record / summary consistency |
 | `test_p1_clean_source.py` | source-structure of shipped Fortran excerpts |
 | `test_provenance_identities.py` | public vs timed vs frozen checksum identities |
+| `test_packaging.py` | sdist/wheel boundaries; no private-path runtime |
 | `test_r1_oracles.py` | historical R1 *metadata* only |
 | `test_c5_formation_q.py` | frozen C5 Q / HAC labels |
 

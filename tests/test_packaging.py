@@ -30,6 +30,8 @@ SDIST_TEST_DATA = (
     "release/2026-09-16/FINAL_PROVENANCE.json",
     "release/v1.0.2/SHA256SUMS.txt",
     "release/v1.0.2/PROVENANCE.json",
+    "release/v1.0.3/SHA256SUMS.txt",
+    "release/v1.0.3/PROVENANCE.json",
 )
 
 PRIVATE_PATH_NEEDLES = (

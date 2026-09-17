@@ -239,4 +239,4 @@ They are not Future B continuation tasks.
 | R1 fixed-order evaluator | `VALIDATED_IN_SCOPE` + `NO_ADDITIONAL_CSE_GAIN_ESTABLISHED` |
 | R1 real-material grouped consumer | `FUTURE_WORK` |
 | 1% ground-state \(Q\) | `NOT_CERTIFIED` / `NOT_PURSUED` |
-| GitHub package | `v1.0.2` provenance-repair maintenance (science frozen at `v1.0.0`) |
+| GitHub package | `v1.0.3` packaging maintenance (science frozen at `v1.0.0`) |

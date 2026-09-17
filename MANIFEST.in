@@ -23,6 +23,8 @@ include release/2026-09-16/SHA256SUMS.txt
 include release/2026-09-16/FINAL_PROVENANCE.json
 include release/v1.0.2/SHA256SUMS.txt
 include release/v1.0.2/PROVENANCE.json
+include release/v1.0.3/SHA256SUMS.txt
+include release/v1.0.3/PROVENANCE.json
 recursive-include tests *.py
 recursive-include src/future_b *.py *.f90
 global-exclude *.pyc

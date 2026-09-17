@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "future-b"
-version = "1.0.2"
+version = "1.0.3"
 description = "Future B (closed): methods-study archive of exact-corrected delayed acceptance for first-principles DiagMC"
 readme = "README.md"
 requires-python = ">=3.11"
