@@ -33,7 +33,9 @@ def main(argv: list[str] | None = None) -> int:
 
     pin = c0.load_json(pin_path)
     rec = c0.load_json(rec_path)
-    state, detail = c0.classify(tree, pin, rec)
+    p1_path = args.p1_record.resolve()
+    p1 = c0.load_json(p1_path) if p1_path.is_file() else None
+    state, detail = c0.classify(tree, pin, rec, p1)
     print(f"C0_STATE={state}")
     print(detail)
     rel = rec["preimage_file"]
@@ -51,7 +53,7 @@ def main(argv: list[str] | None = None) -> int:
             print("FAIL  classify PRISTINE but upstream verifier did not pass")
             return c0.EXIT_FAIL
         return c0.EXIT_OK
-    if state == c0.STATE_APPLIED:
+    if state in (c0.STATE_APPLIED, c0.STATE_P1, c0.STATE_C0_P1):
         print("pristine upstream verifier is expected to FAIL on this tree")
         return c0.EXIT_OK
     return c0.EXIT_FAIL

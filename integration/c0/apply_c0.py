@@ -40,27 +40,29 @@ def main(argv: list[str] | None = None) -> int:
 
     pin = c0.load_json(pin_path)
     rec = c0.load_json(rec_path)
+    p1_path = args.p1_record.resolve()
+    p1 = c0.load_json(p1_path) if p1_path.is_file() else None
     rel = rec["preimage_file"]
     path = tree / rel
-    state, detail = c0.classify(tree, pin, rec)
+    state, detail = c0.classify(tree, pin, rec, p1)
     print(f"C0_STATE={state}")
 
-    if state == c0.STATE_APPLIED:
+    if state in (c0.STATE_APPLIED, c0.STATE_C0_P1):
         print("ALREADY_APPLIED  exact C0 postimage; no write")
         return c0.EXIT_ALREADY
-    if state != c0.STATE_PRISTINE:
+    if state not in (c0.STATE_PRISTINE, c0.STATE_P1):
         print(f"FAIL  refuse {state}: {detail}")
         return c0.EXIT_FAIL
 
-    upstream = c0.run_upstream_verifier(tree, pin_path)
-    sys.stdout.write(upstream.stdout)
-    if upstream.returncode != 0:
-        print("FAIL  upstream identity is not official pristine")
-        return c0.EXIT_FAIL
+    if state == c0.STATE_PRISTINE:
+        upstream = c0.run_upstream_verifier(tree, pin_path)
+        sys.stdout.write(upstream.stdout)
+        if upstream.returncode != 0:
+            print("FAIL  upstream identity is not official pristine")
+            return c0.EXIT_FAIL
 
     source_bytes = path.read_bytes()
-    got = c0.sha256_bytes(source_bytes)
-    if got != rec["preimage_sha256"]:
+    if state == c0.STATE_PRISTINE and c0.sha256_bytes(source_bytes) != rec["preimage_sha256"]:
         print("FAIL  preimage SHA256 mismatch")
         return c0.EXIT_FAIL
 
@@ -82,7 +84,12 @@ def main(argv: list[str] | None = None) -> int:
 
     after_bytes = after.encode("utf-8")
     post = c0.sha256_bytes(after_bytes)
-    if post != rec["postimage_sha256"]:
+    if state == c0.STATE_P1:
+        want = (p1 or {}).get("states", {}).get("PUBLIC_C0_P1_APPLIED", {}).get(rel)
+        if want is None or post != want:
+            print(f"FAIL  C0-on-P1 candidate {post} != {want}")
+            return c0.EXIT_FAIL
+    elif post != rec["postimage_sha256"]:
         print(f"FAIL  candidate postimage {post} != record {rec['postimage_sha256']}")
         return c0.EXIT_FAIL
 
@@ -94,7 +101,7 @@ def main(argv: list[str] | None = None) -> int:
         return c0.EXIT_OK
 
     c0.atomic_write(path, after_bytes)
-    if c0.sha256_path(path) != rec["postimage_sha256"]:
+    if c0.sha256_path(path) != post:
         print("FAIL  write verification")
         return c0.EXIT_FAIL
     print(f"APPLIED  {rel}")

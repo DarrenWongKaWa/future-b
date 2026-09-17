@@ -25,7 +25,13 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 DEFAULT_PIN = ROOT / "provenance" / "UPSTREAM_FEP_DMC.json"
 DEFAULT_RECORD = ROOT / "provenance" / "C0_PUBLIC_PATCH.json"
+DEFAULT_P1 = ROOT / "provenance" / "P1_PUBLIC_PATCH.json"
 UPSTREAM_TOOL = ROOT / "tools" / "verify_fep_dmc_upstream.py"
+JJ_UPDATES = "perturbo-fep-dmc/pert-src/diagMC_JJ_updates.f90"
+MAKEFILE = "perturbo-fep-dmc/pert-src/makefile"
+
+STATE_P1 = "P1_APPLIED"
+STATE_C0_P1 = "C0_P1_APPLIED"
 
 SUBROUTINE_START = re.compile(
     r"^[ \t]*subroutine\s+add_external_ph\s*\(", re.M | re.I
@@ -129,7 +135,7 @@ def _file_dirty(mod, tree: Path, rel: str) -> bool:
     return st.returncode != 0 or bool(st.stdout.strip())
 
 
-def classify(tree: Path, pin: dict, rec: dict) -> tuple[str, str]:
+def classify(tree: Path, pin: dict, rec: dict, p1: dict | None = None) -> tuple[str, str]:
     """Return (state, detail). Official C0 identity requires own git toplevel."""
     mod = load_upstream_mod()
     target_rel = rec["preimage_file"]
@@ -157,6 +163,21 @@ def classify(tree: Path, pin: dict, rec: dict) -> tuple[str, str]:
         if not path.is_file():
             return STATE_UNKNOWN, f"missing {rel}"
         hashes[rel] = sha256_path(path)
+
+    if p1 and "states" in p1:
+        st = p1["states"]
+        p1_only = st.get("PUBLIC_P1_APPLIED", {})
+        both = st.get("PUBLIC_C0_P1_APPLIED", {})
+        if (
+            hashes.get(JJ_UPDATES) == p1_only.get(JJ_UPDATES)
+            and hashes.get(MAKEFILE) == p1_only.get(MAKEFILE)
+        ):
+            return STATE_P1, "P1 applied, C0 not applied"
+        if (
+            hashes.get(JJ_UPDATES) == both.get(JJ_UPDATES)
+            and hashes.get(MAKEFILE) == both.get(MAKEFILE)
+        ):
+            return STATE_C0_P1, "C0 and P1 applied"
 
     others = [rel for rel in files if rel != target_rel]
     for rel in others:
@@ -194,3 +215,4 @@ def add_tree_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--tree", type=Path, required=True, help="FEP-DMC checkout")
     parser.add_argument("--pin", type=Path, default=DEFAULT_PIN)
     parser.add_argument("--record", type=Path, default=DEFAULT_RECORD)
+    parser.add_argument("--p1-record", type=Path, default=DEFAULT_P1)
