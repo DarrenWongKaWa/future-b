@@ -53,6 +53,7 @@ docs/SCIENTIFIC_RESULT.md
 docs/SOURCE_ATTRIBUTION.md
 docs/STATISTICS.md
 docs/UNDERGRAD_EXPLANATION.md
+docs/UPSTREAM_FEP_DMC.md
 docs/VALIDATION.md
 docs/future_work/GROUND_STATE_1PCT.md
 docs/future_work/P4_P5_LEARNING_CANDIDATES.md
@@ -65,6 +66,7 @@ patches/c0_wq/README.md
 patches/c0_wq/apply_wq_refresh.py
 patches/p1_clean/README.md
 patches/p1_clean/apply_p1_clean.py
+provenance/UPSTREAM_FEP_DMC.json
 pyproject.toml
 release/2026-09-16/DATA_AUDIT.md
 release/2026-09-16/FINAL_DECISION.json
@@ -100,6 +102,7 @@ tests/test_audit_guards.py
 tests/test_c5_formation_q.py
 tests/test_da_balance.py
 tests/test_energy_zero.py
+tests/test_fep_dmc_upstream.py
 tests/test_forward_reverse.py
 tests/test_p1_clean_source.py
 tests/test_packaging.py
@@ -107,3 +110,4 @@ tests/test_provenance_identities.py
 tests/test_r1_oracles.py
 tests/test_reject_state.py
 tests/test_statistics.py
+tools/verify_fep_dmc_upstream.py
