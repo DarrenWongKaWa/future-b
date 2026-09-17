@@ -5,10 +5,11 @@ screening, event-level correctness checks, correlated-Monte-Carlo
 statistics, fixed-order graph reuse, and negative/unresolved benchmark
 results.
 
-**Project status: CLOSED** (`v1.0.0` science frozen; `v1.0.1`–`v1.1.0`
+**Project status: CLOSED** (`v1.0.0` science frozen; `v1.0.1`–`v1.2.0`
 maintenance). This is a **methods-study archive**, not an AI
-acceleration framework and not a drop-in FEP-DMC plugin. C0 is a
-source transform of the pinned public tree, not a compiled extension.
+acceleration framework and not a drop-in FEP-DMC plugin. C0 and P1 are
+LEVEL 0 source transforms of the pinned public tree, not a compiled
+extension and not the historical 0.956 binary.
 
 Future B is a source-and-results archive of exact-corrected analytic
 delayed acceptance in first-principles DiagMC. The public snapshot
@@ -83,6 +84,7 @@ Quantum ESPRESSO 6.5, Perturbo/FEP-DMC, Intel Fortran, HDF5 Fortran
 - [GitHub vs sdist vs wheel](docs/DISTRIBUTIONS.md)
 - [Public FEP-DMC pin](docs/UPSTREAM_FEP_DMC.md)
 - [Public C0 source adapter](docs/C0_PUBLIC_ADAPTER.md)
+- [Public P1 source adapter](docs/P1_PUBLIC_ADAPTER.md)
 - [v1.0.1 maintenance](docs/MAINTENANCE_1.0.1.md)
 - [v1.0.2 provenance repair](docs/MAINTENANCE_1.0.2.md)
 - [v1.0.3 packaging and public FEP-DMC pin](docs/MAINTENANCE_1.0.3.md)

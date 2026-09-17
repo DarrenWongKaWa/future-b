@@ -4,7 +4,8 @@ Checksum files in this repository are **not interchangeable**.
 
 | file | class | use as checksum of the current tree? |
 |---|---|---|
-| `release/v1.1.0/SHA256SUMS.txt` | **CURRENT** (this maintenance release) | **yes** |
+| `release/v1.2.0/SHA256SUMS.txt` | **CURRENT** (this maintenance release) | **yes** |
+| `release/v1.1.0/SHA256SUMS.txt` | **HISTORICAL** (public C0 source adapter) | **no** |
 | `release/v1.0.3/SHA256SUMS.txt` | **HISTORICAL** (packaging + upstream pin) | **no** |
 | `release/v1.0.2/SHA256SUMS.txt` | **HISTORICAL** (v1.0.2 provenance repair) | **no** |
 | `release/2026-09-16/SHA256SUMS.txt` | **HISTORICAL** (v1.0.0 wrap-up / GitHub candidate) | **no** |
@@ -30,6 +31,7 @@ After v1.0.1, current `README.md` and `docs/SCIENTIFIC_RESULT.md` **no
 longer** match `release/2026-09-16/SHA256SUMS.txt`. Frozen science
 JSON/CSV listed there still match (the result was not rewritten).
 
-Verify the **current** tree with `release/v1.1.0/SHA256SUMS.txt`.
-Do not use `release/v1.0.3/SHA256SUMS.txt` or
+Verify the **current** tree with `release/v1.2.0/SHA256SUMS.txt`.
+Do not use `release/v1.1.0/SHA256SUMS.txt`,
+`release/v1.0.3/SHA256SUMS.txt`, or
 `release/v1.0.2/SHA256SUMS.txt` as hashes of later files.

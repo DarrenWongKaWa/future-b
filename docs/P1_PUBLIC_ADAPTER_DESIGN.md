@@ -1,7 +1,8 @@
 # Public P1 adapter — design specification
 
-Status: **design only**. No public P1 implementation exists.
-Implementation, if authorized, is a later task bound to this document.
+Status: **design authority**. LEVEL 0 source implementation lives in
+`integration/p1/` and [`P1_PUBLIC_ADAPTER.md`](P1_PUBLIC_ADAPTER.md).
+This document is the contract; the how-to does not replace it.
 
 Pinned upstream: `https://github.com/yaoluo/FEP-DMC` commit
 `05d08449cffdbd0dfbbbf5009add5cc887bc754b`.

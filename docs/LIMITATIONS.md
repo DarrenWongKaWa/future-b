@@ -26,6 +26,9 @@
   applied as a **source transform** to that pin only. The pin is not
   the proven timed donor.
 - **C0 is LEVEL 0 source validation.** It is not a `perturbo.x` build,
-  not a LiF runtime result, and not P1.
+  not a LiF runtime result.
+- **P1 public adapter is LEVEL 0 source validation.** Exact stage-2
+  uses native `P_accept`. It is not a compiled plugin, not a LiF
+  runtime, not the 0.956 binary, and not a speedup claim.
 - **Pinned upstream identity plus C0 does not mean Future B is a
-  complete FEP-DMC extension.**
+  complete FEP-DMC extension.** P1 on the pin is the same ceiling.

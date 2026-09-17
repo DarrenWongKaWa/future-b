@@ -1,6 +1,6 @@
 # Public tests
 
-Layers (v1.1.0):
+Layers (v1.2.0):
 
 | file | layer |
 |---|---|
@@ -11,6 +11,8 @@ Layers (v1.1.0):
 | `test_packaging.py` | sdist/wheel boundaries; no private-path runtime |
 | `test_fep_dmc_upstream.py` | public FEP-DMC pin + fail-closed verifier (no network) |
 | `test_c0_adapter.py` | public C0 apply/verify contract (no network, no compiler) |
+| `test_p1_public_adapter.py` | public P1 apply/verify/C0 compose (no network, no compiler) |
+| `test_p1_public_fortran_contract.py` | public P1 module bans and DA falsifiers |
 | `test_r1_oracles.py` | historical R1 *metadata* only |
 | `test_c5_formation_q.py` | frozen C5 Q / HAC labels |
 
