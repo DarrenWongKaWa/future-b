@@ -44,6 +44,14 @@ SDIST_TEST_DATA = (
     "docs/LIMITATIONS.md",
     "release/v1.1.0/SHA256SUMS.txt",
     "release/v1.1.0/PROVENANCE.json",
+    "provenance/P1_PUBLIC_PATCH.json",
+    "integration/p1/apply_p1.py",
+    "integration/p1/verify_p1.py",
+    "integration/p1/p1_lib.py",
+    "integration/p1/linear_da_mod.f90",
+    "docs/P1_PUBLIC_ADAPTER.md",
+    "release/v1.2.0/SHA256SUMS.txt",
+    "release/v1.2.0/PROVENANCE.json",
 )
 
 PRIVATE_PATH_NEEDLES = (

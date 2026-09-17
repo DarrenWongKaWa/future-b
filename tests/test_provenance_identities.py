@@ -50,6 +50,12 @@ V103_SUMS_FILE_SHA256 = (
     "f2bb278dee11f5ae1002a9420f0e095b14cd54cffef904f13d7d81935032f418"
 )
 V103_CANDIDATE_COMMIT = "e2735a1603ad4351e3b84d1ec9109adb20d0d426"
+V111_SUMS = ROOT / "release/v1.1.0/SHA256SUMS.txt"
+V111_PROVENANCE = ROOT / "release/v1.1.0/PROVENANCE.json"
+V111_SUMS_FILE_SHA256 = (
+    "8b5752fb65c1feb82308a3d63452fe76504f45e39dc8d5ffaf5a2a20ba4ff158"
+)
+V111_CANDIDATE_COMMIT = "3bc9098888cafc8c88eaa19ad63009fcae56f6a6"
 FROZEN_P1 = ROOT / "benchmarks/p1_vs_bbest/frozen_results.json"
 LINEAR_DA = ROOT / "src/future_b/fortran/linear_da_mod.f90"
 
@@ -148,6 +154,13 @@ def test_v103_checksum_file_is_immutable():
     assert rec["public_version"] == "1.0.3"
 
 
+def test_v111_checksum_file_is_immutable():
+    assert V111_SUMS.is_file()
+    assert _sha256(V111_SUMS) == V111_SUMS_FILE_SHA256
+    rec = json.loads(V111_PROVENANCE.read_text())
+    assert rec["public_version"] == "1.1.0"
+
+
 def test_v102_science_and_production_fortran_still_match_v102_sums():
     sums = _parse_sums(V102_SUMS)
     for rel in (
@@ -161,6 +174,17 @@ def test_v102_science_and_production_fortran_still_match_v102_sums():
 
 def test_v103_science_and_production_fortran_still_match_v103_sums():
     sums = _parse_sums(V103_SUMS)
+    for rel in (
+        "benchmarks/p1_vs_bbest/frozen_results.json",
+        "benchmarks/c5_dev/frozen_results.json",
+        "src/future_b/fortran/linear_da_mod.f90",
+        "src/future_b/fortran/update_swap_p1_excerpt.f90",
+    ):
+        assert _sha256(ROOT / rel) == sums[rel], rel
+
+
+def test_v111_science_and_production_fortran_still_match_v111_sums():
+    sums = _parse_sums(V111_SUMS)
     for rel in (
         "benchmarks/p1_vs_bbest/frozen_results.json",
         "benchmarks/c5_dev/frozen_results.json",
