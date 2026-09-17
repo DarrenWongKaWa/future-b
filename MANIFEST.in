@@ -12,6 +12,7 @@ include docs/PROVENANCE.md
 include docs/PUBLIC_MANIFEST.md
 include docs/SCIENTIFIC_RESULT.md
 include docs/CAPABILITIES.md
+include docs/MAINTENANCE_1.0.3.md
 include tests/README.md
 include benchmarks/p1_vs_bbest/frozen_results.json
 include benchmarks/c5_dev/frozen_results.json

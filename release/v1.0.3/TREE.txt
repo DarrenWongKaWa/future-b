@@ -83,6 +83,7 @@ release/v1.0.2/TREE.txt
 release/v1.0.3/PROVENANCE.json
 release/v1.0.3/RELEASE_NOTES.md
 release/v1.0.3/SHA256SUMS.txt
+release/v1.0.3/TREE.txt
 setup.py
 src/future_b/README.md
 src/future_b/__init__.py
