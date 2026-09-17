@@ -447,6 +447,41 @@ def test_altered_driver_or_missing_module_is_unknown(tmp_path: Path):
     assert "UNKNOWN" in v2.stdout
 
 
+def test_c0_refuses_p1_tree_with_altered_unrelated_pin_file(tmp_path: Path):
+    payloads = _payloads()
+    _write_layout(tmp_path, payloads)
+    commit = _init_git(tmp_path)
+    pin, rec = _write_pin_and_p1(tmp_path, payloads, commit)
+    c0_src = _c0_src(payloads[JJ_UPDATES].decode())
+    c0_rec = tmp_path / "c0.json"
+    c0_rec.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "adapter": "c0_wq_refresh",
+                "upstream_repository": "https://github.com/yaoluo/FEP-DMC",
+                "upstream_commit": commit,
+                "preimage_file": JJ_UPDATES,
+                "preimage_sha256": _sha(payloads[JJ_UPDATES]),
+                "postimage_sha256": _sha(c0_src.encode()),
+                "changed_region": {
+                    "subroutine": "add_external_ph",
+                    "anchor": C0_ANCHOR,
+                    "inserted_line": C0_LINE,
+                },
+            }
+        )
+    )
+    args_p1 = _p1_args(pin, rec)
+    assert _run(APPLY, tmp_path, args_p1).returncode == 0
+    other = tmp_path / OTHER_PINNED[0]
+    other.write_bytes(other.read_bytes() + b"!x\n")
+    args_c0 = ["--pin", str(pin), "--record", str(c0_rec), "--p1-record", str(rec)]
+    proc = _run(C0_APPLY, tmp_path, args_c0)
+    assert proc.returncode == 1, proc.stdout + proc.stderr
+    assert "UNKNOWN" in proc.stdout or "FAIL" in proc.stdout
+
+
 def test_p1_transform_does_not_rewrite_c0_region():
     import p1_lib
 

@@ -179,15 +179,32 @@ def classify(tree: Path, pin: dict, rec: dict, p1: dict | None = None) -> tuple[
                 return False
             return all(hashes.get(rel) == digest for rel, digest in wanted.items())
 
+        def pin_untouched_ok() -> str | None:
+            skip = {JJ_UPDATES, MAKEFILE}
+            for rel in files:
+                if rel in skip:
+                    continue
+                if hashes[rel] != files[rel]["sha256"]:
+                    return f"{rel} hash mismatch"
+                if _file_dirty(mod, tree, rel):
+                    return f"{rel} dirty working tree"
+            return None
+
         if match_p1_state("PUBLIC_P1_APPLIED"):
             want_mod = p1.get("module_sha256")
             if want_mod and hashes.get(MODULE_REL) != want_mod:
                 return STATE_UNKNOWN, "P1 module identity mismatch"
+            why = pin_untouched_ok()
+            if why:
+                return STATE_UNKNOWN, why
             return STATE_P1, "P1 applied, C0 not applied"
         if match_p1_state("PUBLIC_C0_P1_APPLIED"):
             want_mod = p1.get("module_sha256")
             if want_mod and hashes.get(MODULE_REL) != want_mod:
                 return STATE_UNKNOWN, "P1 module identity mismatch"
+            why = pin_untouched_ok()
+            if why:
+                return STATE_UNKNOWN, why
             return STATE_C0_P1, "C0 and P1 applied"
 
     others = [rel for rel in files if rel != target_rel]
