@@ -1,0 +1,5 @@
+name,status_match,accepted_match,reject_stage_match,exact_y_match,ell_hat_abs_err,ell_R_abs_err,py_accepted,ft_accepted,py_reject_stage,ft_reject_stage,py_ell_hat,ft_ell_hat,py_ell_R,ft_ell_R,py_exact_y,ft_exact_y
+stage1_reject,True,True,True,True,0.0,,False,False,1,1,-0.5232871026284194,-0.5232871026284194,,,False,False
+stage2_reject,True,True,True,True,0.0,0.0,False,False,2,2,-0.5232871026284194,-0.5232871026284194,-0.5280651532670686,-0.5280651532670686,True,True
+accept,True,True,True,True,0.0,0.0,True,True,0,0,-0.5232871026284194,-0.5232871026284194,-0.5280651532670686,-0.5280651532670686,True,True
+asymmetric_q,True,True,True,True,0.0,0.0,True,True,0,0,-0.5232871026284194,-0.5232871026284194,-0.12806515326706858,-0.12806515326706858,True,True

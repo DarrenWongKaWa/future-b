@@ -1,0 +1,5 @@
+name,n_exact_graph,n_electron_twoband,n_vertex_sigmaz,n_matmul,n_trace,stage1_reject
+stage1_reject,0,0,0,0,0,True
+stage2_reject,2,2,4,6,2,False
+accept,2,2,4,6,2,False
+asymmetric_q,2,2,4,6,2,False
