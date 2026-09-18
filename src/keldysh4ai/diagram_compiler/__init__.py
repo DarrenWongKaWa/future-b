@@ -1,7 +1,8 @@
-"""Experimental diagram compiler over the R1 fixed-order family (Task 1).
+"""Experimental diagram compiler over the R1 fixed-order family.
 
-Research subsystem; see docs/DIAGRAM_COMPILER_TASK1.md. Not part of the
-Future B v1.x release surface and not used by C0/P1.
+Research subsystem; see docs/DIAGRAM_COMPILER_TASK1.md and
+docs/DIAGRAM_COMPILER_TASK2.md. Not part of the Future B v1.x release
+surface and not used by C0/P1.
 """
 
 from .canonical import (
@@ -15,6 +16,24 @@ from .canonical import (
     enumerate_pairings,
     open_chord_slots,
     validate_ir,
+)
+from .cheap_cost import GraphCost, graph_cost, lower_exact_cost
+from .cheap_evaluator import (
+    CheapDag,
+    CheapEvalError,
+    CheapEvaluator,
+    ExactEvaluator,
+    P1_CORRESPONDENCE,
+    compile_cheap,
+    compile_exact,
+    lower_cheap,
+    odd_clip,
+)
+from .cheap_policy import (
+    CheapPolicy,
+    CheapPolicyError,
+    POLICY_PROPAGATOR_ONLY_V1,
+    propagator_only_v1,
 )
 from .evaluator import (
     Binding,
@@ -46,19 +65,28 @@ from .r1_import import ImportRejected, import_r1_binding, import_r1_spec
 __all__ = [
     "Binding",
     "BindingError",
+    "CheapDag",
+    "CheapEvalError",
+    "CheapEvaluator",
+    "CheapPolicy",
+    "CheapPolicyError",
     "DagNode",
     "DagStats",
     "Diagram",
     "DiagramIR",
     "EvalDag",
+    "ExactEvaluator",
     "Factor",
     "Family",
+    "GraphCost",
     "ImportRejected",
     "IrError",
     "MODEL_SCALAR",
     "MODEL_TWOBAND",
     "MomentumForm",
     "OBJECT_SHARED_X_GROUP",
+    "P1_CORRESPONDENCE",
+    "POLICY_PROPAGATOR_ONLY_V1",
     "RULE_VERSION",
     "SCHEMA_VERSION",
     "SERIES_FULL",
@@ -68,19 +96,26 @@ __all__ = [
     "build_twoband_diagram",
     "build_twoband_ir",
     "chord_slots",
+    "compile_cheap",
     "compile_evaluator",
+    "compile_exact",
     "diagram_id",
     "enumerate_pairings",
     "evaluate_dag",
     "evaluate_diagramwise",
     "factor_value",
+    "graph_cost",
     "import_r1_binding",
     "import_r1_spec",
     "leaf_key",
+    "lower_cheap",
     "lower_diagramwise",
+    "lower_exact_cost",
     "lower_grouped",
     "numeric_close",
+    "odd_clip",
     "open_chord_slots",
+    "propagator_only_v1",
     "validate_binding",
     "validate_ir",
 ]
