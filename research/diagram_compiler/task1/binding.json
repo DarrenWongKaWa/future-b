@@ -1,0 +1,24 @@
+{
+  "L": 8,
+  "continuous_extension": false,
+  "data_version": "analytic_holstein_v1",
+  "delta": 0.35,
+  "finite_model": true,
+  "g": 0.8,
+  "gap": 0.5,
+  "gauge_id": "default",
+  "k": 0.7853981633974483,
+  "material_id": "synthetic",
+  "omega": 0.8,
+  "q": [
+    1.5707963267948966,
+    2.356194490192345
+  ],
+  "t": 1.0,
+  "tau": [
+    0.1,
+    0.27,
+    0.63,
+    0.94
+  ]
+}

@@ -1,0 +1,62 @@
+ERROR tests/test_m3_negative_controls.py::test_T0_degenerate_binding_is_g01_rejected
+ERROR tests/test_m3_negative_controls.py::test_cse_cross_driver_side_faults_fail_identically[crossing_sign_flip]
+ERROR tests/test_m3_negative_controls.py::test_cse_cross_driver_side_faults_fail_identically[drop_both_external]
+ERROR tests/test_m3_negative_controls.py::test_cse_cross_driver_side_faults_fail_identically[drop_left_external]
+ERROR tests/test_m3_negative_controls.py::test_cse_cross_driver_side_faults_fail_identically[drop_right_external]
+ERROR tests/test_m3_negative_controls.py::test_cse_cross_driver_side_faults_fail_identically[missing_jacobian]
+ERROR tests/test_m3_negative_controls.py::test_cse_cross_driver_side_faults_fail_identically[q_volume_extra_1_over_L]
+ERROR tests/test_m3_negative_controls.py::test_cse_cross_driver_side_faults_fail_identically[q_volume_extra_Ln]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[crossing_sign_flip-std_L2_k1_T0.8_Om4.0-2-1-0.8-4.0]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[crossing_sign_flip-std_L3_k1_T1.4_Om0.8-3-1-1.4-0.8]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[drop_both_external-std_L2_k1_T0.8_Om4.0-2-1-0.8-4.0]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[drop_both_external-std_L3_k1_T1.4_Om0.8-3-1-1.4-0.8]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[drop_left_external-std_L2_k1_T0.8_Om4.0-2-1-0.8-4.0]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[drop_left_external-std_L3_k1_T1.4_Om0.8-3-1-1.4-0.8]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[drop_right_external-std_L2_k1_T0.8_Om4.0-2-1-0.8-4.0]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[drop_right_external-std_L3_k1_T1.4_Om0.8-3-1-1.4-0.8]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[missing_jacobian-std_L2_k1_T0.8_Om4.0-2-1-0.8-4.0]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[missing_jacobian-std_L3_k1_T1.4_Om0.8-3-1-1.4-0.8]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[q_volume_extra_1_over_L-std_L2_k1_T0.8_Om4.0-2-1-0.8-4.0]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[q_volume_extra_1_over_L-std_L3_k1_T1.4_Om0.8-3-1-1.4-0.8]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[q_volume_extra_Ln-std_L2_k1_T0.8_Om4.0-2-1-0.8-4.0]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n1[q_volume_extra_Ln-std_L3_k1_T1.4_Om0.8-3-1-1.4-0.8]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n2[crossing_sign_flip]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n2[drop_both_external]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n2[drop_left_external]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n2[drop_right_external]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n2[missing_jacobian]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n2[q_volume_extra_1_over_L]
+ERROR tests/test_m3_negative_controls.py::test_every_fault_is_caught_n2[q_volume_extra_Ln]
+ERROR tests/test_m3_negative_controls.py::test_fault_none_is_bitwise_m3d_driver
+ERROR tests/test_m3_negative_controls.py::test_g0_correct_driver_exactly_zero_n1
+ERROR tests/test_m3_negative_controls.py::test_g0_correct_driver_exactly_zero_n2
+ERROR tests/test_m3_negative_controls.py::test_g0_faults_are_invisible_zero_times_fault
+ERROR tests/test_m3_negative_controls.py::test_k0_external_fault_blind_spot[drop_both_external]
+ERROR tests/test_m3_negative_controls.py::test_k0_external_fault_blind_spot[drop_left_external]
+ERROR tests/test_m3_negative_controls.py::test_k0_external_fault_blind_spot[drop_right_external]
+ERROR tests/test_m3_negative_controls.py::test_k0_non_external_faults_still_caught[crossing_sign_flip]
+ERROR tests/test_m3_negative_controls.py::test_k0_non_external_faults_still_caught[missing_jacobian]
+ERROR tests/test_m3_negative_controls.py::test_k0_non_external_faults_still_caught[q_volume_extra_1_over_L]
+ERROR tests/test_m3_negative_controls.py::test_k0_non_external_faults_still_caught[q_volume_extra_Ln]
+ERROR tests/test_m3_quadrature.py::test_n1_end_to_end_r1_vs_inline_analytic[2-0-0.2-0.8]
+ERROR tests/test_m3_quadrature.py::test_n1_end_to_end_r1_vs_inline_analytic[2-1-0.8-4.0]
+ERROR tests/test_m3_quadrature.py::test_n1_end_to_end_r1_vs_inline_analytic[3-1-1.4-0.8]
+ERROR tests/test_m3_quadrature.py::test_r1_vs_cse_same_measure_n1 - FileNotFo...
+ERROR tests/test_m3_quadrature.py::test_r1_vs_cse_same_measure_n2 - FileNotFo...
+FAILED tests/test_fp15r_lif.py::test_atb_identity - FileNotFoundError: /tmp/r...
+FAILED tests/test_fp15r_lif.py::test_native_l_and_x_cart - FileNotFoundError:...
+FAILED tests/test_m3_quadrature.py::test_build_compile_once_and_ledger_eval_counts
+FAILED tests/test_m4_sampler.py::test_estimate_case_rejects_mismatched_samples
+FAILED tests/test_m4_sampler.py::test_g_zero_exact_through_kernel - FileNotFo...
+FAILED tests/test_m5_local_group.py::test_compiled_kernel_matches_explicit_and_r1_equals_cse
+FAILED tests/test_r1_symbolic_reuse.py::test_compile_once_two_contexts - File...
+FAILED tests/test_r1_symbolic_reuse.py::test_create_session_fused_matches_oracle_and_does_not_rebuild
+FAILED tests/test_r1_symbolic_reuse.py::test_fused_batch_matches_public_and_rejects_unsorted
+FAILED tests/test_r1_symbolic_reuse.py::test_fused_context_rejects_foreign_kernel
+FAILED tests/test_r1_symbolic_reuse.py::test_g_zero_and_g_change - FileNotFou...
+FAILED tests/test_r5_phase2_campaign.py::test_cold_and_campaign_claim_cells_not_computed
+FAILED tests/test_r5_phase2_campaign.py::test_e_preprocess_absent - Assertion...
+FAILED tests/test_r5_phase2_campaign.py::test_historical_o_cache_diagnostic_matches_results
+FAILED tests/test_r5_phase2_campaign.py::test_production_claim_cells_not_computed
+FAILED tests/test_r5_phase2_s3_timing.py::test_g_claim_tables_still_not_computed
+FAILED tests/test_rm0_fep_bridge.py::test_fep_output_parser_reads_public_files
