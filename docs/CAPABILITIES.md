@@ -16,7 +16,7 @@ v1.0.1–v1.2.0 are maintenance), not a general DiagMC library.
 | One-click native P1 plugin from public Perturbo | **no** | historical `patches/p1_clean` |
 | Public FEP-DMC source identity | pin | `provenance/UPSTREAM_FEP_DMC.json` |
 | C0 `wq` refresh on pinned public source | source transform only | `integration/c0` |
-| Public P1 delayed acceptance on pinned FEP-DMC | source transform only (LEVEL 0) | `integration/p1` |
+| Public P1 delayed acceptance on pinned FEP-DMC | source transform + native JJ validation fixture (not 50 K 0.956) | `integration/p1`, `release/v1.2.0/NATIVE_VALIDATION.md` |
 | R1 recursive evaluator / CSE kernels | **no** | `r1_fixed_order` is metadata |
 | Wheel = full research archive | **no** | wheel is the Python helper |
 

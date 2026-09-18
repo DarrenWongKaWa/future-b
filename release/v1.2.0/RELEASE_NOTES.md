@@ -9,6 +9,13 @@
   Method0, one DMC band, `zeroTMC=.true.`, `sample_gt=.false.`, score
   `prop`. Finite T, multiband, and other methods `error stop`.
 - C0 and P1 compose in either order to the same postimage.
-- LEVEL 0 source validation. Not a `perturbo.x` build, not a LiF
-  runtime, not the historical 0.956 binary, no speedup claim.
+- Native validation (Ubuntu 22.04 / gfortran 11.4 / QE 6.5): four
+  source states link; P1 OFF matches pristine JJ counts on a pinned
+  seed; P1 ON Stage-1 skip, native-`P_accept` Stage 2, and counter
+  closure on a short public LiF JJ fixture at 1000 K (`zeroTMC=.true.`).
+  Details: `NATIVE_VALIDATION.md`.
+- Not the historical 0.956 binary. No speedup claim. Frozen
+  `P1_UNRESOLVED_WITHIN_BUDGET` unchanged.
 - Wheel does not ship the adapter. GitHub and the sdist do.
+- Fast Python/source CI is in `.github/workflows/ci.yml`. Full native
+  QE builds are release-gate evidence, not every-commit CI.

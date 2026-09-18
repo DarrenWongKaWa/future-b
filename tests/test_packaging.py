@@ -53,6 +53,7 @@ SDIST_TEST_DATA = (
     "docs/METHOD_P1.md",
     "release/v1.2.0/SHA256SUMS.txt",
     "release/v1.2.0/PROVENANCE.json",
+    "release/v1.2.0/NATIVE_VALIDATION.json",
 )
 
 PRIVATE_PATH_NEEDLES = (

@@ -54,6 +54,8 @@ include release/v1.1.0/RELEASE_NOTES.md
 include release/v1.2.0/SHA256SUMS.txt
 include release/v1.2.0/PROVENANCE.json
 include release/v1.2.0/RELEASE_NOTES.md
+include release/v1.2.0/NATIVE_VALIDATION.json
+include release/v1.2.0/NATIVE_VALIDATION.md
 recursive-include tests *.py
 recursive-include src/future_b *.py *.f90
 global-exclude *.pyc

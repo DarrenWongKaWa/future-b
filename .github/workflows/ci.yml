@@ -1,0 +1,68 @@
+name: ci
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: |
+          python -m pip install -U pip
+          python -m pip install -e '.[dev]' build twine
+      - name: Tests
+        run: python -m pytest -q
+      - name: Build and twine
+        run: |
+          python -m build
+          python -m twine check dist/*
+      - name: Wheel install
+        run: |
+          python -m pip install dist/future_b-*.whl
+          python -m pip check
+          python -c 'import future_b; assert future_b.__version__==open("VERSION").read().strip()'
+  sdist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python -m pip install -U pip build pytest
+          python -m pip install '.[dev]'
+          python -m build --sdist
+          mkdir /tmp/sdist && tar -xzf dist/future_b-*.tar.gz -C /tmp/sdist
+          cd /tmp/sdist/future_b-*
+          python -m pip install -e '.[dev]'
+          python -m pytest -q
+  fep-dmc-source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -U pip
+      - name: Pin clone and adapters
+        run: |
+          git clone --quiet https://github.com/yaoluo/FEP-DMC /tmp/fep
+          git -C /tmp/fep checkout --quiet 05d08449cffdbd0dfbbbf5009add5cc887bc754b
+          python tools/verify_fep_dmc_upstream.py /tmp/fep
+          python integration/c0/apply_c0.py --tree /tmp/fep --dry-run
+          python integration/c0/apply_c0.py --tree /tmp/fep
+          python integration/c0/verify_c0.py --tree /tmp/fep
+          git -C /tmp/fep restore perturbo-fep-dmc/pert-src/diagMC_JJ_updates.f90
+          python integration/p1/apply_p1.py --tree /tmp/fep --dry-run
+          python integration/p1/apply_p1.py --tree /tmp/fep
+          python integration/p1/verify_p1.py --tree /tmp/fep

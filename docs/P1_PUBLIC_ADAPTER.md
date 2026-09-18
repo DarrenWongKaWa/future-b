@@ -3,7 +3,11 @@
 This is the **how-to** for the public P1 source adapter. The contract is
 [`P1_PUBLIC_ADAPTER_DESIGN.md`](P1_PUBLIC_ADAPTER_DESIGN.md).
 
-## Implemented (LEVEL 0)
+## Implemented (LEVEL 0 source + LEVEL 2 native build)
+
+Native JJ validation (short public LiF fixture at 1000 K, `zeroTMC=.true.`):
+see [`release/v1.2.0/NATIVE_VALIDATION.md`](../release/v1.2.0/NATIVE_VALIDATION.md).
+Not the 50 K production timing run and not a speedup claim.
 
 A third party with Future B and a pin checkout can verify, dry-run,
 apply, and verify P1 (and compose with C0) with no private tree.
@@ -52,8 +56,8 @@ Default `LINEAR_DA=off`: no aux RNG, no extra `cal_ek_int`, native
 
 ## Not established
 
-- Compile of `perturbo.x` (LEVEL 1/2)
-- Native P1-off seed-sequence equality on a running binary
-- LiF runtime / target-equivalence (LEVEL 3B/4)
-- Speedup
+- 50 K LiF production statistics / six-chain 0.956 protocol
+- ≥5% wall-clock speedup or equal-precision gain
 - Identity with the historical 0.956 timed donor
+- Finite-T, multiband, or `DMC_Method≠0`
+- Every-commit native CI (QE 6.5 is too heavy for GitHub-hosted runners)
