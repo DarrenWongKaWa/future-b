@@ -1,0 +1,20 @@
+{
+  "cheap_policy_name": "propagator_only_v1",
+  "cheap_policy_schema": 1,
+  "design": "B",
+  "diagram_ir_digest": "cf0f086bf76dbe4b614fbfc2bdbb47748aa5dd5778734c60ba1a119f7be64e58",
+  "diagram_ir_schema": "1.0.0",
+  "exact_lowering": "compile_exact/lower_diagramwise_share",
+  "numerical": {
+    "atol": 1e-12,
+    "clip": "none",
+    "rng_log_floor": 1e-300,
+    "rtol": 1e-10
+  },
+  "proposal_kind": "provided_log_ratio",
+  "schema_version": 1,
+  "spec_kind": "DelayedAcceptanceKernelSpec",
+  "stage1": "min(1, exp(ell_hat)); ell_hat = log W_hat(y) - log W_hat(x)",
+  "stage2": "min(1, exp(ell_R - ell_hat)); ell_R = log pi(y)-log pi(x) + log q(y,x)-log q(x,y)",
+  "target_policy_name": "positive_real_F_v1"
+}
