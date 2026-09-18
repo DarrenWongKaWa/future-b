@@ -1,8 +1,8 @@
 """Experimental diagram compiler over the R1 fixed-order family.
 
-Research subsystem; see docs/DIAGRAM_COMPILER_TASK1.md and
-docs/DIAGRAM_COMPILER_TASK2.md. Not part of the Future B v1.x release
-surface and not used by C0/P1.
+Research subsystem; see docs/DIAGRAM_COMPILER_TASK1.md,
+docs/DIAGRAM_COMPILER_TASK2.md, and docs/DIAGRAM_COMPILER_TASK3.md.
+Not part of the Future B v1.x release surface and not used by C0/P1.
 """
 
 from .canonical import (
@@ -35,6 +35,20 @@ from .cheap_policy import (
     POLICY_PROPAGATOR_ONLY_V1,
     propagator_only_v1,
 )
+from .da_kernel import (
+    DAError,
+    DATransitionResult,
+    DelayedAcceptanceKernel,
+    DelayedAcceptanceKernelSpec,
+    acceptance_probability,
+    compile_delayed_acceptance,
+    delayed_acceptance_identity,
+    ell_R_design_b,
+    ell_hat_state_weight,
+    transition_matrix,
+)
+from .proposal import ProposalError, ProposalSpec
+from .target_policy import TargetPolicy, TargetPolicyError, positive_real_F_v1
 from .evaluator import (
     Binding,
     BindingError,
@@ -70,8 +84,12 @@ __all__ = [
     "CheapEvaluator",
     "CheapPolicy",
     "CheapPolicyError",
+    "DAError",
+    "DATransitionResult",
     "DagNode",
     "DagStats",
+    "DelayedAcceptanceKernel",
+    "DelayedAcceptanceKernelSpec",
     "Diagram",
     "DiagramIR",
     "EvalDag",
@@ -86,20 +104,29 @@ __all__ = [
     "MomentumForm",
     "OBJECT_SHARED_X_GROUP",
     "P1_CORRESPONDENCE",
+    "ProposalError",
+    "ProposalSpec",
     "POLICY_PROPAGATOR_ONLY_V1",
     "RULE_VERSION",
     "SCHEMA_VERSION",
     "SERIES_FULL",
+    "TargetPolicy",
+    "TargetPolicyError",
     "Variables",
+    "acceptance_probability",
     "build_scalar_diagram",
     "build_scalar_ir",
     "build_twoband_diagram",
     "build_twoband_ir",
     "chord_slots",
     "compile_cheap",
+    "compile_delayed_acceptance",
     "compile_evaluator",
     "compile_exact",
+    "delayed_acceptance_identity",
     "diagram_id",
+    "ell_R_design_b",
+    "ell_hat_state_weight",
     "enumerate_pairings",
     "evaluate_dag",
     "evaluate_diagramwise",
@@ -115,7 +142,9 @@ __all__ = [
     "numeric_close",
     "odd_clip",
     "open_chord_slots",
+    "positive_real_F_v1",
     "propagator_only_v1",
+    "transition_matrix",
     "validate_binding",
     "validate_ir",
 ]
