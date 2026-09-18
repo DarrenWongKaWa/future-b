@@ -1,0 +1,505 @@
+{
+  "cases": [
+    {
+      "exact_log_weight_x": 0.0,
+      "exact_x_valid": false,
+      "expected": {
+        "accepted": false,
+        "ell_R": null,
+        "ell_R_valid": false,
+        "ell_hat": -0.5232871026284194,
+        "exact_y_evaluated": false,
+        "reject_stage": 1,
+        "status": 0
+      },
+      "log_q": 0.0,
+      "name": "stage1_reject",
+      "text_sha256": "bbb2a00d9c67d9e9d924ffb351b3f27ccdd8ff017268e2db4768e5338d9b8ced",
+      "u1": 0.9,
+      "u2": 0.1,
+      "x": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.5,
+        "gap": 0.5,
+        "k": 0.0,
+        "omega": 0.8,
+        "q": [
+          1.5707963267948966
+        ],
+        "t": 1.0,
+        "tau": [
+          0.05,
+          0.1
+        ]
+      },
+      "y": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.4,
+        "gap": 0.5,
+        "k": 1.5707963267948966,
+        "omega": 0.9,
+        "q": [
+          3.141592653589793
+        ],
+        "t": 1.1,
+        "tau": [
+          0.07,
+          0.14
+        ]
+      }
+    },
+    {
+      "exact_log_weight_x": 0.0,
+      "exact_x_valid": false,
+      "expected": {
+        "accepted": false,
+        "ell_R": -0.5280651532670686,
+        "ell_R_valid": true,
+        "ell_hat": -0.5232871026284194,
+        "exact_y_evaluated": true,
+        "reject_stage": 2,
+        "status": 0
+      },
+      "log_q": 0.0,
+      "name": "stage2_reject",
+      "text_sha256": "66a2279164933dc986412992c7be960c18dce41f4a4dd62e3bf55dd13a76e2f8",
+      "u1": 1e-16,
+      "u2": 0.9976166730433508,
+      "x": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.5,
+        "gap": 0.5,
+        "k": 0.0,
+        "omega": 0.8,
+        "q": [
+          1.5707963267948966
+        ],
+        "t": 1.0,
+        "tau": [
+          0.05,
+          0.1
+        ]
+      },
+      "y": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.4,
+        "gap": 0.5,
+        "k": 1.5707963267948966,
+        "omega": 0.9,
+        "q": [
+          3.141592653589793
+        ],
+        "t": 1.1,
+        "tau": [
+          0.07,
+          0.14
+        ]
+      }
+    },
+    {
+      "exact_log_weight_x": 0.0,
+      "exact_x_valid": false,
+      "expected": {
+        "accepted": true,
+        "ell_R": -0.5280651532670686,
+        "ell_R_valid": true,
+        "ell_hat": -0.5232871026284194,
+        "exact_y_evaluated": true,
+        "reject_stage": 0,
+        "status": 0
+      },
+      "log_q": 0.0,
+      "name": "accept",
+      "text_sha256": "cac117c005389c7dc333a1974edf4543b90a730e8d901db5dcb2537d57d50291",
+      "u1": 1e-16,
+      "u2": 1e-16,
+      "x": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.5,
+        "gap": 0.5,
+        "k": 0.0,
+        "omega": 0.8,
+        "q": [
+          1.5707963267948966
+        ],
+        "t": 1.0,
+        "tau": [
+          0.05,
+          0.1
+        ]
+      },
+      "y": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.4,
+        "gap": 0.5,
+        "k": 1.5707963267948966,
+        "omega": 0.9,
+        "q": [
+          3.141592653589793
+        ],
+        "t": 1.1,
+        "tau": [
+          0.07,
+          0.14
+        ]
+      }
+    },
+    {
+      "exact_log_weight_x": 0.0,
+      "exact_x_valid": false,
+      "expected": {
+        "accepted": true,
+        "ell_R": -0.12806515326706858,
+        "ell_R_valid": true,
+        "ell_hat": -0.5232871026284194,
+        "exact_y_evaluated": true,
+        "reject_stage": 0,
+        "status": 0
+      },
+      "log_q": 0.4,
+      "name": "asymmetric_q",
+      "text_sha256": "b3143ad17c4c2c24b8b0a7ab3da865eb736889c47e705f0045377f99b76707a8",
+      "u1": 1e-16,
+      "u2": 1e-16,
+      "x": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.5,
+        "gap": 0.5,
+        "k": 0.0,
+        "omega": 0.8,
+        "q": [
+          1.5707963267948966
+        ],
+        "t": 1.0,
+        "tau": [
+          0.05,
+          0.1
+        ]
+      },
+      "y": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.4,
+        "gap": 0.5,
+        "k": 1.5707963267948966,
+        "omega": 0.9,
+        "q": [
+          3.141592653589793
+        ],
+        "t": 1.1,
+        "tau": [
+          0.07,
+          0.14
+        ]
+      }
+    },
+    {
+      "exact_log_weight_x": -2.2317103095031587,
+      "exact_x_valid": true,
+      "expected": {
+        "accepted": true,
+        "ell_R": -0.5280651532670686,
+        "ell_R_valid": true,
+        "ell_hat": -0.5232871026284194,
+        "exact_y_evaluated": true,
+        "reject_stage": 0,
+        "status": 0
+      },
+      "log_q": 0.0,
+      "name": "cached_exact_x",
+      "text_sha256": "8e993e423c2b368dfa4b3faa6c4de0e49b488e08e0b5f8b6293a226fe63f34ce",
+      "u1": 1e-16,
+      "u2": 1e-16,
+      "x": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.5,
+        "gap": 0.5,
+        "k": 0.0,
+        "omega": 0.8,
+        "q": [
+          1.5707963267948966
+        ],
+        "t": 1.0,
+        "tau": [
+          0.05,
+          0.1
+        ]
+      },
+      "y": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.4,
+        "gap": 0.5,
+        "k": 1.5707963267948966,
+        "omega": 0.9,
+        "q": [
+          3.141592653589793
+        ],
+        "t": 1.1,
+        "tau": [
+          0.07,
+          0.14
+        ]
+      }
+    },
+    {
+      "exact_log_weight_x": 0.0,
+      "exact_x_valid": false,
+      "expected": {
+        "accepted": true,
+        "ell_R": -0.5280651532670686,
+        "ell_R_valid": true,
+        "ell_hat": -0.5232871026284194,
+        "exact_y_evaluated": true,
+        "reject_stage": 0,
+        "status": 0
+      },
+      "log_q": 0.0,
+      "name": "uncached_exact_x",
+      "text_sha256": "cac117c005389c7dc333a1974edf4543b90a730e8d901db5dcb2537d57d50291",
+      "u1": 1e-16,
+      "u2": 1e-16,
+      "x": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.5,
+        "gap": 0.5,
+        "k": 0.0,
+        "omega": 0.8,
+        "q": [
+          1.5707963267948966
+        ],
+        "t": 1.0,
+        "tau": [
+          0.05,
+          0.1
+        ]
+      },
+      "y": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.4,
+        "gap": 0.5,
+        "k": 1.5707963267948966,
+        "omega": 0.9,
+        "q": [
+          3.141592653589793
+        ],
+        "t": 1.1,
+        "tau": [
+          0.07,
+          0.14
+        ]
+      }
+    },
+    {
+      "exact_log_weight_x": 0.0,
+      "exact_x_valid": false,
+      "expected": {
+        "accepted": false,
+        "ell_R": null,
+        "ell_R_valid": false,
+        "ell_hat": null,
+        "exact_y_evaluated": false,
+        "reject_stage": 0,
+        "status": 2
+      },
+      "log_q": 0.0,
+      "name": "invalid_target_g0",
+      "text_sha256": "1d2878f6f20c0a78b4d64fec45cf91b0794bdb623ba4528f10dc8d3d210b6187",
+      "u1": 0.5,
+      "u2": 0.5,
+      "x": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.0,
+        "gap": 0.5,
+        "k": 0.0,
+        "omega": 0.8,
+        "q": [
+          1.5707963267948966
+        ],
+        "t": 1.0,
+        "tau": [
+          0.05,
+          0.1
+        ]
+      },
+      "y": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.4,
+        "gap": 0.5,
+        "k": 1.5707963267948966,
+        "omega": 0.9,
+        "q": [
+          3.141592653589793
+        ],
+        "t": 1.1,
+        "tau": [
+          0.07,
+          0.14
+        ]
+      }
+    },
+    {
+      "exact_log_weight_x": 0.0,
+      "exact_x_valid": false,
+      "expected": {
+        "accepted": false,
+        "ell_R": null,
+        "ell_R_valid": false,
+        "ell_hat": null,
+        "exact_y_evaluated": false,
+        "reject_stage": 0,
+        "status": 3
+      },
+      "log_q": "inf",
+      "name": "invalid_proposal_ratio",
+      "text_sha256": "a7809c73a2e3fa64fe416df58f5a5dd781be8e00ca187f81ed56dd8e0fbd2b28",
+      "u1": 0.5,
+      "u2": 0.5,
+      "x": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.5,
+        "gap": 0.5,
+        "k": 0.0,
+        "omega": 0.8,
+        "q": [
+          1.5707963267948966
+        ],
+        "t": 1.0,
+        "tau": [
+          0.05,
+          0.1
+        ]
+      },
+      "y": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.4,
+        "gap": 0.5,
+        "k": 1.5707963267948966,
+        "omega": 0.9,
+        "q": [
+          3.141592653589793
+        ],
+        "t": 1.1,
+        "tau": [
+          0.07,
+          0.14
+        ]
+      }
+    },
+    {
+      "exact_log_weight_x": 0.0,
+      "exact_x_valid": false,
+      "expected": {
+        "accepted": false,
+        "ell_R": null,
+        "ell_R_valid": false,
+        "ell_hat": null,
+        "exact_y_evaluated": false,
+        "reject_stage": 0,
+        "status": 4
+      },
+      "log_q": 0.0,
+      "name": "invalid_u1",
+      "text_sha256": "8fe89133be5e6a582f01ab1e34f65062fb09056b05cee6334d44cc207e6963df",
+      "u1": -0.1,
+      "u2": 0.5,
+      "x": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.5,
+        "gap": 0.5,
+        "k": 0.0,
+        "omega": 0.8,
+        "q": [
+          1.5707963267948966
+        ],
+        "t": 1.0,
+        "tau": [
+          0.05,
+          0.1
+        ]
+      },
+      "y": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.4,
+        "gap": 0.5,
+        "k": 1.5707963267948966,
+        "omega": 0.9,
+        "q": [
+          3.141592653589793
+        ],
+        "t": 1.1,
+        "tau": [
+          0.07,
+          0.14
+        ]
+      }
+    },
+    {
+      "exact_log_weight_x": 0.0,
+      "exact_x_valid": false,
+      "expected": {
+        "accepted": false,
+        "ell_R": null,
+        "ell_R_valid": false,
+        "ell_hat": null,
+        "exact_y_evaluated": false,
+        "reject_stage": 0,
+        "status": 4
+      },
+      "log_q": 0.0,
+      "name": "invalid_u2",
+      "text_sha256": "500c08ac1d79156a177d00276f9c253080cac13bd8eac77a9a793eb6034db91d",
+      "u1": 0.5,
+      "u2": 1.1,
+      "x": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.5,
+        "gap": 0.5,
+        "k": 0.0,
+        "omega": 0.8,
+        "q": [
+          1.5707963267948966
+        ],
+        "t": 1.0,
+        "tau": [
+          0.05,
+          0.1
+        ]
+      },
+      "y": {
+        "L": 4,
+        "delta": 0.35,
+        "g": 0.4,
+        "gap": 0.5,
+        "k": 1.5707963267948966,
+        "omega": 0.9,
+        "q": [
+          3.141592653589793
+        ],
+        "t": 1.1,
+        "tau": [
+          0.07,
+          0.14
+        ]
+      }
+    }
+  ],
+  "schema": "diagram_compiler_task6_fixtures_v1"
+}

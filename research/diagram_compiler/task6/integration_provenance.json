@@ -1,0 +1,13 @@
+{
+  "architecture": "A_separate_validation_executable",
+  "binary_sha256": "1f2dfd60668ef8a5aa11fa0fe147293546208d76dc9d137577bcde14cf69d59e",
+  "docker_image": "futureb-u22-env:local",
+  "driver_sha256": "3425c7c5f0b42d51c3006a80c0cdb3522f44d1ccb71f079518084a5937fc6a81",
+  "fep_dmc_commit": "05d08449cffdbd0dfbbbf5009add5cc887bc754b",
+  "fortran_source_sha256": "ff4aa2de2338cb9c6894487ac805b4bbd971549dfbdb0e1480888c5af588c32e",
+  "gfortran_version": "GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "level": 2,
+  "native_ir_digest": "4932e8b066554e966b71efb9b54c69974e17dcca82868d8df511927d2f03be31",
+  "production_fep_dmc_modified": false,
+  "runtime_sha256": "64ec0f3071380023e9287197adc815d05cd51a6c5c79889b0d35cb162b7f85b2"
+}
