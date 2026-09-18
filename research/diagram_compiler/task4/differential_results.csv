@@ -1,0 +1,5 @@
+accepted_match,ell_R_native,ell_hat_native,exact_y_match,name,native_accepted,py_accepted
+True,,-0.5232871026284194,True,stage1_reject,False,False
+True,-0.5280651532670686,-0.5232871026284194,True,stage2_reject,False,False
+True,-0.5280651532670686,-0.5232871026284194,True,accept,True,True
+True,-0.12806515326706858,-0.5232871026284194,True,asymmetric_q,True,True

@@ -1,0 +1,8 @@
+{
+  "cfg_laziness": true,
+  "differential_pass": true,
+  "finite_state_pass": true,
+  "ir_kind": "NativeKernelIR",
+  "representation": "typed_ssa_cfg",
+  "wall_speedup_claim": false
+}

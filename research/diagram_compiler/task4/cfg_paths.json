@@ -1,0 +1,28 @@
+{
+  "blocks": [
+    "entry",
+    "reject_stage1",
+    "exact_candidate",
+    "use_cache",
+    "compute_exact_x",
+    "after_exact_x",
+    "reject_stage2",
+    "accept"
+  ],
+  "entry": "entry",
+  "exact_ops_on_stage1_reject": [],
+  "reachable_from_entry": [
+    "accept",
+    "after_exact_x",
+    "compute_exact_x",
+    "entry",
+    "exact_candidate",
+    "reject_stage1",
+    "reject_stage2",
+    "use_cache"
+  ],
+  "stage1_reject_blocks": [
+    "entry",
+    "reject_stage1"
+  ]
+}

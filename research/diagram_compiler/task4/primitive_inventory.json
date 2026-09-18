@@ -1,0 +1,54 @@
+{
+  "cheap_ops": [
+    "add_f64",
+    "const_c128",
+    "const_f64",
+    "load",
+    "load_index",
+    "mul_c128",
+    "mul_f64",
+    "prim.electron_scalar",
+    "prim.phonon",
+    "prim.prefactor",
+    "sub_f64"
+  ],
+  "control_ops": [
+    "add_f64",
+    "call_graph",
+    "check_log_q",
+    "const_f64",
+    "load_input",
+    "log_positive_real",
+    "log_uniform",
+    "lt_f64",
+    "min_f64",
+    "phi",
+    "sub_f64"
+  ],
+  "exact_ops": [
+    "add_f64",
+    "const_c128",
+    "const_c128_m2",
+    "const_f64",
+    "load",
+    "load_index",
+    "matmul",
+    "mul_c128",
+    "mul_f64",
+    "prim.electron_twoband",
+    "prim.phonon",
+    "prim.vertex_sigmaz",
+    "scale_m2",
+    "sub_f64",
+    "trace"
+  ],
+  "primitive_set": "native_kernel_v1",
+  "schema_version": 1,
+  "signatures": {
+    "prim.electron_scalar": "(k_eff:f64, t:f64, dtau:f64) -> c128; Gel=exp(-2t(1-cos k_eff) dtau)",
+    "prim.electron_twoband": "(k_eff,t,dtau,delta,gap) -> c128_m2; U=exp(-H dtau) via eigh",
+    "prim.phonon": "(omega:f64, dtau:f64) -> c128; D=exp(-omega dtau)",
+    "prim.prefactor": "(g:f64, L:f64; n:i64 attr) -> c128; (g/sqrt(L))**(2n)",
+    "prim.vertex_sigmaz": "(g:f64, L:f64) -> c128_m2; (g/sqrt(L))*diag(1,-1)"
+  }
+}

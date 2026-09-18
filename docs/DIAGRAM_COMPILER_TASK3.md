@@ -175,4 +175,5 @@ The spec records policy names, IR digest, Design B stage plan, and
 numerical guards. Missing for native codegen: a Native Kernel IR for
 the cheap/exact DAGs, a Fortran ABI for `Binding` and two uniforms,
 explicit current-state exact cache layout, and a decision not to emit
-Python closures. Do not generate Fortran in Task 3.
+Python closures. Do not generate Fortran in Task 3. Task 4 lives on
+`diagram-compiler/task4-native-kernel-ir`.

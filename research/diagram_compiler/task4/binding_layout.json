@@ -1,0 +1,56 @@
+{
+  "fields": [
+    {
+      "name": "k",
+      "shape": [],
+      "type": "f64"
+    },
+    {
+      "name": "q",
+      "shape": [
+        1
+      ],
+      "type": "f64"
+    },
+    {
+      "name": "tau",
+      "shape": [
+        2
+      ],
+      "type": "f64"
+    },
+    {
+      "name": "t",
+      "shape": [],
+      "type": "f64"
+    },
+    {
+      "name": "omega",
+      "shape": [],
+      "type": "f64"
+    },
+    {
+      "name": "g",
+      "shape": [],
+      "type": "f64"
+    },
+    {
+      "name": "L",
+      "shape": [],
+      "type": "i64"
+    },
+    {
+      "name": "delta",
+      "shape": [],
+      "type": "f64"
+    },
+    {
+      "name": "gap",
+      "shape": [],
+      "type": "f64"
+    }
+  ],
+  "model": "Holstein_twoband_hermitian",
+  "order": 1,
+  "schema_version": 1
+}
