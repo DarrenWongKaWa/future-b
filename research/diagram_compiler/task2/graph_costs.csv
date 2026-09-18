@@ -1,0 +1,8 @@
+cheap_expensive_primitives,cheap_n_eigh,cheap_n_matmul,cheap_n_trace,cheap_n_vertex,cheap_unique_nodes,exact_expensive_primitives,exact_n_eigh,exact_n_matmul,exact_n_trace,exact_n_vertex,exact_unique_nodes,model,n
+0,0,0,0,0,7,0,0,0,0,0,7,scalar,1
+0,0,0,0,0,28,0,0,0,0,0,28,scalar,2
+0,0,0,0,0,124,0,0,0,0,0,124,scalar,3
+0,0,0,0,0,803,0,0,0,0,0,803,scalar,4
+0,0,0,0,0,7,7,1,3,1,2,12,twoband,1
+0,0,0,0,0,28,28,5,15,1,7,47,twoband,2
+0,0,0,0,0,124,110,13,77,1,19,194,twoband,3

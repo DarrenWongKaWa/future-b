@@ -1,0 +1,17 @@
+{
+  "task1_head": "1185d81741401e8b3d0729cd315c120a79372f60",
+  "compiler_tests_passed": 281,
+  "differential_cases": 224,
+  "max_absolute_error_from_r1_including_Op": 2.7755575615628914e-17,
+  "atol": 1e-12,
+  "rtol": 1e-10,
+  "legacy_failure_error_ids": 62,
+  "exact_compiler_sha256": {
+    "canonical.py": "44b98c52815f9cd4de2ffa8009156708c4a96b4499fe4b18e3cbc6bd7cd23bf9",
+    "evaluator.py": "2d9fcee5afed041c0c604927a578817695e0913a971c2b1e879e477e2b7c0899",
+    "graph.py": "de0a3412831865c20b820502af16e6514568407fa68184c4372c5a36c0fc285d",
+    "ir.py": "eede4eda700a3ff08e06a6c258f5bbc7b23a1fbf7c634d7626726cd907bd73eb",
+    "r1_import.py": "35dc431c529e0ae307c6826a45635df79463889f5645ec26ddf4b8bd7fdfeed2"
+  },
+  "note": "__init__.py is allowed to gain Task-2 exports. ir.py, canonical.py, evaluator.py, graph.py, and r1_import.py must remain byte-identical to Task-1 HEAD."
+}

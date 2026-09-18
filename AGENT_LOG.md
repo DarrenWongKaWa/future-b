@@ -170,3 +170,19 @@
   opened. Swarm does not open a tiny gate.
 - Next: none on Candidate 1. On Candidate 2 a human may later open a
   tiny gate; this swarm does not.
+
+## 2026-09-18 — Diagram Compiler Task 2 cheap evaluator
+
+- Isolated worktree from Task-1 HEAD `1185d81`, branch
+  `diagram-compiler/task2-cheap-evaluator`. Original dirty
+  `diagram-compiler/task1` checkout was not edited.
+- Policy: `propagator_only_v1`. Semantics: `STATE_WEIGHT`.
+  `ell_hat(x,y)=log W_hat(y)-log W_hat(x)`. Reciprocity by
+  construction. No delayed acceptance. No Fortran. No P1 rewrite.
+- Tests: Task-1 281 passed; Task-2 52 passed; exact 224/224 recheck
+  max error `2.7755575615628914e-17`. Two-band cheap expensive
+  primitives 0 vs exact 7/28/110 at n=1/2/3. Scalar cheap equals
+  exact (not a scalar speedup).
+- Evidence: `research/diagram_compiler/task2/`,
+  `docs/DIAGRAM_COMPILER_TASK2.md`.
+- Next: Task 3 delayed-acceptance kernel (not implemented).
