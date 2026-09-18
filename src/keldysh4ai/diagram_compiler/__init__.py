@@ -1,7 +1,7 @@
 """Experimental diagram compiler over the R1 fixed-order family.
 
 Research subsystem; see docs/DIAGRAM_COMPILER_TASK1.md,
-docs/DIAGRAM_COMPILER_TASK2.md, and docs/DIAGRAM_COMPILER_TASK3.md.
+docs/DIAGRAM_COMPILER_TASK2.md, and docs/DIAGRAM_COMPILER_TASK3.md, and docs/DIAGRAM_COMPILER_TASK4.md.
 Not part of the Future B v1.x release surface and not used by C0/P1.
 """
 
@@ -47,6 +47,10 @@ from .da_kernel import (
     ell_hat_state_weight,
     transition_matrix,
 )
+from .native_interpret import NativeResult, interpret_native_kernel, native_acceptance_probability
+from .native_ir import BindingLayout, NativeIRError, NativeKernelIR, binding_layout_for
+from .native_lower import lower_native_kernel, lower_native_score_kernel
+from .native_validate import exact_candidate_ops_on_reject_path, validate_native_ir
 from .proposal import ProposalError, ProposalSpec
 from .target_policy import TargetPolicy, TargetPolicyError, positive_real_F_v1
 from .evaluator import (
@@ -79,6 +83,7 @@ from .r1_import import ImportRejected, import_r1_binding, import_r1_spec
 __all__ = [
     "Binding",
     "BindingError",
+    "BindingLayout",
     "CheapDag",
     "CheapEvalError",
     "CheapEvaluator",
@@ -100,6 +105,9 @@ __all__ = [
     "ImportRejected",
     "IrError",
     "MODEL_SCALAR",
+    "NativeIRError",
+    "NativeKernelIR",
+    "NativeResult",
     "MODEL_TWOBAND",
     "MomentumForm",
     "OBJECT_SHARED_X_GROUP",
@@ -114,6 +122,7 @@ __all__ = [
     "TargetPolicyError",
     "Variables",
     "acceptance_probability",
+    "binding_layout_for",
     "build_scalar_diagram",
     "build_scalar_ir",
     "build_twoband_diagram",
@@ -129,16 +138,21 @@ __all__ = [
     "ell_hat_state_weight",
     "enumerate_pairings",
     "evaluate_dag",
+    "exact_candidate_ops_on_reject_path",
     "evaluate_diagramwise",
     "factor_value",
     "graph_cost",
     "import_r1_binding",
+    "interpret_native_kernel",
     "import_r1_spec",
     "leaf_key",
     "lower_cheap",
+    "lower_native_kernel",
+    "lower_native_score_kernel",
     "lower_diagramwise",
     "lower_exact_cost",
     "lower_grouped",
+    "native_acceptance_probability",
     "numeric_close",
     "odd_clip",
     "open_chord_slots",
@@ -147,4 +161,5 @@ __all__ = [
     "transition_matrix",
     "validate_binding",
     "validate_ir",
+    "validate_native_ir",
 ]
