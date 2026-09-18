@@ -1,0 +1,13 @@
+{
+  "call_count_identity": true,
+  "demo_paths": [
+    "stage1_reject",
+    "stage2_reject",
+    "accept"
+  ],
+  "design": "B",
+  "finite_state_pass": true,
+  "target_policy": "positive_real_F_v1",
+  "task2_head": "a79bdf4213a768db74401e6525b4c6e6eb62d768",
+  "wall_speedup_claim": false
+}

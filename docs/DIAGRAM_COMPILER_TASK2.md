@@ -192,4 +192,5 @@ exact-preserving delayed-acceptance kernel can use
 `ell_hat = log W_hat(y)-log W_hat(x)` as Stage 1 and the unchanged
 exact `F` ratio as Stage 2 **for rebinding moves**. Occupancy-swap
 P1-like moves still need an explicit, small move record; that is not
-a general Monte Carlo IR and is not implemented here.
+a general Monte Carlo IR and is not implemented here. Task 3 lives on
+`diagram-compiler/task3-delayed-acceptance`.

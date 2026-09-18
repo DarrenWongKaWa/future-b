@@ -186,3 +186,18 @@
 - Evidence: `research/diagram_compiler/task2/`,
   `docs/DIAGRAM_COMPILER_TASK2.md`.
 - Next: Task 3 delayed-acceptance kernel (not implemented).
+
+## 2026-09-18 — Diagram Compiler Task 3 delayed acceptance
+
+- Isolated worktree from Task-2 HEAD `a79bdf4`, branch
+  `diagram-compiler/task3-delayed-acceptance`. Dirty Task-1 and
+  Task-2 checkouts were not edited.
+- Target: `positive_real_F_v1` (`pi=F` iff real, finite, `F>0`). Not
+  `|F|`. Design B: Hastings only in Stage 2. Cheap score remains
+  Task-2 STATE_WEIGHT.
+- Demo two-band n=1: Stage-1 reject (no exact(y)), Stage-2 reject,
+  accept. Finite-state balance residual 1.39e-17. No Fortran. No
+  P1 rewrite. No speedup claim.
+- Evidence: `research/diagram_compiler/task3/`,
+  `docs/DIAGRAM_COMPILER_TASK3.md`.
+- Next: Task 4 native KernelIR (not implemented).

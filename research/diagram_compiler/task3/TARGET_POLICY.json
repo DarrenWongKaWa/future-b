@@ -1,0 +1,16 @@
+{
+  "imag_atol": 1e-12,
+  "name": "positive_real_F_v1",
+  "notes": [
+    "pi(x)=F(x) on the restricted set F real, finite, and strictly positive.",
+    "Scalar Holstein g!=0 is in this set. Two-band n=1 is positive for g!=0; n>=2 is admitted only when the sample F>0.",
+    "Do not sample |F| or F^2."
+  ],
+  "refuse_transforms": [
+    "abs_F",
+    "F_squared",
+    "complex_modulus"
+  ],
+  "schema_version": 1,
+  "target": "exact_F"
+}
