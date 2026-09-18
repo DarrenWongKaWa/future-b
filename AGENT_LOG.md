@@ -201,3 +201,15 @@
 - Evidence: `research/diagram_compiler/task3/`,
   `docs/DIAGRAM_COMPILER_TASK3.md`.
 - Next: Task 4 native KernelIR (not implemented).
+
+## 2026-09-18 — Diagram Compiler Task 4 NativeKernelIR
+
+- Isolated worktree from Task-3 HEAD `3822036`, branch
+  `diagram-compiler/task4-native-kernel-ir`. Earlier worktrees were
+  not edited.
+- Typed SSA + CFG NativeKernelIR. Interpreter matches Task-3 on
+  two-band n=1 Stage-1 reject / Stage-2 reject / accept. Exact ops
+  unreachable on Stage-1 reject. No Fortran emitted. No speedup claim.
+- Evidence: `research/diagram_compiler/task4/`,
+  `docs/DIAGRAM_COMPILER_TASK4.md`.
+- Next: Task 5 Fortran backend (not implemented).
