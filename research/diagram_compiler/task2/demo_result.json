@@ -1,0 +1,77 @@
+{
+  "binding_x": {
+    "g": 0.5,
+    "k": 0.0,
+    "omega": 0.8,
+    "q": [
+      1.5707963267948966,
+      3.141592653589793
+    ],
+    "t": 1.0,
+    "tau": [
+      0.05,
+      0.1,
+      0.15000000000000002,
+      0.2
+    ]
+  },
+  "cheap_F_hat": [
+    0.007368570775656627,
+    0.0
+  ],
+  "cheap_log_W_hat": -4.9105315161923135,
+  "cheap_static_cost": {
+    "expensive_primitives": 0,
+    "n_add": 2,
+    "n_eigh": 0,
+    "n_electron": 5,
+    "n_matmul": 0,
+    "n_mul": 13,
+    "n_phonon": 6,
+    "n_prefactor": 1,
+    "n_trace": 0,
+    "n_vertex": 0,
+    "unique_nodes": 28
+  },
+  "dropped_categories": [
+    "factor.vertex",
+    "eval.matmul",
+    "eval.trace"
+  ],
+  "exact_F": [
+    0.007368570775656627,
+    0.0
+  ],
+  "exact_static_cost": {
+    "expensive_primitives": 0,
+    "n_add": 2,
+    "n_eigh": 0,
+    "n_electron": 5,
+    "n_matmul": 0,
+    "n_mul": 13,
+    "n_phonon": 6,
+    "n_prefactor": 1,
+    "n_trace": 0,
+    "n_vertex": 0,
+    "unique_nodes": 28
+  },
+  "family": "holstein_scalar_vacuum_fixed_time_n2",
+  "forward_score": -1.0973543229485978,
+  "kept_categories": [
+    "factor.electron_propagator",
+    "factor.phonon_propagator",
+    "factor.prefactor",
+    "diagram.sign",
+    "diagram.multiplicity",
+    "family.global_factors",
+    "diagram_sum.all_pairings",
+    "momentum.q_terms"
+  ],
+  "policy": "propagator_only_v1",
+  "reciprocity_residual": 0.0,
+  "reverse_score": 1.0973543229485978,
+  "y_cheap_F_hat": [
+    0.0024592820059464657,
+    0.0
+  ]
+}
