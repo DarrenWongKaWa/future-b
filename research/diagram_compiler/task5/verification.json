@@ -1,0 +1,11 @@
+{
+  "combined_compiler_tests_after": 480,
+  "combined_compiler_tests_before": 383,
+  "differential_cases": 224,
+  "finite_state_balance_residual": 6.938893903907228e-18,
+  "finite_state_stationarity_residual": 0.0,
+  "max_absolute_error_from_r1_including_Op": 2.7755575615628914e-17,
+  "task5_tests": 27,
+  "twoband_n1_ell_R_abs_err": 0.0,
+  "twoband_n1_ell_hat_abs_err": 0.0
+}

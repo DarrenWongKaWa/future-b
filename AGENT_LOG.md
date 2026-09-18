@@ -213,3 +213,19 @@
 - Evidence: `research/diagram_compiler/task4/`,
   `docs/DIAGRAM_COMPILER_TASK4.md`.
 - Next: Task 5 Fortran backend (not implemented).
+
+## 2026-09-18 — Diagram Compiler Task 5 Fortran backend
+
+- Isolated worktree from Task-4 HEAD `0110f22`, branch
+  `diagram-compiler/task5-fortran-backend`. Earlier worktrees were
+  not edited. Future B v1.2.0 and C0/P1 were not edited.
+- Architecture B: generated kernel + `native_kernel_v1` runtime.
+  Backend consumes NativeKernelIR only. Closed-form 2x2 `exp(-H dtau)`
+  via `H=mI+K` (no LAPACK). Cache contract A (caller guarantees).
+- Two-band n=1 compiled with gfortran 16.1.0. Interpreter vs Fortran:
+  Stage-1 reject / Stage-2 reject / accept match. `ell_hat`/`ell_R`
+  abs err 0.0. Stage-1 reject exact-graph calls 0. Combined tests
+  480 passed. Exact 224/224 unchanged. No FEP-DMC. No speedup claim.
+- Evidence: `research/diagram_compiler/task5/`,
+  `docs/DIAGRAM_COMPILER_TASK5.md`.
+- Next: Task 6 FEP-DMC generated-kernel integration (not implemented).

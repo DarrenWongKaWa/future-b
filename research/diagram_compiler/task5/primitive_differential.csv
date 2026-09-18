@@ -1,0 +1,9 @@
+name,abs_err,within_tol
+electron_scalar,0.0,True
+phonon,0.0,True
+prefactor,0.0,True
+electron_twoband,4.440892098500626e-16,True
+vertex_sigmaz,0.0,True
+matmul,6.661338147750939e-16,True
+scale_m2,4.440892098500626e-16,True
+trace,0.0,True
