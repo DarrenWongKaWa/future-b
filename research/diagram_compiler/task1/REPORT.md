@@ -107,7 +107,7 @@ Another fixed order needs numerical/matrix tests and construction-resource check
 | `scripts/diagram_compiler_task1.py` | Reproducible evidence generation, without benchmarks |
 | `docs/DIAGRAM_COMPILER_TASK1.md` | Twelve-section technical documentation |
 | `research/diagram_compiler/task1/` | Small JSON/CSV example, provenance, verification and this report |
-| `AGENT_LOG.md` | Short appended Task 1 record; earlier edits preserved |
+| `AGENT_LOG.md` | Short appended Task 1 record; left uncommitted because the file already carries other sessions' uncommitted edits |
 
 No production adapter, release configuration, version, tag, historical source/evidence, benchmark or C0/P1 implementation is changed by this subsystem. Pre-existing dirty work is excluded from Task 1 commits.
 
