@@ -229,3 +229,18 @@
 - Evidence: `research/diagram_compiler/task5/`,
   `docs/DIAGRAM_COMPILER_TASK5.md`.
 - Next: Task 6 FEP-DMC generated-kernel integration (not implemented).
+
+## 2026-09-18 — Diagram Compiler Task 6 FEP-DMC validation path
+
+- Isolated worktree from Task-5 HEAD `9b4f3ed`, branch
+  `diagram-compiler/task6-fep-dmc-validate`. Earlier worktrees, Future B
+  v1.2.0, C0, and public P1 were not edited.
+- Architecture A: separate `futureb_dc_validate.x` on Ubuntu 22.04
+  gfortran 11.4. Pinned FEP-DMC `05d08449` remains PUBLIC_PRISTINE.
+  Regenerated Fortran SHA256 matches Task 5. No update_swap patch.
+- Native two-band n=1 Stage-1/2/accept match the interpreter; Stage-1
+  reject exact-graph calls 0. Combined tests 484 passed. LEVEL 2.
+  Not P1. No speedup claim.
+- Evidence: `research/diagram_compiler/task6/`,
+  `docs/DIAGRAM_COMPILER_TASK6.md`.
+- Next: Task 7 independent audit (not implemented). Not a v1.2.0 release.
