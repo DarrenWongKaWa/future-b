@@ -1,0 +1,13 @@
+{
+  "binding_file": "binding.json",
+  "case": "HS_n2_b1",
+  "compiled": [
+    0.0024401634116377456,
+    0.0
+  ],
+  "ir_file": "r1_scalar_n2.json",
+  "r1": [
+    0.0024401634116377456,
+    0.0
+  ]
+}
