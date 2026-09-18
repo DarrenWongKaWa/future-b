@@ -1,7 +1,8 @@
 """Experimental diagram compiler over the R1 fixed-order family.
 
 Research subsystem; see docs/DIAGRAM_COMPILER_TASK1.md,
-docs/DIAGRAM_COMPILER_TASK2.md, and docs/DIAGRAM_COMPILER_TASK3.md, and docs/DIAGRAM_COMPILER_TASK4.md.
+docs/DIAGRAM_COMPILER_TASK2.md, and docs/DIAGRAM_COMPILER_TASK3.md, docs/DIAGRAM_COMPILER_TASK4.md,
+and docs/DIAGRAM_COMPILER_TASK5.md.
 Not part of the Future B v1.x release surface and not used by C0/P1.
 """
 
@@ -47,6 +48,8 @@ from .da_kernel import (
     ell_hat_state_weight,
     transition_matrix,
 )
+from .fortran_codegen import emit_driver, emit_fortran
+from .fortran_compile import compile_fortran_source, compile_native_kernel
 from .native_interpret import NativeResult, interpret_native_kernel, native_acceptance_probability
 from .native_ir import BindingLayout, NativeIRError, NativeKernelIR, binding_layout_for
 from .native_lower import lower_native_kernel, lower_native_score_kernel
@@ -132,6 +135,10 @@ __all__ = [
     "compile_delayed_acceptance",
     "compile_evaluator",
     "compile_exact",
+    "compile_fortran_source",
+    "compile_native_kernel",
+    "emit_driver",
+    "emit_fortran",
     "delayed_acceptance_identity",
     "diagram_id",
     "ell_R_design_b",
