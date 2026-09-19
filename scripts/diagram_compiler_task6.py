@@ -7,6 +7,7 @@ import csv
 import hashlib
 import json
 import math
+import os
 import sys
 import tempfile
 from pathlib import Path
@@ -292,8 +293,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "--fep-dmc",
         type=Path,
-        default=Path("/Users/kawawong/Research/future-b-worktrees/_scratch/FEP-DMC"),
+        default=(Path(os.environ["FUTURE_B_FEP_DMC"])
+                 if os.environ.get("FUTURE_B_FEP_DMC") else None),
     )
     parser.add_argument("--image", default=DEFAULT_IMAGE)
     args = parser.parse_args()
+    if args.fep_dmc is None:
+        parser.error("--fep-dmc or FUTURE_B_FEP_DMC is required; no private default path is used")
     main(args.output, args.fep_dmc, args.image)

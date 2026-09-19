@@ -22,7 +22,7 @@
     "removed_failure_error_ids": [],
     "comparison": "Exact equality of FAILED/ERROR test IDs before the optional exception-message separator",
     "baseline_id_artifact": "baseline_failures.txt",
-    "local_final_log": "/tmp/futureb_task1_final_verified.txt",
+    "local_final_log": "task1-final-verified.log",
     "known_failure_categories": ["missing compiler/toolchain artifacts", "missing external LiF/FEP files", "historical R5 assertion failures"],
     "all_tests_green": false
   },
@@ -42,7 +42,7 @@
     "checked": 2893,
     "changed_or_missing": [],
     "snapshot_sha256": "916dc8b290699bdf3279e4a5b79fe7f353665ef532a8844b5ff87f5f9aa32c00",
-    "snapshot_location": "/tmp/task1_protected_before.json",
+    "snapshot_location": "task1-protected-before.json",
     "limitation": "Snapshot was taken after initial Task 1 implementation; this verifies subsequent immutability, not pristine pre-task state.",
     "remote_release_verification": "NOT_PERFORMED; no configured Git remote or local release tags",
     "release_or_version_changes_by_task": false

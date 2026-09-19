@@ -15,7 +15,7 @@ Isolated worktree from `1185d81`. Task-1 compiler tests: 281 passed.
 Exact 224/224 recheck: passed, max error `2.7755575615628914e-17`.
 Exact modules `ir.py`, `canonical.py`, `evaluator.py`, `graph.py`,
 `r1_import.py` unchanged (see `baseline.json`). Original dirty
-checkout `/Users/kawawong/Research/future-b` was not edited.
+checkout `repository-root` was not edited.
 
 ## 2. Candidate cheap policies
 

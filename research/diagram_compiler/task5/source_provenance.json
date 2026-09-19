@@ -1,9 +1,9 @@
 {
   "backend": "fortran_v1",
   "binary_sha256": "b36b6375ce1d9e354151c0ab55d2a31ece9c3499801622fa78f2db95ccb07f8d",
-  "compiler": "/opt/homebrew/bin/gfortran",
+  "compiler": "gfortran",
   "compiler_command": [
-    "/opt/homebrew/bin/gfortran",
+    "gfortran",
     "-O0",
     "-std=f2008",
     "-ffree-line-length-none",

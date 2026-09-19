@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -26,7 +27,11 @@ from keldysh4ai.diagram_compiler.fortran_fixtures import twoband_oracle_cases
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = json.loads((ROOT / "research/diagram_compiler/task6/baseline.json").read_text())
 PIN = json.loads((ROOT / "integration/diagram_compiler/UPSTREAM_FEP_DMC.json").read_text())
-FEP_DEFAULT = Path("/Users/kawawong/Research/future-b-worktrees/_scratch/FEP-DMC")
+FEP_DEFAULT = (
+    Path(os.environ["FUTURE_B_FEP_DMC"])
+    if os.environ.get("FUTURE_B_FEP_DMC")
+    else None
+)
 
 
 def _sha(path: Path) -> str:
@@ -64,7 +69,7 @@ def test_fep_dmc_pin_pristine():
     sys.path.insert(0, str(ROOT / "integration" / "diagram_compiler"))
     import dc_lib as dc
 
-    if not FEP_DEFAULT.is_dir():
+    if FEP_DEFAULT is None or not FEP_DEFAULT.is_dir():
         pytest.skip("pinned FEP-DMC clone not present")
     pin = dc.load_json(ROOT / "integration/diagram_compiler/UPSTREAM_FEP_DMC.json")
     state, detail = dc.classify(FEP_DEFAULT, pin)
