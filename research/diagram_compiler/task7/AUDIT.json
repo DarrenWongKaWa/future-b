@@ -15,7 +15,8 @@
   "stage1_reject_exact_graph_calls": 0,
   "finite_state_balance_residual": 6.938893903907228e-18,
   "finite_state_stationarity_residual": 0.0,
-  "release_gate": "PASS_PENDING_REMOTE_CI",
-  "tag_created": false,
-  "github_release_created": false
+  "audited_commit": "d3c26f40fc330b85145a09665b50887c83406af6",
+  "remote_ci": "https://github.com/DarrenWongKaWa/future-b/actions/runs/35452398546",
+  "release_gate": "PASS",
+  "release_identity": "diagram-compiler-v0.1.0"
 }
