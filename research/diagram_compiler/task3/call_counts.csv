@@ -1,0 +1,2 @@
+accepts,exact_candidate_evaluations,stage1_passes,stage1_rejects,stage2_rejects,transitions_attempted,wall_speedup_claim
+1,2,2,1,1,3,NOT_CLAIMED

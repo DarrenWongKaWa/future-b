@@ -1,0 +1,25 @@
+{
+  "backend": "fortran_v1",
+  "binary_sha256": "b36b6375ce1d9e354151c0ab55d2a31ece9c3499801622fa78f2db95ccb07f8d",
+  "compiler": "gfortran",
+  "compiler_command": [
+    "gfortran",
+    "-O0",
+    "-std=f2008",
+    "-ffree-line-length-none",
+    "-fcheck=bounds",
+    "-J",
+    ".",
+    "native_kernel_runtime_v1.f90",
+    "generated_da_kernel.f90",
+    "nk_eval_driver.f90",
+    "-o",
+    "nk_eval"
+  ],
+  "compiler_version": "GNU Fortran (Homebrew GCC 16.1.0) 16.1.0",
+  "fortran_source_sha256": "ff4aa2de2338cb9c6894487ac805b4bbd971549dfbdb0e1480888c5af588c32e",
+  "native_ir_digest": "4932e8b066554e966b71efb9b54c69974e17dcca82868d8df511927d2f03be31",
+  "primitive_runtime": "native_kernel_v1",
+  "repeat_source_sha256": "ff4aa2de2338cb9c6894487ac805b4bbd971549dfbdb0e1480888c5af588c32e",
+  "runtime_sha256": "64ec0f3071380023e9287197adc815d05cd51a6c5c79889b0d35cb162b7f85b2"
+}

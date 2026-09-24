@@ -1,0 +1,13 @@
+{
+  "detail": "pin files and HEAD match",
+  "head": "05d08449cffdbd0dfbbbf5009add5cc887bc754b",
+  "needles": [],
+  "production_hashes": {
+    "perturbo-fep-dmc/pert-src/diagMC.f90": "599868f43fbc232c1d649183faae76d913a883db59c117db19b27e82438cea36",
+    "perturbo-fep-dmc/pert-src/diagMC_JJ_updates.f90": "6c97c694f76df18e9adee7b79666b480f1de5b00f30e8bb5ba08510289e43571",
+    "perturbo-fep-dmc/pert-src/makefile": "e8b16763b3fcc43214310ec9b1fe5771692795eb8a84f2afcd138bbab675c2c4",
+    "perturbo-fep-dmc/pert-src/pert_param.f90": "b36eefce4ef75f7f670ef02941b4da54155852f81dd99a4e8f4f30b15cc345e7"
+  },
+  "reference_commit": "05d08449cffdbd0dfbbbf5009add5cc887bc754b",
+  "state": "PUBLIC_PRISTINE"
+}

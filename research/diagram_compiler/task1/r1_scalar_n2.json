@@ -1,0 +1,311 @@
+{
+  "diagrams": [
+    {
+      "diagram_id": "C_(1,2)_(3,4)",
+      "factors": [
+        {
+          "interval": [
+            0,
+            1
+          ],
+          "k_form": {
+            "k_coeff": 1,
+            "q_terms": [
+              [
+                0,
+                -1
+              ]
+            ]
+          },
+          "kind": "electron_propagator",
+          "open_chord_slots": [
+            0
+          ]
+        },
+        {
+          "interval": [
+            1,
+            2
+          ],
+          "k_form": {
+            "k_coeff": 1,
+            "q_terms": []
+          },
+          "kind": "electron_propagator",
+          "open_chord_slots": []
+        },
+        {
+          "interval": [
+            2,
+            3
+          ],
+          "k_form": {
+            "k_coeff": 1,
+            "q_terms": [
+              [
+                1,
+                -1
+              ]
+            ]
+          },
+          "kind": "electron_propagator",
+          "open_chord_slots": [
+            1
+          ]
+        },
+        {
+          "chord_slot": 0,
+          "kind": "phonon_propagator",
+          "tau_close_idx": 1,
+          "tau_open_idx": 0
+        },
+        {
+          "chord_slot": 1,
+          "kind": "phonon_propagator",
+          "tau_close_idx": 3,
+          "tau_open_idx": 2
+        }
+      ],
+      "multiplicity": 1,
+      "pairing": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "sign": 1
+    },
+    {
+      "diagram_id": "C_(1,3)_(2,4)",
+      "factors": [
+        {
+          "interval": [
+            0,
+            1
+          ],
+          "k_form": {
+            "k_coeff": 1,
+            "q_terms": [
+              [
+                0,
+                -1
+              ]
+            ]
+          },
+          "kind": "electron_propagator",
+          "open_chord_slots": [
+            0
+          ]
+        },
+        {
+          "interval": [
+            1,
+            2
+          ],
+          "k_form": {
+            "k_coeff": 1,
+            "q_terms": [
+              [
+                0,
+                -1
+              ],
+              [
+                1,
+                -1
+              ]
+            ]
+          },
+          "kind": "electron_propagator",
+          "open_chord_slots": [
+            0,
+            1
+          ]
+        },
+        {
+          "interval": [
+            2,
+            3
+          ],
+          "k_form": {
+            "k_coeff": 1,
+            "q_terms": [
+              [
+                1,
+                -1
+              ]
+            ]
+          },
+          "kind": "electron_propagator",
+          "open_chord_slots": [
+            1
+          ]
+        },
+        {
+          "chord_slot": 0,
+          "kind": "phonon_propagator",
+          "tau_close_idx": 2,
+          "tau_open_idx": 0
+        },
+        {
+          "chord_slot": 1,
+          "kind": "phonon_propagator",
+          "tau_close_idx": 3,
+          "tau_open_idx": 1
+        }
+      ],
+      "multiplicity": 1,
+      "pairing": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "sign": 1
+    },
+    {
+      "diagram_id": "C_(1,4)_(2,3)",
+      "factors": [
+        {
+          "interval": [
+            0,
+            1
+          ],
+          "k_form": {
+            "k_coeff": 1,
+            "q_terms": [
+              [
+                0,
+                -1
+              ]
+            ]
+          },
+          "kind": "electron_propagator",
+          "open_chord_slots": [
+            0
+          ]
+        },
+        {
+          "interval": [
+            1,
+            2
+          ],
+          "k_form": {
+            "k_coeff": 1,
+            "q_terms": [
+              [
+                0,
+                -1
+              ],
+              [
+                1,
+                -1
+              ]
+            ]
+          },
+          "kind": "electron_propagator",
+          "open_chord_slots": [
+            0,
+            1
+          ]
+        },
+        {
+          "interval": [
+            2,
+            3
+          ],
+          "k_form": {
+            "k_coeff": 1,
+            "q_terms": [
+              [
+                0,
+                -1
+              ]
+            ]
+          },
+          "kind": "electron_propagator",
+          "open_chord_slots": [
+            0
+          ]
+        },
+        {
+          "chord_slot": 0,
+          "kind": "phonon_propagator",
+          "tau_close_idx": 3,
+          "tau_open_idx": 0
+        },
+        {
+          "chord_slot": 1,
+          "kind": "phonon_propagator",
+          "tau_close_idx": 2,
+          "tau_open_idx": 1
+        }
+      ],
+      "multiplicity": 1,
+      "pairing": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "sign": 1
+    }
+  ],
+  "family": {
+    "bands": 1,
+    "dispersion": "xi_k=2t(1-cos k)",
+    "electron_interface": "scalar",
+    "family_id": "holstein_scalar_vacuum_fixed_time_n2",
+    "global_factors": [
+      {
+        "exponent": "2n",
+        "kind": "prefactor",
+        "normalization": "g_over_sqrt_L"
+      }
+    ],
+    "model": "Holstein_scalar_vacuum",
+    "normalization_spec": "g_over_sqrt_L",
+    "order": 2,
+    "phonon_spec": "einstein_vacuum_T0",
+    "propagator_convention": "physical_unshifted",
+    "rule_version": "diagram-compiler-v1",
+    "series": "FULL_ALL_PAIRINGS"
+  },
+  "ir_kind": "DiagramIR",
+  "object_type": "SHARED_X_GROUP",
+  "schema_version": "1.0.0",
+  "variables": {
+    "chord_slot_rule": "first_opening_rank",
+    "chord_slots": [
+      "q[0]",
+      "q[1]"
+    ],
+    "external": [
+      "k"
+    ],
+    "params": [
+      "t",
+      "omega",
+      "g",
+      "L"
+    ],
+    "time_rule": "vertex_times_strictly_increasing",
+    "time_slots": [
+      "tau[0]",
+      "tau[1]",
+      "tau[2]",
+      "tau[3]"
+    ]
+  }
+}

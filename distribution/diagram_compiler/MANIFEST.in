@@ -1,0 +1,15 @@
+include README.md
+include LICENSE
+include SOURCE_MANIFEST.json
+include benchmarks/r1_fixed_order/frozen_results.json
+include src/future_b/r1_fixed_order/__init__.py
+recursive-include src/keldysh4ai *.py *.f90 *.csv
+recursive-include tests *.py
+recursive-include research/diagram_compiler *
+recursive-include integration/diagram_compiler *
+recursive-include docs *.md *.drawio
+recursive-include examples *.py
+recursive-include scripts *.py
+global-exclude *.pyc
+global-exclude __pycache__
+global-exclude *.x *.o *.mod

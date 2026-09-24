@@ -1,0 +1,35 @@
+{
+  "schema": "diagram_compiler_mainline_integration_v1",
+  "date": "2026-09-24",
+  "public_main_base": "cbc951c0867126d26fdeb481e16b30ab647431aa",
+  "preview_source": "2fc153f2da1ea5e547a2580c3669a415f7b87a3a",
+  "preview_tag": "diagram-compiler-v0.1.0",
+  "history_strategy": "file_level_transplant_without_unrelated_history_merge",
+  "v1_2_0_release_files_modified": false,
+  "source_tree_tests": {
+    "passed": 525,
+    "skipped": 0
+  },
+  "sdist_tests": {
+    "passed": 110,
+    "compiler_evidence_included": false,
+    "compiler_evidence_tests_collected": false
+  },
+  "task6_tests": {
+    "passed": 4,
+    "fep_dmc_commit": "05d08449cffdbd0dfbbbf5009add5cc887bc754b",
+    "finite_state_balance_residual": 6.938893903907228e-18,
+    "finite_state_stationarity_residual": 0.0
+  },
+  "standalone_distribution": {
+    "name": "future-b-diagram-compiler",
+    "version": "0.2.0",
+    "clean_sdist_tests_passed": 413,
+    "clean_sdist_tests_skipped": 1,
+    "task1_differential_cases": 224,
+    "task1_max_absolute_error": 2.7755575615628914e-17,
+    "wheel_quickstart": "PASS",
+    "wheel_native_runtime": "PRESENT"
+  },
+  "claim_boundary": "No production update_swap/P1 replacement, speedup, real-material end-to-end result, or generic compiler claim."
+}

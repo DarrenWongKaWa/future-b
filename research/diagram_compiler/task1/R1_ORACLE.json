@@ -1,0 +1,59 @@
+{
+  "atol": 1e-12,
+  "exclusions": [
+    "BOUND_C",
+    "SUMMED_KERNEL",
+    "time integrals",
+    "external propagators",
+    "native D(C)",
+    "C0/P1 generation",
+    "cheap evaluator",
+    "variable order",
+    "native codegen"
+  ],
+  "frontend": "PlanSpec structure adapter; not reverse engineering arbitrary Graph objects",
+  "frozen_results": "Read-only historical evidence; no performance inference from node counts.",
+  "graph_object": "SHARED_X_GROUP",
+  "independent_oracle": "index_oracle.group_sum_scalar/group_sum_matrix_twoband",
+  "numeric_oracle": "r1_symbolic_build/r1_twoband_build + ReferenceBinder + exec.interpret",
+  "physics_object": "PF_G_FIXED_TIME_ORDER_G2n",
+  "primary_lowering": "explicit diagram factor chains with ordered structural hash-consing",
+  "recovered_dp": "manual R1 recurrence transcription; not automatic CSE rediscovery",
+  "rtol": 1e-10,
+  "rule_limit": "1 <= n <= 6; higher admitted orders not validated by this campaign",
+  "source_hashes": {
+    "benchmarks/r1_fixed_order/frozen_results.json": "e89eaa66f43f0e3d406eca29482cafe628ed61d54873bf2746c056520d41d7c7",
+    "src/future_b/r1_fixed_order/__init__.py": "f6fa5585d002c092bcd50fe46a6b23abf99445f62492dbe2899d649b16153b0f",
+    "src/keldysh4ai/scheme_d/exec.py": "859c20724142d446aee096f0f52f1495a3c54b2e4e654ab22d57ea202fb6db38",
+    "src/keldysh4ai/scheme_d/ir.py": "740db3db9867c6d297a37158f0d02d3f7b7a5fddb3151f402db71d874a957451",
+    "src/keldysh4ai/scheme_d/numeric.py": "5aae8482ccd45342a0b244b80b7086d8c845a944f57e42aab69bcefe06814b07",
+    "src/keldysh4ai/scheme_d/oracle.py": "a2776e82341ea683b8d2b9750b9f0922bc1b64cff5b959954ce5e2206ac9cc17",
+    "src/keldysh4ai/scheme_d/physics_first/contract.py": "0878f052da0c3f66bf10d4d114b952970aa20e2818f1d6c2481f399f858bf594",
+    "src/keldysh4ai/scheme_d/physics_first/fock_witness.py": "0b3ae0a1d5bb8d2793b7f1751b094ded588fc350ca9d27c566428d39ce118c0c",
+    "src/keldysh4ai/scheme_d/physics_first/index_oracle.py": "a47316e12e1c006fdd5d3bb985e60917ab39f07d37833b6ee046f8dba0f9156c",
+    "src/keldysh4ai/scheme_d/physics_first/interface.py": "65ed34eb1c4f9688cdcc7896d2bbe9cabc3eb4158b34e4b2b3c047f528f825d7",
+    "src/keldysh4ai/scheme_d/physics_first/r1_open_dp.py": "8d50880c426fd83642b453e4f61e864f238c902fa55840b00efb674864428735",
+    "src/keldysh4ai/scheme_d/physics_first/symbolic/bindings.py": "d0b7a70db4863119e4e1648881422cadc4aae5d626bde54653bf30ba70739d37",
+    "src/keldysh4ai/scheme_d/physics_first/symbolic/guards.py": "85a916a465f39aba5e3b79b2c68dd726d4e6dc91ab4bc340eb4826287d3eeed1",
+    "src/keldysh4ai/scheme_d/physics_first/symbolic/leaves.py": "dabf62478f24b7295ad344172ca8e259fc273ed4142f704eb77fe764ad81ab59",
+    "src/keldysh4ai/scheme_d/physics_first/symbolic/plan_spec.py": "58336062001eb6b41fc754ec9d86844fe1efbe86bed1d4fba3e01683de73c6ef",
+    "src/keldysh4ai/scheme_d/physics_first/symbolic/r1.py": "db0879329677e73ea25d39246934b47ac2ce67b2c685554c2b704b2def593c4e",
+    "src/keldysh4ai/scheme_d/physics_first/symbolic/r1_twoband.py": "6d722242938f8921de3da34af8aa0b48faf93c966fa2c3ae9c5afd2be5beddb4",
+    "src/keldysh4ai/scheme_d/physics_first/symbolic/reference_binder.py": "f4cac255051e9c8772a9be48336da974178aaa84a9281918014cf2f2c132ed4c"
+  },
+  "source_tracking": "Many R1 files were untracked at task start; content hashes are authoritative here.",
+  "status": "EXPERIMENTAL_BOUNDED_EXACT",
+  "validated_orders": {
+    "scalar": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "twoband": [
+      1,
+      2,
+      3
+    ]
+  }
+}

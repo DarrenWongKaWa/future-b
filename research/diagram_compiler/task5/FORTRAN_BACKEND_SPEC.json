@@ -1,0 +1,31 @@
+{
+  "abi_bool": "logical internally and on kernel dummy list; driver I/O uses integer 0/1",
+  "architecture": "B_generated_kernel_plus_versioned_runtime",
+  "backend": "fortran_v1",
+  "cache_contract": "A_caller_guarantees_exact_x_valid_belongs_to_x",
+  "electron_twoband": "closed_form_2x2_H=mI+K_K2=r2I_cosh_sinh_no_lapack",
+  "matrix_layout": "mathematical (i,j) stored as Fortran a(i,j) column-major",
+  "primitive_set": "native_kernel_v1",
+  "schema_version": 1,
+  "status_codes": {
+    "CACHE_KEY_MISMATCH": 5,
+    "INVALID_CHEAP_WEIGHT": 2,
+    "INVALID_EXACT_TARGET": 1,
+    "INVALID_IR": 6,
+    "INVALID_PROPOSAL_RATIO": 3,
+    "INVALID_RANDOM_UNIFORM": 4,
+    "OK": 0
+  },
+  "tolerances": {
+    "atol": 1e-12,
+    "discrete": "exact",
+    "rtol": 1e-10
+  },
+  "types": {
+    "bool": "logical",
+    "c128": "complex(real64)",
+    "c128_m2": "complex(real64) :: a(2,2)",
+    "f64": "real(real64)",
+    "i64": "integer(int64)"
+  }
+}

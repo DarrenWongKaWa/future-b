@@ -1,0 +1,85 @@
+<mxfile host="app.diagrams.net" modified="2026-09-24T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="compiler-chain" name="01 Compiler chain">
+    <mxGraphModel dx="1400" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="c-title" value="One physical representation, several checked execution stages" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=26;fontStyle=1;fontColor=#173F96;" vertex="1" parent="1"><mxGeometry x="70" y="55" width="1220" height="52" as="geometry"/></mxCell>
+        <mxCell id="c-1" value="R1 fixed-order family&#xa;explicit physics contract" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#EAF1FF;strokeColor=#173F96;fontColor=#182B49;fontSize=18;" vertex="1" parent="1"><mxGeometry x="70" y="245" width="210" height="120" as="geometry"/></mxCell>
+        <mxCell id="c-2" value="DiagramIR&#xa;family · pairing · factors" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#EAF1FF;strokeColor=#335BC3;fontColor=#182B49;fontSize=18;" vertex="1" parent="1"><mxGeometry x="340" y="245" width="210" height="120" as="geometry"/></mxCell>
+        <mxCell id="c-3" value="Exact DAG&#xa;ordered CSE" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ECF8F1;strokeColor=#2B8A59;fontColor=#182B49;fontSize=18;" vertex="1" parent="1"><mxGeometry x="625" y="175" width="210" height="110" as="geometry"/></mxCell>
+        <mxCell id="c-4" value="Cheap DAG&#xa;propagator_only_v1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#FFF5E7;strokeColor=#D78318;fontColor=#182B49;fontSize=18;" vertex="1" parent="1"><mxGeometry x="625" y="335" width="210" height="110" as="geometry"/></mxCell>
+        <mxCell id="c-5" value="Design-B delayed acceptance&#xa;exact correction" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#FCEEF1;strokeColor=#BA4A63;fontColor=#182B49;fontSize=18;" vertex="1" parent="1"><mxGeometry x="900" y="245" width="220" height="120" as="geometry"/></mxCell>
+        <mxCell id="c-6" value="NativeKernelIR&#xa;typed SSA + CFG" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#E8F7F6;strokeColor=#169D9C;fontColor=#182B49;fontSize=18;" vertex="1" parent="1"><mxGeometry x="1170" y="245" width="170" height="120" as="geometry"/></mxCell>
+        <mxCell id="c-7" value="Fortran backend → gfortran → standalone kernel" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#F7F9FC;strokeColor=#51657F;fontColor=#182B49;fontSize=18;" vertex="1" parent="1"><mxGeometry x="890" y="520" width="450" height="105" as="geometry"/></mxCell>
+        <mxCell id="c-note" value="Claim ceiling: bounded fixed-order families. Structural reuse is measured; end-to-end speedup is not established." style="text;html=1;align=left;whiteSpace=wrap;fontSize=17;fontColor=#BA4A63;" vertex="1" parent="1"><mxGeometry x="70" y="610" width="730" height="70" as="geometry"/></mxCell>
+        <mxCell id="ce-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#335BC3;strokeWidth=2;" edge="1" parent="1" source="c-1" target="c-2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ce-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#2B8A59;strokeWidth=2;" edge="1" parent="1" source="c-2" target="c-3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ce-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#D78318;strokeWidth=2;" edge="1" parent="1" source="c-2" target="c-4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ce-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#2B8A59;strokeWidth=2;" edge="1" parent="1" source="c-3" target="c-5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ce-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#D78318;strokeWidth=2;" edge="1" parent="1" source="c-4" target="c-5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ce-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#169D9C;strokeWidth=2;" edge="1" parent="1" source="c-5" target="c-6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ce-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#51657F;strokeWidth=2;" edge="1" parent="1" source="c-6" target="c-7"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="design-b" name="02 Delayed acceptance">
+    <mxGraphModel dx="1400" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="d-title" value="Design B: a cheap early decision with an exact Stage-2 correction" style="text;html=1;align=left;whiteSpace=wrap;fontSize=26;fontStyle=1;fontColor=#173F96;" vertex="1" parent="1"><mxGeometry x="70" y="50" width="1220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d-1" value="Proposed transition x → y&#xa;known log q(y,x) − log q(x,y)" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#EAF1FF;strokeColor=#335BC3;fontSize=18;" vertex="1" parent="1"><mxGeometry x="75" y="285" width="230" height="120" as="geometry"/></mxCell>
+        <mxCell id="d-2" value="Cheap state weights&#xa;ell_hat = log W_hat(y) − log W_hat(x)" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#FFF5E7;strokeColor=#D78318;fontSize=18;" vertex="1" parent="1"><mxGeometry x="375" y="285" width="260" height="120" as="geometry"/></mxCell>
+        <mxCell id="d-gate" value="Stage 1&#xa;pass?" style="rhombus;whiteSpace=wrap;html=1;align=center;fillColor=#EAF1FF;strokeColor=#335BC3;fontSize=18;" vertex="1" parent="1"><mxGeometry x="700" y="285" width="170" height="120" as="geometry"/></mxCell>
+        <mxCell id="d-reject" value="Reject&#xa;exact(y) calls = 0" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#FCEEF1;strokeColor=#BA4A63;fontSize=18;" vertex="1" parent="1"><mxGeometry x="975" y="145" width="230" height="110" as="geometry"/></mxCell>
+        <mxCell id="d-exact" value="Exact target&#xa;ell_R = log pi(y) − log pi(x) + log q reverse/forward" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#ECF8F1;strokeColor=#2B8A59;fontSize=18;" vertex="1" parent="1"><mxGeometry x="970" y="340" width="280" height="135" as="geometry"/></mxCell>
+        <mxCell id="d-correct" value="Stage 2&#xa;min(1, exp(ell_R − ell_hat))" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#E8F7F6;strokeColor=#169D9C;fontSize=18;" vertex="1" parent="1"><mxGeometry x="970" y="560" width="280" height="115" as="geometry"/></mxCell>
+        <mxCell id="d-note" value="Target policy positive_real_F_v1 refuses |F|, F² and complex values outside its tolerance. The current-state exact cache is caller-keyed." style="text;html=1;align=left;whiteSpace=wrap;fontSize=17;fontColor=#BA4A63;" vertex="1" parent="1"><mxGeometry x="80" y="565" width="760" height="90" as="geometry"/></mxCell>
+        <mxCell id="de1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#335BC3;strokeWidth=2;" edge="1" parent="1" source="d-1" target="d-2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="de2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#335BC3;strokeWidth=2;" edge="1" parent="1" source="d-2" target="d-gate"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="de3" value="no" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#BA4A63;strokeWidth=2;fontSize=15;" edge="1" parent="1" source="d-gate" target="d-reject"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="de4" value="yes" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#2B8A59;strokeWidth=2;fontSize=15;" edge="1" parent="1" source="d-gate" target="d-exact"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="de5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#169D9C;strokeWidth=2;" edge="1" parent="1" source="d-exact" target="d-correct"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="native-validation" name="03 Native validation">
+    <mxGraphModel dx="1400" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="n-title" value="Independent native validation and provenance" style="text;html=1;align=left;whiteSpace=wrap;fontSize=26;fontStyle=1;fontColor=#173F96;" vertex="1" parent="1"><mxGeometry x="70" y="50" width="1220" height="55" as="geometry"/></mxCell>
+        <mxCell id="n-1" value="Serialized NativeKernelIR&#xa;typed SSA / CFG" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#EAF1FF;strokeColor=#173F96;fontSize=18;" vertex="1" parent="1"><mxGeometry x="65" y="240" width="210" height="130" as="geometry"/></mxCell>
+        <mxCell id="n-2" value="Deterministic Fortran&#xa;source SHA256" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#EAF1FF;strokeColor=#335BC3;fontSize=18;" vertex="1" parent="1"><mxGeometry x="345" y="240" width="210" height="130" as="geometry"/></mxCell>
+        <mxCell id="n-3" value="Pinned Ubuntu 22.04&#xa;gfortran 11.4" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#FFF5E7;strokeColor=#D78318;fontSize=18;" vertex="1" parent="1"><mxGeometry x="625" y="240" width="210" height="130" as="geometry"/></mxCell>
+        <mxCell id="n-4" value="Separate native executable&#xa;10 fixed fixtures" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#E8F7F6;strokeColor=#169D9C;fontSize=18;" vertex="1" parent="1"><mxGeometry x="905" y="240" width="210" height="130" as="geometry"/></mxCell>
+        <mxCell id="n-5" value="Compare NativeKernelIR interpreter&#xa;status, accept, scores, call counters" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#ECF8F1;strokeColor=#2B8A59;fontSize=18;" vertex="1" parent="1"><mxGeometry x="905" y="490" width="295" height="130" as="geometry"/></mxCell>
+        <mxCell id="n-pin" value="FEP-DMC pin 05d08449&#xa;PUBLIC_PRISTINE witness" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#F7F9FC;strokeColor=#51657F;fontSize=18;" vertex="1" parent="1"><mxGeometry x="625" y="490" width="210" height="130" as="geometry"/></mxCell>
+        <mxCell id="n-note" value="LEVEL 2: toolchain validation. No production update_swap or public P1 replacement." style="text;html=1;align=left;whiteSpace=wrap;fontSize=18;fontColor=#BA4A63;" vertex="1" parent="1"><mxGeometry x="75" y="515" width="460" height="90" as="geometry"/></mxCell>
+        <mxCell id="ne1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#335BC3;strokeWidth=2;" edge="1" parent="1" source="n-1" target="n-2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ne2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#D78318;strokeWidth=2;" edge="1" parent="1" source="n-2" target="n-3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ne3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#169D9C;strokeWidth=2;" edge="1" parent="1" source="n-3" target="n-4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ne4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#2B8A59;strokeWidth=2;" edge="1" parent="1" source="n-4" target="n-5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ne5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#51657F;strokeWidth=2;dashed=1;" edge="1" parent="1" source="n-pin" target="n-5"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="material-boundary" name="04 Real-material boundary">
+    <mxGraphModel dx="1400" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="m-title" value="Real-material connection: proposed route and unclosed gates" style="text;html=1;align=left;whiteSpace=wrap;fontSize=26;fontStyle=1;fontColor=#173F96;" vertex="1" parent="1"><mxGeometry x="70" y="45" width="1220" height="55" as="geometry"/></mxCell>
+        <mxCell id="m-1" value="QE / DFPT&#xa;bands, phonons, coarse e-ph" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#EAF1FF;strokeColor=#173F96;fontSize=17;" vertex="1" parent="1"><mxGeometry x="50" y="240" width="205" height="120" as="geometry"/></mxCell>
+        <mxCell id="m-2" value="Wannier / Perturbo&#xa;interpolated epsilon, omega, g" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#EAF1FF;strokeColor=#335BC3;fontSize=17;" vertex="1" parent="1"><mxGeometry x="315" y="240" width="205" height="120" as="geometry"/></mxCell>
+        <mxCell id="m-3" value="Provider adapter (future)&#xa;units, gauge, band/mode ABI" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#FFF5E7;strokeColor=#D78318;fontSize=17;" vertex="1" parent="1"><mxGeometry x="580" y="240" width="205" height="120" as="geometry"/></mxCell>
+        <mxCell id="m-4" value="Physical graph + measure&#xa;Jacobian, normalization, reverse move" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#FCEEF1;strokeColor=#BA4A63;fontSize=17;" vertex="1" parent="1"><mxGeometry x="845" y="240" width="205" height="120" as="geometry"/></mxCell>
+        <mxCell id="m-5" value="Full observable (future)&#xa;independent reference + same-precision cost" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#ECF8F1;strokeColor=#2B8A59;fontSize=17;" vertex="1" parent="1"><mxGeometry x="1110" y="240" width="205" height="120" as="geometry"/></mxCell>
+        <mxCell id="m-current" value="Current evidence: synthetic two-band n=1 generated kernel, LEVEL 2 toolchain validation" style="rounded=1;whiteSpace=wrap;html=1;align=center;fillColor=#E8F7F6;strokeColor=#169D9C;fontSize=18;" vertex="1" parent="1"><mxGeometry x="280" y="505" width="460" height="110" as="geometry"/></mxCell>
+        <mxCell id="m-gate" value="Required before material claim: same Hamiltonian, signed conventions, units, target policy, measure, proposal reciprocity, independent oracle." style="text;html=1;align=left;whiteSpace=wrap;fontSize=17;fontColor=#BA4A63;" vertex="1" parent="1"><mxGeometry x="795" y="500" width="500" height="115" as="geometry"/></mxCell>
+        <mxCell id="me1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#335BC3;strokeWidth=2;" edge="1" parent="1" source="m-1" target="m-2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="me2" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#D78318;strokeWidth=2;" edge="1" parent="1" source="m-2" target="m-3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="me3" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#BA4A63;strokeWidth=2;" edge="1" parent="1" source="m-3" target="m-4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="me4" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#2B8A59;strokeWidth=2;" edge="1" parent="1" source="m-4" target="m-5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="me5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;strokeColor=#169D9C;strokeWidth=2;dashed=1;" edge="1" parent="1" source="m-current" target="m-3"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,11 @@
+{
+  "cheap_matches_scalar_exact_cases": 7,
+  "differential_cases": 7,
+  "max_abs_err_vs_scalar_exact": 0.0,
+  "policy": "propagator_only_v1",
+  "reciprocity": "ell(y,x) := log W(y) - log W(x) antisymmetric by construction",
+  "semantics": "STATE_WEIGHT",
+  "task1_compiler_tests_expected": 281,
+  "task2_tests": 52,
+  "wall_speedup_claim": false
+}

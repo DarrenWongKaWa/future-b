@@ -1,0 +1,56 @@
+{
+  "status": "BOUNDED_COMPILER_VALIDATED_WITH_UNCHANGED_BASELINE_FAILURES",
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.5.2",
+    "platform": "darwin-arm64"
+  },
+  "new_tests": {
+    "command": ".venv/bin/python -m pytest -q tests/test_diagram_ir.py tests/test_r1_import.py tests/test_evaluator_vs_r1.py tests/test_dag_sharing.py",
+    "passed": 281,
+    "failed": 0,
+    "skipped": 0,
+    "isolated_runtime_import_blocking": "scalar and full two-band outputs passed"
+  },
+  "full_suite": {
+    "command": ".venv/bin/python -m pytest -q",
+    "baseline": {"passed": 1010, "failed": 17, "errors": 45, "skipped": 11},
+    "final": {"passed": 1291, "failed": 17, "errors": 45, "skipped": 11},
+    "baseline_failure_error_ids": 62,
+    "final_failure_error_ids": 62,
+    "new_failure_error_ids": [],
+    "removed_failure_error_ids": [],
+    "comparison": "Exact equality of FAILED/ERROR test IDs before the optional exception-message separator",
+    "baseline_id_artifact": "baseline_failures.txt",
+    "local_final_log": "task1-final-verified.log",
+    "known_failure_categories": ["missing compiler/toolchain artifacts", "missing external LiF/FEP files", "historical R5 assertion failures"],
+    "all_tests_green": false
+  },
+  "numerical_evidence": {
+    "command": ".venv/bin/python scripts/diagram_compiler_task1.py",
+    "cases": 224,
+    "passed": 224,
+    "atol": 1e-12,
+    "rtol": 1e-10,
+    "max_absolute_error_from_r1_including_Op": 2.7755575615628914e-17,
+    "independent_oracle_checks": "all outputs also passed index_oracle comparisons",
+    "seeded_random_bindings_in_tests": 84,
+    "performance_measured": false
+  },
+  "protected_files": {
+    "roots": ["src/future_b", "src/keldysh4ai/scheme_d", "benchmarks", "release"],
+    "checked": 2893,
+    "changed_or_missing": [],
+    "snapshot_sha256": "916dc8b290699bdf3279e4a5b79fe7f353665ef532a8844b5ff87f5f9aa32c00",
+    "snapshot_location": "task1-protected-before.json",
+    "limitation": "Snapshot was taken after initial Task 1 implementation; this verifies subsequent immutability, not pristine pre-task state.",
+    "remote_release_verification": "NOT_PERFORMED; no configured Git remote or local release tags",
+    "release_or_version_changes_by_task": false
+  },
+  "process_limitations": [
+    "Initial code preceded most tests; seven chronological red-green milestone commits were not created.",
+    "Earlier background review reports not returned to this session are not claimed as approvals.",
+    "Final post-hardening independent review found one mutable structural-index type gap; four new failing tests reproduced it and passed after the fix."
+  ],
+  "not_implemented": ["cheap evaluator", "delayed acceptance", "native code generation", "variable-order compilation"]
+}

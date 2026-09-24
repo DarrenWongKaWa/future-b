@@ -1,0 +1,60 @@
+name: diagram-compiler
+
+on:
+  push:
+    branches: ["main", "codex/diagram-compiler-**"]
+    tags: ["diagram-compiler-package-v*"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  python-and-native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test dependencies
+        run: python -m pip install -U pip numpy pytest
+      - name: Install repository
+        run: python -m pip install -e .
+      - name: Compiler tests
+        run: python -m pytest -q tests/test_cheap_cost.py tests/test_cheap_evaluator.py tests/test_cheap_independence.py tests/test_cheap_p1.py tests/test_cheap_policy.py tests/test_cheap_protection.py tests/test_cheap_reciprocity.py tests/test_da_algebra.py tests/test_da_finite_state.py tests/test_da_independence.py tests/test_da_kernel.py tests/test_da_protection.py tests/test_dag_sharing.py tests/test_diagram_ir.py tests/test_evaluator_vs_r1.py tests/test_fortran_backend.py tests/test_fortran_primitives.py tests/test_fortran_protection.py tests/test_native_kernel.py tests/test_proposal_spec.py tests/test_r1_import.py tests/test_target_policy.py
+      - name: Exact compiler differential
+        run: python scripts/diagram_compiler_task1.py --output /tmp/task1-evidence
+      - name: Build reproducible Ubuntu Fortran image
+        run: docker build -f integration/diagram_compiler/Dockerfile.u22 -t futureb-u22-env:ci .
+      - name: Pin public FEP-DMC
+        run: |
+          git clone --quiet https://github.com/yaoluo/FEP-DMC /tmp/fep-dmc
+          git -C /tmp/fep-dmc checkout --quiet 05d08449cffdbd0dfbbbf5009add5cc887bc754b
+      - name: Task 6 native validation
+        env:
+          FUTURE_B_FEP_DMC: /tmp/fep-dmc
+          FUTURE_B_DC_DOCKER: futureb-u22-env:ci
+        run: python scripts/diagram_compiler_task6.py --output /tmp/task6-evidence --fep-dmc /tmp/fep-dmc --image futureb-u22-env:ci
+      - name: Build independent compiler wheel and sdist
+        run: |
+          python -m pip install build
+          python scripts/build_diagram_compiler_package.py --stage /tmp/diagram-compiler-source
+          python -m build /tmp/diagram-compiler-source --outdir /tmp/diagram-compiler-dist
+      - name: Wheel smoke in a clean environment
+        run: |
+          python -m venv /tmp/diagram-compiler-wheel-venv
+          /tmp/diagram-compiler-wheel-venv/bin/python -m pip install /tmp/diagram-compiler-dist/*.whl
+          cd /tmp
+          /tmp/diagram-compiler-wheel-venv/bin/python /tmp/diagram-compiler-source/examples/quickstart.py
+          /tmp/diagram-compiler-wheel-venv/bin/python -c 'from pathlib import Path; from keldysh4ai.diagram_compiler.fortran_compile import RUNTIME_FILE; assert Path(RUNTIME_FILE).is_file()'
+      - name: Sdist science checks
+        env:
+          FUTURE_B_FEP_DMC: /tmp/fep-dmc
+          FUTURE_B_DC_DOCKER: futureb-u22-env:ci
+        run: |
+          mkdir /tmp/diagram-compiler-unpacked
+          tar -xzf /tmp/diagram-compiler-dist/*.tar.gz -C /tmp/diagram-compiler-unpacked
+          python -m venv /tmp/diagram-compiler-sdist-venv
+          /tmp/diagram-compiler-sdist-venv/bin/python -m pip install '/tmp/diagram-compiler-unpacked/future_b_diagram_compiler-0.2.0[dev]'
+          cd /tmp/diagram-compiler-unpacked/future_b_diagram_compiler-0.2.0
+          /tmp/diagram-compiler-sdist-venv/bin/python -m pytest -q tests
+          /tmp/diagram-compiler-sdist-venv/bin/python scripts/diagram_compiler_task1.py --output /tmp/task1-sdist-evidence

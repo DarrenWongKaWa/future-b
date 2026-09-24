@@ -1,0 +1,13 @@
+{
+  "combined_compiler_tests": 383,
+  "da_kernel_sha256": "ecd23d88b23f4f748351fdd9cefd073c4f4e7b73eecc46f6807f8e399faaee7c",
+  "differential_cases": 224,
+  "max_absolute_error_from_r1_including_Op": 2.7755575615628914e-17,
+  "native_interpret_sha256": "48598b23e8b0198d3fd16f3fbe32e02f1c7867a35fac89cdf5d6768748bf7da2",
+  "native_ir_json_sha256": "3602fc4edd9176fd9a1ff07009a1bcf63def5db4ccfa8dea74d84c2aadff40dd",
+  "native_ir_py_sha256": "c156df032c9950eb35c24ced2432985789e86ceb143d3e0a77d38437f2ee77ea",
+  "native_lower_sha256": "4d243e03e01e7d7df88409b5bf03b6b13a0da4452c0cfeb50e2d91b07b21c22c",
+  "native_validate_sha256": "5ae448de0c580732e371928c5d6b5c5be1b20a0343c34f5c9eabfcb70197d4e6",
+  "task4_head": "0110f22abc9831b20f69d7a5228af8d4773fa3d5",
+  "task4_tests": 14
+}

@@ -1,0 +1,21 @@
+{
+  "atol": 1e-12,
+  "cheap_evaluator_sha256": "d78dfde2ef34cfc4c0cca42479fb8e08e356f5a3d6ccb3f30efdb888bc4ff09a",
+  "cheap_policy_json_sha256": "9591340510a4cf93a1bb8c0464acd6c65040604d064ec9e841bc80c3de33de21",
+  "cheap_policy_py_sha256": "6a6891d3d3752b9db03ac5fdfba33bbe1a2080eb9a8891671acdce6abed660dd",
+  "combined_compiler_tests": 333,
+  "differential_cases": 224,
+  "exact_compiler_sha256": {
+    "canonical.py": "44b98c52815f9cd4de2ffa8009156708c4a96b4499fe4b18e3cbc6bd7cd23bf9",
+    "evaluator.py": "2d9fcee5afed041c0c604927a578817695e0913a971c2b1e879e477e2b7c0899",
+    "graph.py": "de0a3412831865c20b820502af16e6514568407fa68184c4372c5a36c0fc285d",
+    "ir.py": "eede4eda700a3ff08e06a6c258f5bbc7b23a1fbf7c634d7626726cd907bd73eb",
+    "r1_import.py": "35dc431c529e0ae307c6826a45635df79463889f5645ec26ddf4b8bd7fdfeed2"
+  },
+  "max_absolute_error_from_r1_including_Op": 2.7755575615628914e-17,
+  "rtol": 1e-10,
+  "task1_compiler_tests": 281,
+  "task1_head": "1185d81741401e8b3d0729cd315c120a79372f60",
+  "task2_head": "a79bdf4213a768db74401e6525b4c6e6eb62d768",
+  "task2_tests": 52
+}
