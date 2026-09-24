@@ -1,0 +1,2 @@
+# Preserve the pinned CRLF fixture bytes; CR is part of its recorded SHA256.
+src/keldysh4ai/scheme_d/physics_first/symbolic/rebind_cases.csv whitespace=cr-at-eol

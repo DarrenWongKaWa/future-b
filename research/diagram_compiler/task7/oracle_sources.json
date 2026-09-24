@@ -1,0 +1,222 @@
+{
+  "files": [
+    {
+      "change": "byte_identical",
+      "original_sha256": "e89eaa66f43f0e3d406eca29482cafe628ed61d54873bf2746c056520d41d7c7",
+      "path": "benchmarks/r1_fixed_order/frozen_results.json",
+      "shipped_sha256": "e89eaa66f43f0e3d406eca29482cafe628ed61d54873bf2746c056520d41d7c7"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "f6fa5585d002c092bcd50fe46a6b23abf99445f62492dbe2899d649b16153b0f",
+      "path": "src/future_b/r1_fixed_order/__init__.py",
+      "shipped_sha256": "f6fa5585d002c092bcd50fe46a6b23abf99445f62492dbe2899d649b16153b0f"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "6e39b53ab5406950841d649353eed5371d18cc2b93955e78f5608d92408bd1a9",
+      "path": "src/keldysh4ai/scheme_d/__init__.py",
+      "shipped_sha256": "6e39b53ab5406950841d649353eed5371d18cc2b93955e78f5608d92408bd1a9"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "859c20724142d446aee096f0f52f1495a3c54b2e4e654ab22d57ea202fb6db38",
+      "path": "src/keldysh4ai/scheme_d/exec.py",
+      "shipped_sha256": "859c20724142d446aee096f0f52f1495a3c54b2e4e654ab22d57ea202fb6db38"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "ba2ea2e6479d95fddcceea87b30ce3f61104168ca04f2ef9170fbd9813cbef2f",
+      "path": "src/keldysh4ai/scheme_d/fortran_ir.py",
+      "shipped_sha256": "ba2ea2e6479d95fddcceea87b30ce3f61104168ca04f2ef9170fbd9813cbef2f"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "740db3db9867c6d297a37158f0d02d3f7b7a5fddb3151f402db71d874a957451",
+      "path": "src/keldysh4ai/scheme_d/ir.py",
+      "shipped_sha256": "740db3db9867c6d297a37158f0d02d3f7b7a5fddb3151f402db71d874a957451"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "5aae8482ccd45342a0b244b80b7086d8c845a944f57e42aab69bcefe06814b07",
+      "path": "src/keldysh4ai/scheme_d/numeric.py",
+      "shipped_sha256": "5aae8482ccd45342a0b244b80b7086d8c845a944f57e42aab69bcefe06814b07"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "a2776e82341ea683b8d2b9750b9f0922bc1b64cff5b959954ce5e2206ac9cc17",
+      "path": "src/keldysh4ai/scheme_d/oracle.py",
+      "shipped_sha256": "a2776e82341ea683b8d2b9750b9f0922bc1b64cff5b959954ce5e2206ac9cc17"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "55d2a8af76d9541bb9829d0bc340e5362c51726843a18f57db70b6da767a7181",
+      "path": "src/keldysh4ai/scheme_d/physics_first/__init__.py",
+      "shipped_sha256": "55d2a8af76d9541bb9829d0bc340e5362c51726843a18f57db70b6da767a7181"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "279ef42802d033010b3d97fd82e145f18b370d021548418a928efe5b3772723e",
+      "path": "src/keldysh4ai/scheme_d/physics_first/baselines.py",
+      "shipped_sha256": "279ef42802d033010b3d97fd82e145f18b370d021548418a928efe5b3772723e"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "0878f052da0c3f66bf10d4d114b952970aa20e2818f1d6c2481f399f858bf594",
+      "path": "src/keldysh4ai/scheme_d/physics_first/contract.py",
+      "shipped_sha256": "0878f052da0c3f66bf10d4d114b952970aa20e2818f1d6c2481f399f858bf594"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "0b3ae0a1d5bb8d2793b7f1751b094ded588fc350ca9d27c566428d39ce118c0c",
+      "path": "src/keldysh4ai/scheme_d/physics_first/fock_witness.py",
+      "shipped_sha256": "0b3ae0a1d5bb8d2793b7f1751b094ded588fc350ca9d27c566428d39ce118c0c"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "a47316e12e1c006fdd5d3bb985e60917ab39f07d37833b6ee046f8dba0f9156c",
+      "path": "src/keldysh4ai/scheme_d/physics_first/index_oracle.py",
+      "shipped_sha256": "a47316e12e1c006fdd5d3bb985e60917ab39f07d37833b6ee046f8dba0f9156c"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "65ed34eb1c4f9688cdcc7896d2bbe9cabc3eb4158b34e4b2b3c047f528f825d7",
+      "path": "src/keldysh4ai/scheme_d/physics_first/interface.py",
+      "shipped_sha256": "65ed34eb1c4f9688cdcc7896d2bbe9cabc3eb4158b34e4b2b3c047f528f825d7"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "866cef78ddb41a65e1675770f7c42b80821fd204c27820741f711ab876dd0268",
+      "path": "src/keldysh4ai/scheme_d/physics_first/meters.py",
+      "shipped_sha256": "866cef78ddb41a65e1675770f7c42b80821fd204c27820741f711ab876dd0268"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "8d50880c426fd83642b453e4f61e864f238c902fa55840b00efb674864428735",
+      "path": "src/keldysh4ai/scheme_d/physics_first/r1_open_dp.py",
+      "shipped_sha256": "8d50880c426fd83642b453e4f61e864f238c902fa55840b00efb674864428735"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "0ecb09e8a03666c424fbb466100bb8947d9edf40f59b290b6920f23527adf3bd",
+      "path": "src/keldysh4ai/scheme_d/physics_first/r2_cut.py",
+      "shipped_sha256": "0ecb09e8a03666c424fbb466100bb8947d9edf40f59b290b6920f23527adf3bd"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "06dcad71cead001eef7467d9d931a51b3ee1edafa8d2e7ce7c133d029e7f372f",
+      "path": "src/keldysh4ai/scheme_d/physics_first/r3_canonical.py",
+      "shipped_sha256": "06dcad71cead001eef7467d9d931a51b3ee1edafa8d2e7ce7c133d029e7f372f"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "a7bae39a0f7eaab8ffd4821c27b98b5408377f2b5a97db9b7a73a2422c93d28b",
+      "path": "src/keldysh4ai/scheme_d/physics_first/r4_graded.py",
+      "shipped_sha256": "a7bae39a0f7eaab8ffd4821c27b98b5408377f2b5a97db9b7a73a2422c93d28b"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "abbe16089f6da7632a8cdc6182fb876437e0694b0aada661fa820844b6fe27f1",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/__init__.py",
+      "shipped_sha256": "abbe16089f6da7632a8cdc6182fb876437e0694b0aada661fa820844b6fe27f1"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "4b813a8cdf1626118150f035a19c3a0207cc2f9aef9f8b653eea83ab5b5aaa91",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/baselines.py",
+      "shipped_sha256": "4b813a8cdf1626118150f035a19c3a0207cc2f9aef9f8b653eea83ab5b5aaa91"
+    },
+    {
+      "change": "only relocate NOTES_CASES to adjacent tracked fixture",
+      "original_sha256": "d0b7a70db4863119e4e1648881422cadc4aae5d626bde54653bf30ba70739d37",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/bindings.py",
+      "shipped_sha256": "6fbcd966eca2be26a9d5627ac44c6f5d55c4c583c7d0a9a47db6c53b74f5e61a"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "be98439af9edd4bd56374812d14dee96b78fc135cef9fca166a7cce9cb6cb10c",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/compile_cache.py",
+      "shipped_sha256": "be98439af9edd4bd56374812d14dee96b78fc135cef9fca166a7cce9cb6cb10c"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "0aa7ed92c8bfb82c8567525875854a8919ffd41d507e0f7e9df8f08b364b2fa4",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/cost.py",
+      "shipped_sha256": "0aa7ed92c8bfb82c8567525875854a8919ffd41d507e0f7e9df8f08b364b2fa4"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "fa2f9272786ef4ccc1254b2b483efd847683cd2b7fb422385638373d3f57c847",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/fused_kernel.py",
+      "shipped_sha256": "fa2f9272786ef4ccc1254b2b483efd847683cd2b7fb422385638373d3f57c847"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "85a916a465f39aba5e3b79b2c68dd726d4e6dc91ab4bc340eb4826287d3eeed1",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/guards.py",
+      "shipped_sha256": "85a916a465f39aba5e3b79b2c68dd726d4e6dc91ab4bc340eb4826287d3eeed1"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "0be83bfffbe4b53c297e01c9304fc76ce5d4dcc29f2c9d586c82ecc44277a68a",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/leaf_fortran.py",
+      "shipped_sha256": "0be83bfffbe4b53c297e01c9304fc76ce5d4dcc29f2c9d586c82ecc44277a68a"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "dabf62478f24b7295ad344172ca8e259fc273ed4142f704eb77fe764ad81ab59",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/leaves.py",
+      "shipped_sha256": "dabf62478f24b7295ad344172ca8e259fc273ed4142f704eb77fe764ad81ab59"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "a08e5556e37e45654d8fe2d7b7fc88d8596787869e63f394a22d0c8517f5d115",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/packed_binder.py",
+      "shipped_sha256": "a08e5556e37e45654d8fe2d7b7fc88d8596787869e63f394a22d0c8517f5d115"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "58336062001eb6b41fc754ec9d86844fe1efbe86bed1d4fba3e01683de73c6ef",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/plan_spec.py",
+      "shipped_sha256": "58336062001eb6b41fc754ec9d86844fe1efbe86bed1d4fba3e01683de73c6ef"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "db0879329677e73ea25d39246934b47ac2ce67b2c685554c2b704b2def593c4e",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/r1.py",
+      "shipped_sha256": "db0879329677e73ea25d39246934b47ac2ce67b2c685554c2b704b2def593c4e"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "6d722242938f8921de3da34af8aa0b48faf93c966fa2c3ae9c5afd2be5beddb4",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/r1_twoband.py",
+      "shipped_sha256": "6d722242938f8921de3da34af8aa0b48faf93c966fa2c3ae9c5afd2be5beddb4"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "f4cac255051e9c8772a9be48336da974178aaa84a9281918014cf2f2c132ed4c",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/reference_binder.py",
+      "shipped_sha256": "f4cac255051e9c8772a9be48336da974178aaa84a9281918014cf2f2c132ed4c"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "e26560f87a746b62b482edc9d3be3b57d8ec1e5aa6a6098bc795d85fde1d1bea",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/session.py",
+      "shipped_sha256": "e26560f87a746b62b482edc9d3be3b57d8ec1e5aa6a6098bc795d85fde1d1bea"
+    },
+    {
+      "change": "byte_identical",
+      "original_sha256": "dc4296850070d219b9c4ee87d276955bb304566186e545fcc31f4bebeb9b5d48",
+      "path": "src/keldysh4ai/scheme_d/rewrites.py",
+      "shipped_sha256": "dc4296850070d219b9c4ee87d276955bb304566186e545fcc31f4bebeb9b5d48"
+    },
+    {
+      "change": "fixture copied verbatim",
+      "original_sha256": "a8feafaa354af1cc8190499f5f4f86456f3ae821eaab616462036d2f60cb5ae5",
+      "path": "src/keldysh4ai/scheme_d/physics_first/symbolic/rebind_cases.csv",
+      "shipped_sha256": "a8feafaa354af1cc8190499f5f4f86456f3ae821eaab616462036d2f60cb5ae5"
+    }
+  ],
+  "schema": 1,
+  "source": "Future B live extract; Task-1 R1_ORACLE.json pins are checked before copying"
+}

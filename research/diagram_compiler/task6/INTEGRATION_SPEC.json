@@ -1,0 +1,19 @@
+{
+  "architecture": "A_separate_validation_executable",
+  "backend": "fortran_v1",
+  "cache_contract": "A_caller_guarantees_exact_x_valid_belongs_to_x",
+  "cheap_policy": "propagator_only_v1",
+  "da_design": "B",
+  "fep_dmc_commit": "05d08449cffdbd0dfbbbf5009add5cc887bc754b",
+  "level3_attempted": false,
+  "level4_attempted": false,
+  "level_reached": 2,
+  "p1_equivalence_claimed": false,
+  "primitive_set": "native_kernel_v1",
+  "target": "positive_real_F_v1",
+  "tolerances": {
+    "atol": 1e-12,
+    "discrete": "exact",
+    "rtol": 1e-10
+  }
+}
