@@ -14,8 +14,16 @@ PUBLIC_IMAGE = "public.ecr.aws/docker/library/ubuntu:22.04"
 FFLAGS = DEFAULT_FLAGS + ("-J", ".")
 
 
-def docker_available() -> bool:
-    return shutil.which("docker") is not None
+def docker_available(image: str = DEFAULT_IMAGE) -> bool:
+    if shutil.which("docker") is None:
+        return False
+    probe = subprocess.run(
+        ["docker", "image", "inspect", image],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return probe.returncode == 0
 
 
 def docker_run(image: str, args: list[str], *, workdir: Path, stdin: str | None = None) -> subprocess.CompletedProcess[str]:

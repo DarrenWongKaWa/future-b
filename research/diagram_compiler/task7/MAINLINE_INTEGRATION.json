@@ -7,7 +7,7 @@
   "history_strategy": "file_level_transplant_without_unrelated_history_merge",
   "v1_2_0_release_files_modified": false,
   "source_tree_tests": {
-    "passed": 525,
+    "passed": 526,
     "skipped": 0
   },
   "sdist_tests": {
@@ -25,7 +25,7 @@
     "name": "future-b-diagram-compiler",
     "version": "0.2.0",
     "clean_sdist_tests_passed": 413,
-    "clean_sdist_tests_skipped": 1,
+    "clean_sdist_tests_skipped": 2,
     "task1_differential_cases": 224,
     "task1_max_absolute_error": 2.7755575615628914e-17,
     "wheel_quickstart": "PASS",

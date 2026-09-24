@@ -16,6 +16,7 @@ from keldysh4ai.diagram_compiler import (
     lower_native_kernel,
 )
 from keldysh4ai.diagram_compiler.fortran_compile import ATOL, RTOL, RUNTIME_FILE
+import keldysh4ai.diagram_compiler.fortran_docker as docker_runtime
 from keldysh4ai.diagram_compiler.fortran_docker import (
     DEFAULT_IMAGE,
     compile_in_docker,
@@ -36,6 +37,24 @@ FEP_DEFAULT = (
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def test_docker_availability_requires_the_configured_local_image(monkeypatch):
+    """Docker installed without the pinned image must not run native tests."""
+    class Result:
+        def __init__(self, returncode):
+            self.returncode = returncode
+
+    seen = []
+
+    def inspect(cmd, **kwargs):
+        seen.append(cmd)
+        return Result(1)
+
+    monkeypatch.setattr(docker_runtime.shutil, "which", lambda name: "/usr/bin/docker")
+    monkeypatch.setattr(docker_runtime.subprocess, "run", inspect)
+    assert docker_runtime.docker_available("futureb-u22-env:missing") is False
+    assert seen == [["docker", "image", "inspect", "futureb-u22-env:missing"]]
 
 
 def test_task5_generated_source_and_runtime_unchanged():
@@ -78,7 +97,7 @@ def test_fep_dmc_pin_pristine():
     assert dc.git_head(FEP_DEFAULT) == PIN["reference_commit"]
 
 
-@pytest.mark.skipif(not docker_available(), reason="docker not available")
+@pytest.mark.skipif(not docker_available(), reason="configured Docker image not available")
 def test_ubuntu_gfortran_kernel_matches_oracle(tmp_path):
     from keldysh4ai.diagram_compiler import emit_driver
 
