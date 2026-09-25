@@ -120,9 +120,12 @@ What the toy does *not* support is the hope that grouping four-vertex
 windows buys material efficiency. Three questions have to be answered
 before F4 is justified:
 
-1. **LiF's average sign ⟨s⟩ under native `|Re D|` sampling.** This can
-   be measured from native output alone. If ⟨s⟩ ≈ 1, measure B cannot
-   help through the sign; the ceiling on the variance gain is `1/⟨s⟩²`.
+1. **LiF's average sign ⟨s⟩ under native `|Re D|` sampling. Answered in
+   [lif_sign/LIF_SIGN.md](lif_sign/LIF_SIGN.md): ⟨s⟩ = 0.944 ± 0.002**
+   (102 production chains, including the upstream authors' reference
+   output). Even perfect grouping could lower the variance only by a
+   factor of 1.12. Carrying the toy's 4-vertex recovery over gives about
+   1.02. **The sign route is no-go for LiF-electron.**
 2. **Whether the LiF estimator of `Q` varies inside a group.** If it
    does, the Rao–Blackwell gain seen here (7–24%) could carry over.
 3. **Larger windows (6 vertices, 15 pairings).** These put more
