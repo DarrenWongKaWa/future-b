@@ -27,7 +27,6 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from scipy import stats
 
 
 def cpu(c: Path) -> float:
@@ -96,6 +95,7 @@ def main() -> None:
     ap.add_argument("--trace-a", nargs=5)
     ap.add_argument("--trace-c", nargs=5)
     a = ap.parse_args()
+    from scipy import stats  # only needed for the F interval
     A = side(a.runs_a, a.material, a.tau, a.e_bare)
     C = side(a.runs_c, a.material, a.tau, a.e_bare)
     ratio = A["var_h"] / C["var_h"]

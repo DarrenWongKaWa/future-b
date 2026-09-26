@@ -50,6 +50,12 @@
 ! tau1 ~ U(0, tau_max) and tau2 ~ truncated Exp(omega_nu) on (tau1, tau_max), with
 ! q ~ Pq and nu ~ Pnu; the span's momenta shift by -q / +q. Native add/remove only
 ! touch span-1 lines, which is what limits order mixing.
+! FUTUREB_EXTAR=1 (probability FUTUREB_EXTAR_P) adds a general external add/remove
+! (ext_move): a boundary-wrapping pair inserted or removed at any position, not only
+! outermost as in native (whose LIFO rule makes the external-pair count the slowest
+! variable, tau_int ~ 1800 measurements at LiF-hole 500 K).
+! FUTUREB_MV_UNTIL=N limits the Future B moves (change-q, any_move) to the first
+! N steps (e.g. the burn-in); afterwards the chain is purely native.
 ! Self-checks (chq_summary.dat): momentum conservation and continuity along the
 ! chain, and the native measure equals evaluate() on the current state.
 module bchain_mod
@@ -99,6 +105,18 @@ module bchain_mod
    integer(8), save :: n_anyA = 0, n_anyA_acc = 0, n_anyR = 0, n_anyR_acc = 0, n_gchecks = 0, n_gbad = 0
    real(dp), save :: sum_spanA = 0, sum_spanR = 0, t_any = 0
    integer, save :: fs_order = 0, fs_nph_ext = 0
+   integer(8), save :: mv_until = huge(1_8), n_mvsteps = 0
+   ! general external add/remove
+   logical, save :: ext_on = .false., ext_outer = .false.   ! FUTUREB_EXTAR_OUTER=1: native support only
+   logical, save :: ext_mimic = .false.   ! FUTUREB_EXTAR_MIMIC=1: native proposal densities, eval_state weight
+   logical, save :: ext_rpos = .false., ext_rtau = .false.   ! outermost-only / tau1 < tmax/2 < tau2 only
+   ! native's diagram space: every head-attached external vertex precedes every
+   ! tail-attached one (update_swap forbids crossing them; add is outermost). The
+   ! general add must respect it (FUTUREB_EXTAR_UNORDERED=1 drops the constraint).
+   logical, save :: ext_ordered = .true.
+   real(dp), save :: p_ext = 0.05d0, t_ext = 0
+   integer(8), save :: n_extA = 0, n_extA_acc = 0, n_extR = 0, n_extR_acc = 0, n_rt_ext = 0
+   real(dp), save :: rt_ext_la = 0, rt_ext_pa = 0, rt_ext_pr = 0
    logical, save :: pnu_fro = .false.          ! FUTUREB_PNU_FRO=1: gauge-invariant Pnu ~ sum |g_ij|^2
    real(dp), save :: gauge_dpnu = 0            ! max |Pnu(stored) - Pnu(fresh)| seen in any_remove
    type(vertex), save :: vtmp
@@ -127,11 +145,30 @@ contains
       chq_on = (st == 0 .and. trim(adjustl(env)) == '1')
       call get_environment_variable('FUTUREB_ANY', env, status=st)
       any_on = (st == 0 .and. trim(adjustl(env)) == '1')
-      mv_on = chq_on .or. any_on
+      call get_environment_variable('FUTUREB_EXTAR', env, status=st)
+      ext_on = (st == 0 .and. trim(adjustl(env)) == '1')
+      mv_on = chq_on .or. any_on .or. ext_on
       if (.not. (bc_on .or. mv_on)) return
       if (bc_method /= 0) stop 'FUTUREB_BCHAIN/CHQ: DMC_Method 0 only'
       call get_environment_variable('FUTUREB_CHQ_P', env, status=st)
       if (st == 0 .and. len_trim(env) > 0) read(env, *) p_chq
+      call get_environment_variable('FUTUREB_HERM_TEST', env, status=st)
+      if (st == 0 .and. trim(adjustl(env)) == '1') call herm_test(diagram)
+      call get_environment_variable('FUTUREB_EXTAR_OUTER', env, status=st)
+      ext_outer = (st == 0 .and. trim(adjustl(env)) == '1')
+      call get_environment_variable('FUTUREB_EXTAR_MIMIC', env, status=st)
+      ext_mimic = (st == 0 .and. trim(adjustl(env)) == '1')
+      if (ext_mimic) ext_outer = .true.
+      call get_environment_variable('FUTUREB_EXTAR_UNORDERED', env, status=st)
+      if (st == 0 .and. trim(adjustl(env)) == '1') ext_ordered = .false.
+      call get_environment_variable('FUTUREB_EXTAR_RPOS', env, status=st)
+      ext_rpos = ext_outer .or. (st == 0 .and. trim(adjustl(env)) == '1')
+      call get_environment_variable('FUTUREB_EXTAR_RTAU', env, status=st)
+      ext_rtau = ext_outer .or. (st == 0 .and. trim(adjustl(env)) == '1')
+      call get_environment_variable('FUTUREB_EXTAR_P', env, status=st)
+      if (st == 0 .and. len_trim(env) > 0) read(env, *) p_ext
+      call get_environment_variable('FUTUREB_MV_UNTIL', env, status=st)
+      if (st == 0 .and. len_trim(env) > 0) read(env, *) mv_until
       call get_environment_variable('FUTUREB_PNU_FRO', env, status=st)
       pnu_fro = (st == 0 .and. trim(adjustl(env)) == '1')
       call get_environment_variable('FUTUREB_ANY_P', env, status=st)
@@ -178,7 +215,7 @@ contains
          write(bc_unit, '(A)') '# f_O f_1 n_Seff log_group native_inc native_sign order'
       else
          open(newunit=bc_unit, file='chq_trace.dat', status='replace', action='write')
-         write(bc_unit, '(A)') '# native_inc native_sign order'
+         write(bc_unit, '(A)') '# native_inc native_sign order nph_ext khead2 n_int_lines'
       end if
       if (diagram%order < 0) stop 'bchain: bad diagram'
    end subroutine bc_setup
@@ -1296,6 +1333,60 @@ contains
       end do
    end subroutine chq_restore
 
+   ! Hermiticity of the tabulated vertex matrices: native sets a partner vertex's matrix
+   ! to conjg(transpose(g)) of the first vertex, while direct evaluation computes
+   ! g(k+q, -q) from the tables. Samples random (k, q) with q ~ Pq and reports the
+   ! relative deviation (FUTUREB_HERM_TEST=1, written to herm_test.dat).
+   subroutine herm_test(diagram)
+      type(fynman), intent(inout), target :: diagram
+      type(vertex) :: va, vb
+      integer :: it, nu, u, k(3), q(3), nsamp
+      real(dp) :: x, Pq, d, gmax, dmax, dsum, wsum, dw, pa(Nph), pb(Nph), dp_max
+      complex(dp) :: gt(dmc_band, dmc_band)
+      call CreateVertex(Nph, dmc_band, nbnd, nsvd, va)
+      call CreateVertex(Nph, dmc_band, nbnd, nsvd, vb)
+      nsamp = 4000
+      dmax = 0; dsum = 0; wsum = 0; dp_max = 0
+      do it = 1, nsamp
+         do u = 1, 3
+            k(u) = int(urand() * nk_svd)
+         end do
+         call sample_q_omp_int(diagram%seed, q, Pq, va)
+         va%i_kin = k
+         va%i_q = q
+         va%i_kout = modulo(k + q, nk_svd)
+         call cal_ek_int(va%i_kin, va%ekin, va%ukin, va%vkin)
+         call cal_ek_int(va%i_kout, va%ekout, va%ukout, va%vkout)
+         call cal_gkq_vtex_int(va, va%gkq)
+         vb%i_kin = va%i_kout
+         vb%i_q = nk_svd - q
+         vb%i_kout = va%i_kin
+         vb%ukin = va%ukout; vb%ukout = va%ukin; vb%ekin = va%ekout; vb%ekout = va%ekin
+         call cal_gkq_vtex_int(vb, vb%gkq)
+         do nu = 1, Nph
+            gt = conjg(transpose(va%gkq(:, :, nu)))
+            gmax = maxval(abs(va%gkq(:, :, nu)))
+            if (gmax <= 0.d0) cycle
+            d = maxval(abs(vb%gkq(:, :, nu) - gt)) / gmax
+            dmax = max(dmax, d)
+            dw = gmax**2
+            dsum = dsum + d * dw
+            wsum = wsum + dw
+         end do
+         do nu = 1, Nph
+            pa(nu) = maxval(abs(va%gkq(:, :, nu)))**2
+            pb(nu) = maxval(abs(vb%gkq(:, :, nu)))**2
+         end do
+         if (sum(pa) > 0 .and. sum(pb) > 0) dp_max = max(dp_max, maxval(abs(pa / sum(pa) - pb / sum(pb))))
+      end do
+      open(newunit=u, file='herm_test.dat', status='replace', action='write')
+      write(u, '(A,I8)') 'samples ', nsamp
+      write(u, '(A,ES12.4)') 'max_rel_dev_g ', dmax
+      write(u, '(A,ES12.4)') 'weighted_mean_rel_dev_g ', dsum / max(wsum, 1.d-300)
+      write(u, '(A,ES12.4)') 'max_dev_Pnu ', dp_max
+      close(u)
+   end subroutine herm_test
+
    ! Momentum conservation at every internal vertex and continuity along the chain.
    subroutine k_check(diagram)
       type(fynman), intent(inout), target :: diagram
@@ -1381,6 +1472,40 @@ contains
       if (sum(pnu) > 0.d0) pnu = pnu / sum(pnu)
    end subroutine mode_probs
 
+   ! Native exp_sample_omp semantics: on [a, b], density ~ exp(-|beta| xdis) with
+   ! xdis = x - a (beta > 0) or b - x (beta < 0). sample = .true. draws x.
+   subroutine nexp(a, b, beta, x, px, sample)
+      real(dp), intent(in) :: a, b, beta
+      real(dp), intent(inout) :: x
+      real(dp), intent(out) :: px
+      logical, intent(in) :: sample
+      real(dp) :: L, yb, xdis, ab, xt
+      L = b - a
+      ab = abs(beta)
+      if (ab * L < 1.d-10) then
+         if (sample) x = a + urand() * L
+         px = 1.d0 / L
+         return
+      end if
+      yb = exp(-ab * L)
+      if (sample) then
+         xt = urand()
+         xdis = abs(log(xt + yb * (1.d0 - xt)) / ab)
+         xdis = min(xdis, L)
+         if (beta > 0) then
+            x = a + xdis
+         else
+            x = b - xdis
+         end if
+      end if
+      if (beta > 0) then
+         xdis = x - a
+      else
+         xdis = b - x
+      end if
+      px = ab * exp(-ab * xdis) / (1.d0 - yb)
+   end subroutine nexp
+
    ! density of tau2 on (tau1, tmax) for rate lam (truncated exponential)
    real(dp) function ftau2(tau1, tau2, tmax, lam)
       real(dp), intent(in) :: tau1, tau2, tmax, lam
@@ -1406,6 +1531,430 @@ contains
       vu%i_kout = vsrc%i_kin; vu%ekout = vsrc%ekin; vu%ukout = vsrc%ukin; vu%vkout = vsrc%vkin
       vu%Eoutmin = minval(vu%ekout)
    end subroutine copy_out_from_in
+
+   ! Shift the momentum of every vertex marked in shiftv by dk (its out segment), keep
+   ! each segment's eigen-system identical on both ends, give the periodic segment
+   ! (head out = last out = tail in) the head's eigen-system, and recompute vertex
+   ! matrices wherever an in or out segment changed.
+   subroutine resync_shift(diagram, dk, shiftv)
+      type(fynman), intent(inout), target :: diagram
+      integer, intent(in) :: dk(3)
+      logical, intent(in) :: shiftv(:)
+      integer :: iv, ip, kh(3)
+      logical :: prev_changed, need
+      type(vertex), pointer :: v, vp, vh, vt
+      vh => diagram%vertexList(1)
+      vt => diagram%vertexList(maxN)
+      kh = modulo(vh%i_kout + dk, nk_svd)
+      call cal_ek_int(kh, vh%ekout, vh%ukout, vh%vkout)
+      vh%i_kout = kh
+      vh%Eoutmin = minval(vh%ekout)
+      prev_changed = .true.
+      ip = 1
+      iv = vh%link(3)
+      do while (iv /= maxN)
+         v => diagram%vertexList(iv)
+         vp => diagram%vertexList(ip)
+         need = prev_changed
+         call copy_in_from_out(v, vp)
+         prev_changed = .false.
+         if (shiftv(iv)) then
+            v%i_kout = modulo(v%i_kout + dk, nk_svd)
+            if (v%link(3) == maxN) then
+               v%i_kout = vh%i_kout; v%ekout = vh%ekout; v%ukout = vh%ukout; v%vkout = vh%vkout
+            else
+               call cal_ek_int(v%i_kout, v%ekout, v%ukout, v%vkout)
+            end if
+            v%Eoutmin = minval(v%ekout)
+            need = .true.
+            prev_changed = .true.
+         else if (v%link(3) == maxN) then
+            v%i_kout = vh%i_kout; v%ekout = vh%ekout; v%ukout = vh%ukout; v%vkout = vh%vkout
+            v%Eoutmin = minval(v%ekout)
+            need = .true.
+         end if
+         if (need) then
+            call cal_gkq_vtex_int(v, v%gkq)
+            call cal_gkq_full_vtex_int(v, v%gkq_full)
+         end if
+         ip = iv
+         iv = v%link(3)
+      end do
+      vt%i_kin = vh%i_kout; vt%ekin = vh%ekout; vt%ukin = vh%ukout; vt%vkin = vh%vkout
+      vt%Einmin = minval(vt%ekin)
+   end subroutine resync_shift
+
+   ! ---- general external add/remove (boundary-wrapping pairs at any position) -----
+   subroutine ext_move(diagram, accepted)
+      type(fynman), intent(inout), target :: diagram
+      logical, intent(out) :: accepted
+      real(dp) :: t0
+      t0 = now()
+      if (urand() < 0.5d0) then
+         call ext_add(diagram, accepted)
+      else
+         call ext_remove(diagram, accepted)
+      end if
+      t_ext = t_ext + (now() - t0)
+   end subroutine ext_move
+
+   ! head-side vertex eh at tau1 ~ U(0, tmax), q ~ Pq, nu ~ Pnu(eh); tail-side vertex
+   ! et at tau2 with tmax - tau2 ~ truncated Exp(omega_nu) on (0, tmax - tau1).
+   ! Every segment outside [tau1, tau2] (head side and tail side) carries -q.
+   subroutine ext_add(diagram, accepted)
+      type(fynman), intent(inout), target :: diagram
+      logical, intent(out) :: accepted
+      integer :: ipa, ina, ipb, inb, ieh, iet, iv, k, nu, qn(3)
+      real(dp) :: tmax, tau1, tau2, Pqn, pnu(Nph), lam, L, x, c, ft, la0, la1, lb1, lg1, acc, p_r, p_a, u
+      real(dp) :: tauc, pt1, pt2
+      integer :: ilast
+      logical :: shiftv(maxN), before
+      type(vertex), pointer :: veh, vet, vpa
+      accepted = .false.
+      if (diagram%order + 2 > maxOrder) return
+      n_extA = n_extA + 1
+      tmax = diagram%vertexList(maxN)%tau
+      if (ext_mimic) then
+         ipa = 1                     ! native inserts right after the head; tau1 drawn later
+         tau1 = 0.d0
+      else
+         tau1 = urand() * tmax
+         ipa = 1
+         do while (diagram%vertexList(ipa)%link(3) /= maxN)
+            if (diagram%vertexList(diagram%vertexList(ipa)%link(3))%tau >= tau1) exit
+            ipa = diagram%vertexList(ipa)%link(3)
+         end do
+      end if
+      ina = diagram%vertexList(ipa)%link(3)
+      if (.not. ext_mimic) then
+         if (ext_rpos .and. ipa /= 1) return
+         if (ext_rtau .and. tau1 >= 0.5d0 * tmax) return
+      end if
+      call eval_state(diagram, .false., lb1, la0, lg1)
+      call full_snapshot(diagram)
+      ieh = diagram%order + 1
+      iet = diagram%order + 2
+      veh => diagram%vertexList(ieh)
+      vet => diagram%vertexList(iet)
+      vpa => diagram%vertexList(ipa)
+      veh%tau = tau1
+      veh%i_kout = vpa%i_kout; veh%ekout = vpa%ekout; veh%ukout = vpa%ukout; veh%vkout = vpa%vkout
+      veh%Eoutmin = minval(veh%ekout)
+      call sample_q_omp_int(diagram%seed, qn, Pqn, veh)
+      veh%i_q = qn
+      veh%Pq = Pqn
+      veh%i_kin = modulo(veh%i_kout - qn, nk_svd)
+      call cal_ek_int(veh%i_kin, veh%ekin, veh%ukin, veh%vkin)
+      veh%Einmin = minval(veh%ekin)
+      call cal_wq_int(veh%i_q, veh%wq)
+      call cal_gkq_vtex_int(veh, veh%gkq)
+      call cal_gkq_full_vtex_int(veh, veh%gkq_full)
+      call mode_probs(veh%gkq, pnu)
+      if (sum(pnu) <= 0.d0) then
+         call full_restore(diagram)
+         return
+      end if
+      x = urand()
+      c = 0.d0
+      nu = Nph
+      do k = 1, Nph
+         c = c + pnu(k)
+         if (x < c) then
+            nu = k
+            exit
+         end if
+      end do
+      veh%nu = nu
+      if (ext_mimic) then
+         ! native add_external_ph proposal: tau1 on [0, min(tau_first, tmax/2)], tau2 on
+         ! [max(tau_last, tmax/2), tmax], signed decays from the pair's energies and omega
+         if (ina == maxN) then
+            tauc = 0.5d0 * tmax
+         else
+            tauc = min(diagram%vertexList(ina)%tau, 0.5d0 * tmax)
+         end if
+         call nexp(0.d0, tauc, minval(veh%ekin) + veh%wq(nu) - minval(veh%ekout), tau1, pt1, .true.)
+         veh%tau = tau1
+         ilast = diagram%vertexList(maxN)%link(1)
+         if (ilast == 1) then
+            tauc = 0.5d0 * tmax
+         else
+            tauc = max(diagram%vertexList(ilast)%tau, 0.5d0 * tmax)
+         end if
+         ! et: in = last segment (momentum k, = head out before the shift), out = k - q
+         call nexp(tauc, tmax, minval(diagram%vertexList(ilast)%ekout) - veh%wq(nu) - minval(veh%ekin), &
+                   tau2, pt2, .true.)
+         ft = pt1 * pt2 * tmax          ! p_a below carries 1/tmax
+      else
+         lam = max(veh%wq(nu), 0.d0)
+         L = tmax - tau1
+         x = urand()
+         if (lam * L < 1.d-8) then
+            u = x * L
+         else
+            u = -log(1.d0 - x * (1.d0 - exp(-lam * L))) / lam
+         end if
+         tau2 = tmax - u
+         ft = ftau2(0.d0, u, L, lam)
+      end if
+      if (.not. (tau2 > tau1 .and. tau2 < tmax)) then
+         call full_restore(diagram)
+         return
+      end if
+      ipb = ipa
+      do while (diagram%vertexList(ipb)%link(3) /= maxN)
+         if (diagram%vertexList(diagram%vertexList(ipb)%link(3))%tau >= tau2) exit
+         ipb = diagram%vertexList(ipb)%link(3)
+      end do
+      inb = diagram%vertexList(ipb)%link(3)
+      if ((ext_rpos .and. inb /= maxN) .or. (ext_rtau .and. tau2 <= 0.5d0 * tmax)) then
+         call full_restore(diagram)
+         return
+      end if
+      if (ext_ordered) then
+         ! no tail-attached vertex before tau1, no head-attached vertex after tau2
+         iv = diagram%vertexList(1)%link(3)
+         do while (iv /= maxN)
+            if (diagram%vertexList(iv)%tau < tau1 .and. diagram%vertexList(iv)%link(2) == maxN .or. &
+                diagram%vertexList(iv)%tau > tau2 .and. diagram%vertexList(iv)%link(2) == 1) then
+               call full_restore(diagram)
+               return
+            end if
+            iv = diagram%vertexList(iv)%link(3)
+         end do
+      end if
+      vet%tau = tau2
+      if (ipb == ipa) then
+         vet%i_kin = veh%i_kout; vet%ekin = veh%ekout; vet%ukin = veh%ukout; vet%vkin = veh%vkout
+      else
+         call copy_in_from_out(vet, diagram%vertexList(ipb))
+      end if
+      vet%Einmin = minval(vet%ekin)
+      vet%i_q = -qn
+      vet%Pq = Pqn
+      vet%nu = nu
+      vet%wq = veh%wq
+      vet%i_kout = vet%i_kin
+      vet%ekout = vet%ekin; vet%ukout = vet%ukin; vet%vkout = vet%vkin
+      ! link: eh after ipa, et after ipb (eh -> et directly if they share a segment)
+      if (ipb == ipa) then
+         veh%link = (/ipa, 1, iet/)
+         vet%link = (/ieh, maxN, ina/)
+         diagram%vertexList(ipa)%link(3) = ieh
+         diagram%vertexList(ina)%link(1) = iet
+      else
+         veh%link = (/ipa, 1, ina/)
+         vet%link = (/ipb, maxN, inb/)
+         diagram%vertexList(ipa)%link(3) = ieh
+         diagram%vertexList(ina)%link(1) = ieh
+         diagram%vertexList(ipb)%link(3) = iet
+         diagram%vertexList(inb)%link(1) = iet
+      end if
+      veh%plink = iet
+      vet%plink = ieh
+      diagram%order = diagram%order + 2
+      diagram%nph_ext = diagram%nph_ext + 1
+      ! outside region: vertices before eh, et itself (its out segment) and after et
+      shiftv = .false.
+      before = .true.
+      iv = diagram%vertexList(1)%link(3)
+      do while (iv /= maxN)
+         if (iv == ieh) before = .false.
+         if (before) shiftv(iv) = .true.
+         if (iv == iet) before = .true.
+         iv = diagram%vertexList(iv)%link(3)
+      end do
+      shiftv(ieh) = .false.
+      shiftv(iet) = .true.
+      call resync_shift(diagram, -qn, shiftv)
+      call eval_state(diagram, .false., lb1, la1, lg1)
+      p_r = 0.5d0 * 2.d0 / real(diagram%order - 1, dp)
+      p_a = 0.5d0 * (1.d0 / tmax) * Pqn * pnu(nu) * ft
+      if (chq_rt .and. mod(n_extA, 20_8) == 0) call ext_roundtrip(diagram, ieh, iet, la0, p_a, p_r)
+      acc = exp(max(min(la1 - la0, 700.d0), -700.d0)) * p_r / p_a
+      if (urand() < acc) then
+         n_extA_acc = n_extA_acc + 1
+         accepted = .true.
+      else
+         call full_restore(diagram)
+      end if
+   end subroutine ext_add
+
+   subroutine ext_remove(diagram, accepted)
+      type(fynman), intent(inout), target :: diagram
+      logical, intent(out) :: accepted
+      integer :: iv1, ieh, iet, iv, order_c
+      real(dp) :: la0, la1, lb1, lg1, acc, p_r, p_a
+      logical :: seen_eh
+      accepted = .false.
+      if (diagram%order < 3) return
+      iv1 = 2 + int(urand() * (diagram%order - 1))
+      if (iv1 > diagram%order) iv1 = diagram%order
+      if (diagram%vertexList(iv1)%link(2) == 1) then
+         ieh = iv1
+         iet = diagram%vertexList(iv1)%plink
+      else if (diagram%vertexList(iv1)%link(2) == maxN) then
+         iet = iv1
+         ieh = diagram%vertexList(iv1)%plink
+      else
+         return
+      end if
+      if (ieh < 2 .or. ieh > diagram%order .or. iet < 2 .or. iet > diagram%order) return
+      if (diagram%vertexList(ieh)%link(2) /= 1 .or. diagram%vertexList(iet)%link(2) /= maxN) return
+      if (diagram%vertexList(iet)%plink /= ieh .or. diagram%vertexList(ieh)%plink /= iet) return
+      seen_eh = .false.
+      iv = diagram%vertexList(1)%link(3)
+      do while (iv /= maxN)
+         if (iv == ieh) seen_eh = .true.
+         if (iv == iet) exit
+         iv = diagram%vertexList(iv)%link(3)
+      end do
+      if (.not. seen_eh) return
+      if (ext_rpos) then
+         if (diagram%vertexList(1)%link(3) /= ieh .or. diagram%vertexList(maxN)%link(1) /= iet) return
+      end if
+      if (ext_rtau) then
+         if (diagram%vertexList(ieh)%tau >= 0.5d0 * diagram%vertexList(maxN)%tau) return
+         if (diagram%vertexList(iet)%tau <= 0.5d0 * diagram%vertexList(maxN)%tau) return
+      end if
+      n_extR = n_extR + 1
+      order_c = diagram%order
+      call eval_state(diagram, .false., lb1, la0, lg1)
+      call full_snapshot(diagram)
+      call ext_remove_core(diagram, ieh, iet, la1, p_a, p_r)
+      acc = exp(max(min(la1 - la0, 700.d0), -700.d0)) * p_a / p_r
+      if (urand() < acc) then
+         n_extR_acc = n_extR_acc + 1
+         accepted = .true.
+      else
+         call full_restore(diagram)
+      end if
+   end subroutine ext_remove
+
+   ! Round trip C -> C' (just proposed) -> remove the same pair: must give back log w(C)
+   ! and the reverse proposal the add used. The proposed state C' is restored after.
+   subroutine ext_roundtrip(diagram, ieh, iet, la0, p_a, p_r)
+      type(fynman), intent(inout), target :: diagram
+      integer, intent(in) :: ieh, iet
+      real(dp), intent(in) :: la0, p_a, p_r
+      integer :: iv, ord2, next2
+      real(dp) :: la_rt, pa_rt, pr_rt
+      ord2 = diagram%order
+      next2 = diagram%nph_ext
+      do iv = 1, ord2
+         call copy_vtex(Nph, dmc_band, nbnd, nsvd, diagram%vertexList(iv), csnap2(iv))
+      end do
+      call copy_vtex(Nph, dmc_band, nbnd, nsvd, diagram%vertexList(maxN), csnap2(maxN))
+      call ext_remove_core(diagram, ieh, iet, la_rt, pa_rt, pr_rt)
+      n_rt_ext = n_rt_ext + 1
+      rt_ext_la = max(rt_ext_la, abs(la_rt - la0))
+      rt_ext_pa = max(rt_ext_pa, abs(pa_rt / p_a - 1.d0))
+      rt_ext_pr = max(rt_ext_pr, abs(pr_rt / p_r - 1.d0))
+      do iv = 1, ord2
+         call copy_vtex(Nph, dmc_band, nbnd, nsvd, csnap2(iv), diagram%vertexList(iv))
+      end do
+      call copy_vtex(Nph, dmc_band, nbnd, nsvd, csnap2(maxN), diagram%vertexList(maxN))
+      diagram%order = ord2
+      diagram%nph_ext = next2
+   end subroutine ext_roundtrip
+
+   ! Remove the valid external pair (ieh before iet) without an acceptance step.
+   ! Returns log w of the new state, the reverse-add proposal p_a and p_r.
+   subroutine ext_remove_core(diagram, ieh_in, iet_in, la1, p_a, p_r)
+      use multiphonon_update_matrix, only : swap_vertex
+      type(fynman), intent(inout), target :: diagram
+      integer, intent(in) :: ieh_in, iet_in
+      real(dp), intent(out) :: la1, p_a, p_r
+      integer :: ieh, iet, t1, t2, iv, ipa, ina, ipb, inb, nu, order_c, qn(3)
+      real(dp) :: tmax, pnu(Nph), pnu_fresh(Nph), lam, ft, lb1, lg1, Pq, tauc, tx, pt1, pt2
+      logical :: shiftv(maxN), before
+      type(vertex), pointer :: veh, vet
+      ieh = ieh_in
+      iet = iet_in
+      order_c = diagram%order
+      t1 = order_c - 1
+      t2 = order_c
+      if (ieh == t2 .and. iet == t1) then
+         call swap_vertex(diagram, t1, t2)
+      else
+         if (ieh /= t1) then
+            call swap_vertex(diagram, ieh, t1)
+            if (iet == t1) iet = ieh
+         end if
+         if (iet /= t2) call swap_vertex(diagram, iet, t2)
+      end if
+      ieh = t1
+      iet = t2
+      veh => diagram%vertexList(ieh)
+      vet => diagram%vertexList(iet)
+      if (veh%plink /= iet .or. vet%plink /= ieh) stop 'ext_remove: relabel failed'
+      tmax = diagram%vertexList(maxN)%tau
+      qn = veh%i_q
+      Pq = veh%Pq
+      nu = veh%nu
+      call mode_probs(veh%gkq, pnu)
+      if (mod(n_extR, 10_8) == 0) then
+         if (.not. vtmp_init) then
+            call CreateVertex(Nph, dmc_band, nbnd, nsvd, vtmp)
+            vtmp_init = .true.
+         end if
+         call copy_vtex(Nph, dmc_band, nbnd, nsvd, veh, vtmp)
+         call cal_ek_int(vtmp%i_kin, vtmp%ekin, vtmp%ukin, vtmp%vkin)
+         call cal_gkq_vtex_int(vtmp, vtmp%gkq)
+         call mode_probs(vtmp%gkq, pnu_fresh)
+         gauge_dpnu = max(gauge_dpnu, maxval(abs(pnu_fresh - pnu)))
+      end if
+      if (ext_mimic) then
+         if (veh%link(3) == maxN) then
+            tauc = 0.5d0 * tmax
+         else
+            tauc = min(diagram%vertexList(veh%link(3))%tau, 0.5d0 * tmax)
+         end if
+         tx = veh%tau
+         call nexp(0.d0, tauc, minval(veh%ekin) + veh%wq(nu) - minval(veh%ekout), tx, pt1, .false.)
+         if (veh%link(3) == iet) then
+            tauc = max(veh%tau, 0.5d0 * tmax)
+         else
+            tauc = max(diagram%vertexList(vet%link(1))%tau, 0.5d0 * tmax)
+         end if
+         tx = vet%tau
+         call nexp(tauc, tmax, minval(vet%ekin) - vet%wq(nu) - minval(vet%ekout), tx, pt2, .false.)
+         ft = pt1 * pt2 * tmax
+      else
+         lam = max(veh%wq(nu), 0.d0)
+         ft = ftau2(0.d0, tmax - vet%tau, tmax - veh%tau, lam)
+      end if
+      shiftv = .false.
+      before = .true.
+      iv = diagram%vertexList(1)%link(3)
+      do while (iv /= maxN)
+         if (iv == ieh) before = .false.
+         if (before) shiftv(iv) = .true.
+         if (iv == iet) before = .true.
+         iv = diagram%vertexList(iv)%link(3)
+      end do
+      shiftv(ieh) = .false.
+      shiftv(iet) = .false.
+      ipa = veh%link(1)
+      ina = veh%link(3)
+      ipb = vet%link(1)
+      inb = vet%link(3)
+      if (ina == iet) then
+         diagram%vertexList(ipa)%link(3) = inb
+         diagram%vertexList(inb)%link(1) = ipa
+      else
+         diagram%vertexList(ipa)%link(3) = ina
+         diagram%vertexList(ina)%link(1) = ipa
+         diagram%vertexList(ipb)%link(3) = inb
+         diagram%vertexList(inb)%link(1) = ipb
+      end if
+      diagram%order = order_c - 2
+      diagram%nph_ext = diagram%nph_ext - 1
+      call resync_shift(diagram, qn, shiftv)
+      call eval_state(diagram, .false., lb1, la1, lg1)
+      p_r = 0.5d0 * 2.d0 / real(order_c - 1, dp)
+      p_a = 0.5d0 * (1.d0 / tmax) * Pq * pnu(nu) * ft
+   end subroutine ext_remove_core
 
    subroutine any_move(diagram, accepted)
       type(fynman), intent(inout), target :: diagram
@@ -1659,17 +2208,36 @@ contains
       end if
    end subroutine any_remove
 
+   ! Candidate slow variables for the trace: squared minimum-image grid distance of
+   ! the head (periodic) segment momentum from Gamma, and the number of internal lines.
+   subroutine slow_vars(diagram, kh2, nint)
+      type(fynman), intent(inout), target :: diagram
+      integer, intent(out) :: kh2, nint
+      integer :: k(3), iv
+      k = modulo(diagram%vertexList(1)%i_kout, nk_svd)
+      where (k > nk_svd / 2) k = k - nk_svd
+      kh2 = sum(k * k)
+      nint = 0
+      iv = diagram%vertexList(1)%link(3)
+      do while (iv /= maxN)
+         if (diagram%vertexList(iv)%link(2) /= 1 .and. diagram%vertexList(iv)%link(2) /= maxN) nint = nint + 1
+         iv = diagram%vertexList(iv)%link(3)
+      end do
+      nint = nint / 2
+   end subroutine slow_vars
+
    ! Native-chain measurement with change_q: trace plus self-checks.
    subroutine chq_measure(diagram, stat)
       type(fynman), intent(inout), target :: diagram
       type(diagmc_stat), intent(in) :: stat
       complex(dp) :: dv, dh, dw
       real(dp) :: wf2, lg2, nat_inc, nat_sign, oA, err
-      integer :: ns2
+      integer :: ns2, kh2, nint
       n_meas = n_meas + 1
       nat_inc = real(stat%Etrue, dp) - e_before
       nat_sign = real(stat%gtrue, dp) - g_before
-      write(bc_unit, '(2ES24.15,I8)') nat_inc, nat_sign, diagram%order
+      call slow_vars(diagram, kh2, nint)
+      write(bc_unit, '(2ES24.15,I8,I6,I8,I6)') nat_inc, nat_sign, diagram%order, diagram%nph_ext, kh2, nint
       if (mod(n_meas, 10_8) == 0) then
          call k_check(diagram)
          call g_check(diagram)
@@ -1689,6 +2257,7 @@ contains
       integer :: u
       open(newunit=u, file='chq_summary.dat', status='replace', action='write')
       write(u, '(A,F10.4)') 'p_chq ', p_chq
+      write(u, '(A,2I14)') 'mv_until_steps_seen ', mv_until, n_mvsteps
       write(u, '(A,3I14)') 'chq_tried_accepted_external ', n_chq, n_chq_acc, n_chq_ext
       write(u, '(A,L2,2I14)') 'ext_on_tried_accepted ', chq_ext_on, n_chq_ext_try, n_chq_ext_acc
       write(u, '(A,I12,4ES12.4)') 'roundtrip_n_dla_dpnu_dg_du ', n_rt, rt_la, rt_pnu, rt_g, rt_u
@@ -1696,6 +2265,9 @@ contains
       write(u, '(A,2F12.3,F12.3)') 'any_mean_span_add_rem_acc_time ', sum_spanA / max(1_8, n_anyA_acc), &
            sum_spanR / max(1_8, n_anyR_acc), t_any
       write(u, '(A,2I12)') 'gauge_checks_bad ', n_gchecks, n_gbad
+      write(u, '(A,F10.4,4I14,F12.3)') 'ext_p_add_tried_acc_remove_tried_acc_time ', p_ext, n_extA, n_extA_acc, &
+           n_extR, n_extR_acc, t_ext
+      write(u, '(A,I12,3ES12.4)') 'ext_roundtrip_n_dla_dpa_dpr ', n_rt_ext, rt_ext_la, rt_ext_pa, rt_ext_pr
       write(u, '(A,L2,ES12.4)') 'pnu_fro_max_dpnu_stored_vs_fresh ', pnu_fro, gauge_dpnu
       write(u, '(A,2F12.3)') 'mean_span_tried_accepted ', sum_span_try / max(1_8, n_chq), &
            sum_span_acc / max(1_8, n_chq_acc)
@@ -1717,11 +2289,16 @@ contains
       if (.not. bc_checked) call bc_setup(diagram)
       if (.not. (bc_on .or. mv_on)) return
       if (.not. bc_on) then
+         n_mvsteps = n_mvsteps + 1
+         if (n_mvsteps > mv_until) return
          if (chq_on) then
             if (urand() < p_chq) call change_q(diagram, moved)
          end if
          if (any_on) then
             if (urand() < p_any) call any_move(diagram, moved)
+         end if
+         if (ext_on) then
+            if (urand() < p_ext) call ext_move(diagram, moved)
          end if
          return
       end if
@@ -1752,6 +2329,12 @@ contains
       if (any_on) then
          if (urand() < p_any) then
             call any_move(diagram, moved)
+            if (moved) blk_changed = .true.
+         end if
+      end if
+      if (ext_on) then
+         if (urand() < p_ext) then
+            call ext_move(diagram, moved)
             if (moved) blk_changed = .true.
          end if
       end if

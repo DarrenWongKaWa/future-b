@@ -891,3 +891,257 @@ the 0.27% "open item" is gone.
   - there is evidence (drift over the quarters of the 5×-length native
     run, 2.5σ) that a standard native run at full order overstates ⟨s⟩;
   - the moves relax faster.
+
+## (i) What is slow: the size of the phonon cloud
+
+**Full order, p = 0.3 general add/remove** (24 chains,
+[evidence/lif_hole500_any03_pooled.json](evidence/lif_hole500_any03_pooled.json)).
+The net is **0.21** (0.10–0.46) at 3.25× CPU, and the sign still drifts
+over the run (0.116 → 0.058).
+
+**Moves only during burn-in** (`FUTUREB_MV_UNTIL`, mb22; 24 chains,
+[evidence/lif_hole500_burnmix_pooled.json](evidence/lif_hole500_burnmix_pooled.json)).
+The sign by quarter is 0.072, 0.058, 0.073, 0.090 (flat within noise, mean
+0.073). Q is −1.772 ± 0.036 against native −1.722 ± 0.037, the CPU cost is
+1.66× and the net is 0.70. Not a win.
+
+**Slow-variable diagnostic** (mb23 adds nph_ext, the head |k|² and the
+internal-line count to the trace). 12 native chains of 10⁷ steps:
+
+| variable | τ_int (meas.) | corr(block ⟨s⟩, block mean) | E[s \| variable] |
+|---|---|---|---|
+| order | 1328 | −0.38 | — |
+| **external pairs nph_ext** | **1788** | −0.30 | **0.125 (5) → ≈0.02 (≥18)** |
+| internal lines | 1163 | −0.30 | 0.133 (18–21) → 0.021 (42–45) |
+| head \|k\|² | 958 | −0.06 | flat |
+| sign | 11.6 | — | — |
+
+- Chain level: chains averaging 9–11 external pairs have ⟨s⟩ = 0.05–0.13,
+  and chains at 13–15 have 0.01–0.08.
+- nph_ext and the internal-line count explain 14% of the block-sign
+  variance. Fast sign noise alone gives a block SD of about 0.08, so this is
+  a large share of the slow part.
+
+**Conclusion.** The slow component of the sign is the size of the phonon
+cloud. Its slowest coordinate is the external-pair count, which native
+changes only by LIFO add/remove at the outermost positions.
+
+**A targeted move** (`FUTUREB_EXTAR`, mb24; `ext_add`, `ext_remove` and
+`resync_shift`):
+- a boundary-wrapping pair is inserted or removed at *any* position;
+- τ₁ ~ U(0, τ_max), q ~ Pq and ν ~ Pnu; τ_max − τ₂ is drawn from an
+  exponential truncated to (0, τ_max − τ₁) with rate ω_ν;
+- every segment outside [τ₁, τ₂] shifts by −q (+q on removal);
+- acceptance is exact against `eval_state`.
+
+In smoke tests it accepts 16% of adds and 37% of removes at full order, and
+the momentum, gauge, O/sign and Pnu-gauge checks are all clean. Validation
+at maxOrder 7 and 31, and 24 full-order chains, are in progress.
+
+## (j) A general external add/remove, and two more native bugs it exposed
+
+**The move.** `ext_add` and `ext_remove` (`FUTUREB_EXTAR`, mb24+) insert or
+remove a boundary-wrapping pair at any position. A generic `resync_shift`
+applies the momentum shift of the outside region, keeps each segment's
+eigen-system identical on both ends and on the periodic head/tail segment,
+and recomputes the vertex matrices that changed. A round trip (C → add →
+remove the same pair) returns log w and both proposal probabilities to
+≤ 4e-15.
+
+**What it found** (LiF-hole T = 500 K, maxOrder 7, 8 chains per set):
+
+| kernel | Q |
+|---|---|
+| native, pin 05d08449 (wq fix only) | −0.87311 ± 0.00040 |
+| native + support fix only | −0.87177 ± 0.00022 |
+| native + reference-trace fix only | −0.87728 ± 0.00014 |
+| **native + both removal fixes** | **−0.87630 ± 0.00033** |
+| replica of native's external add/remove (same support, same signed truncated-exponential τ densities, ν before τ), `eval_state` weight, native external moves off | −0.87643 ± 0.00029 |
+| my outermost-only move (uniform τ), native external off | −0.87641 ± 0.00040 |
+| my outermost-only move, any τ | −0.87670 ± 0.00034 |
+| **ordered** general move + native (external off) | −0.87673 ± 0.00027 |
+| pure own moves (ordered general external, any-span, change-q), native mode changes only | −0.87630 ± 0.00022 |
+
+**Bug 2, `remove_external_ph` reference trace.** For a non-empty diagram,
+the trace of the configuration *without* the pair uses `v_head%ekout` for
+the wrap segment. The pair still exists at that point, so this is momentum
+k − q; the pair-less wrap carries k (`vn1%ekout`). `add_external_ph`'s
+identical line is correct, and so is the removal's empty-diagram branch.
+The removal acceptance therefore compares the with-pair trace with a
+reference on the wrong band energies. This only matters for multiband
+systems: with one band, E − E_min = 0 and the error cancels exactly.
+Opt-in fix: [patch_extrmfix.py](patch_extrmfix.py) (`FUTUREB_EXTRMFIX=1`).
+
+**Bug 3, `remove_external_ph` support.**
+- `add_external_ph` draws τ₁ only on [0, min(τ_first, τ_max/2)] and τ₂
+  only on [max(τ_last, τ_max/2), τ_max].
+- Vertex-time moves let outermost external vertices drift outside those
+  ranges.
+- The removal evaluates the reverse-add densities with `exp_sample_omp`
+  in density mode, which has no range check, so such pairs are removable
+  although add can never recreate them.
+- Opt-in fix: [patch_extfix.py](patch_extfix.py) (`FUTUREB_EXTFIX=1`). Fixing
+  the trace alone still leaves a 3σ offset.
+
+**The crux.** With both fixes, native (−0.87630) equals the
+`eval_state`-weighted replica of its own proposal (−0.87643). The replica
+differs from native only in how the weight ratio is computed, so this
+isolates native's acceptance ratio as the error.
+
+**A constraint, not a bug.** `update_swap` refuses to swap a head-attached
+external vertex with a tail-attached one ("should not cross"). Native adds
+pairs outermost, and time moves cannot reorder vertices, so native's
+diagram space has the invariant **every head-attached external vertex
+precedes every tail-attached one**. It is part of the estimator's
+definition.
+
+My first general move did not enforce it and sampled a larger space. That
+gave a consistent group B at about −0.8749:
+- pure own moves −0.87488;
+- general move + native −0.87503;
+- general move + fixed native −0.87507.
+
+Two restricted variants separate the causes:
+- outermost-only insertion cannot violate the invariant, and gave group A;
+- insertion restricted to τ₁ < τ_max/2 < τ₂ at any position violates it
+  only rarely, and fell in between (−0.87534).
+
+The general add now rejects placements that break the ordering. Every
+exact kernel then agrees at −0.8763 to −0.8767.
+
+The table's other false leads were cleared along the way:
+- a gauge-dependent Pnu (stored and fresh Pnu agree exactly);
+- non-hermitian SVD tables (deviation 7e-16);
+- native internal add/remove and swaps, which were swapped out one at a
+  time.
+
+**Effect of all three native fixes on the paper's cases (β = 232).**
+
+| material | native | all fixes | shift |
+|---|---|---|---|
+| LiF-electron (12 + 12) | 9.10376 ± 0.00148 | 9.10477 ± 0.00279 | +1.0 ± 3.2 meV (0.3σ); the removal fixes are bit-identical to the wq-only run (single band, and the support case never occurred) |
+| STO (6 + 6) | 11.68550 ± 0.00079 | 11.68575 ± 0.00064 | +0.25 ± 1.01 meV (0.2σ); the fixes act (multiband) but the effect is below 1 meV |
+
+The published energies are unaffected at the 1–3 meV level. The bugs are
+real and shift low-order results: LiF-hole at maxOrder 7 moves 0.37% (11σ).
+
+**Lessons.**
+1. An exact replica of a native move, with only the weight computation
+   swapped, is the sharpest detailed-balance probe. It found bug 2 in one
+   step once the proposal was matched.
+2. Before blaming detailed balance, check that both kernels sample the
+   *same state space*. A constraint hidden in an unrelated move (the swap
+   rule) produced a stable, reproducible 4σ discrepancy between two exact
+   samplers.
+
+## (k) Toolkit, and the open full-order question for the external move
+
+**Toolkit** (see [README.md](README.md)).
+- [prepare_fepdmc.py](prepare_fepdmc.py) patches a pristine FEP-DMC tree at
+  the pin in one step: make.sys, portability, the moves and the three opt-in
+  native fixes. Applied to a clean checkout, it reproduces the mb32 sources
+  byte for byte, and a from-scratch build succeeds.
+- [validate_exactness.py](validate_exactness.py) is the end-to-end check:
+  independent kernels (fixed native, pure Future B moves, mixed) must agree
+  on pooled Q at low order. It passes on the maxOrder-7 runs (−0.02σ).
+- The pooled estimator is unit-tested in `tests/test_native_rb_tools.py`.
+
+**Full order, LiF-hole T = 500 K, all native fixes on, 24 vs 24 chains**
+([evidence/lif_hole500_ext_allfix_pooled.json](evidence/lif_hole500_ext_allfix_pooled.json),
+[evidence/lif_hole500_allfix_vs_wqfix.json](evidence/lif_hole500_allfix_vs_wqfix.json)):
+
+| kernel | Q | ⟨s⟩ | external pairs (by quarter) | τ_int(ext. pairs) |
+|---|---|---|---|---|
+| fixed native | −1.627 ± 0.041 | 0.111 | 8.4, 9.5, 8.9, 9.2 | 231 |
+| fixed native + ordered external move (p = 0.1) | −1.798 ± 0.042 | 0.062 | 12.1, 11.7, 11.8, 11.9 | 56 |
+
+Both kernels are flat over the quarters, yet they disagree by 2.9σ in Q and
+decisively in the pair count. At low and intermediate order every kernel
+agrees:
+
+| cap | fixed native | ordered move (native ext off) | ordered move + fixed native | pairs |
+|---|---|---|---|---|
+| maxOrder 7 | −0.87630 | −0.87673 | — | ≤ 3 |
+| maxOrder 21 | −1.16939 ± 0.00212 | −1.16812 ± 0.00083 (0.6σ) | −1.17048 ± 0.00072 (−0.5σ) | ≈ 2.2 |
+
+maxOrder 51 (about 6.5 pairs per diagram) also agrees. Fixed native
+gives −1.7461 ± 0.0103 with 6.77 ± 0.24 pairs. The move without native
+external moves gives −1.7548 ± 0.0033 with 6.40 ± 0.05 pairs (−0.8σ), and
+the move plus fixed native gives −1.7415 ± 0.0051 with 6.43 ± 0.06 pairs
+(+0.4σ).
+
+**Resolution: native does not equilibrate the external-pair count at full
+order.** 24 chains used the external moves only during burn-in
+(`FUTUREB_MV_UNTIL`), then ran pure fixed native
+([evidence/lif_hole500_burnext_vs_allfix.json](evidence/lif_hole500_burnext_vs_allfix.json)):
+
+| kernel | pairs by quarter | ⟨s⟩ | Q |
+|---|---|---|---|
+| fixed native from the empty start | 8.4, 9.5, 8.9, 9.2 | 0.111 | −1.627 ± 0.041 |
+| moves in burn-in, then pure fixed native | **11.4, 11.6, 10.9, 11.4** | **0.053** | **−1.771 ± 0.103** |
+| fixed native + external move throughout | 12.1, 11.7, 11.8, 11.9 | 0.062 | −1.798 ± 0.042 |
+
+Once equilibrated, pure native *stays* at about 11.3 pairs. The 9.0 it
+reaches from the empty start is a quasi-stationary state of its slow
+dynamics (native τ_int(pairs) ≳ 1800 measurements; the external move gives
+56).
+
+**A standard native run at LiF-hole T = 500 K is therefore biased by
+about 10% in Q and about 2× in ⟨s⟩ even with all three fixes.** Fixed
+native plus the ordered external move (p ≈ 0.1) is exact (validated at
+maxOrder 7, 21 and 51) and reaches the equilibrium. This is the
+recommended configuration where external pairs are abundant. Its value is
+correctness, not per-step variance: CPU is 1.84× and var(h) is similar.
+
+**Paper cases with full external-pair equilibration** (β = 232; all three
+fixes, and in the last column also the ordered external move at p = 0.1;
+[evidence/external_pair_validation.json](evidence/external_pair_validation.json)):
+
+| material | native | all fixes | all fixes + external move | CPU per chain |
+|---|---|---|---|---|
+| LiF-electron (12 chains each) | 9.10376 ± 0.00148 | 9.10477 ± 0.00279 | 9.10632 ± 0.00128 | 33 / 45 / 333 s |
+| STO (6 chains each) | 11.68550 ± 0.00079 | 11.68575 ± 0.00064 | 11.68587 ± 0.00066 | 42 / 54 / 315 s |
+
+Every entry agrees within 1.3σ (≤ 3 meV). **The published energies of both
+paper cases are robust** to the three native bugs and to native's slow
+external-pair equilibration.
+
+At β = 232 there are only about 1.9 pairs per diagram, and the external
+move accepts about 0.6% of adds, so it costs about 7× CPU for no change. It
+belongs in the regime where external pairs are abundant (low sign,
+multiband, e.g. LiF-hole at T = 500 K). There it removes a bias of about
+10% in Q.
+
+**Independent confirmation: long native from the empty start.** 6 chains
+of 10⁷ steps (5×) of fixed native, no Future B move:
+
+| run | mean external pairs | ⟨s⟩ | Q |
+|---|---|---|---|
+| fixed native, 2×10⁶ steps | 9.0 | 0.111 | −1.627 ± 0.041 |
+| fixed native, 10⁷ steps | ≈ 10.6 (chain means 8.8–13.1) | 0.069 | −1.727 ± 0.069 |
+| fixed native + external move, 2×10⁶ steps | 11.9 | 0.062 | −1.798 ± 0.042 |
+
+Given 5× more steps, pure native drifts most of the way to the external
+move's equilibrium, with the large chain-to-chain spread expected from
+τ_int(pairs) ≳ 1800. This confirms the diagnosis: the difference is native
+under-equilibration, not a bias of the move.
+
+## Summary of (i)–(k)
+
+- **The slow variable is the size of the phonon cloud.** Its slowest
+  coordinate is the external-pair count.
+- **Three upstream FEP-DMC bugs, all in external-pair handling.** Each has
+  an opt-in fix:
+  1. stale phonon frequency in `add_external_ph`;
+  2. wrong reference trace in `remove_external_ph` (multiband);
+  3. missing support check in `remove_external_ph`.
+- **Native's diagram space has a constraint** that exact moves must
+  respect: head-attached external vertices precede tail-attached ones.
+- **Native under-equilibrates the external-pair count** in the low-sign
+  multiband regime. At LiF-hole T = 500 K a standard run is biased by about
+  10% in Q and about 2× in ⟨s⟩. The ordered external move is exact and
+  removes that bias; its benefit is correctness, not per-step variance.
+- **The paper's β = 232 cases (LiF-electron, STO) are unaffected** by all of
+  the above within 1–3 meV.
+- **Toolkit:** `prepare_fepdmc.py`, `validate_exactness.py` and `README.md`,
+  verified from a pristine pin to a working build.

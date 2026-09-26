@@ -69,6 +69,28 @@ BIN_MB19 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb19/pert-src/perturbo.x"
 BIN_MB20 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb20/pert-src/perturbo.x"
 # mb20 + gauge diagnostic and gauge-invariant mode proposal option (FUTUREB_PNU_FRO=1).
 BIN_MB21 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb21/pert-src/perturbo.x"
+# mb21 + moves limited to the first N steps (FUTUREB_MV_UNTIL=N; burn-in only).
+BIN_MB22 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb22/pert-src/perturbo.x"
+# mb22 + slow-variable columns in chq_trace.dat (nph_ext, head |k|^2, internal lines).
+BIN_MB23 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb23/pert-src/perturbo.x"
+# mb23 + general external add/remove at any position (FUTUREB_EXTAR=1, FUTUREB_EXTAR_P).
+BIN_MB24 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb24/pert-src/perturbo.x"
+# mb24 + opt-in support fix for native remove_external_ph (FUTUREB_EXTFIX=1).
+BIN_MB25 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb25/pert-src/perturbo.x"
+# mb25 + round trip of the external add/remove (FUTUREB_CHQ_RT=1).
+BIN_MB26 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb26/pert-src/perturbo.x"
+# mb26 + external add/remove restricted to native support (FUTUREB_EXTAR_OUTER=1).
+BIN_MB27 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb27/pert-src/perturbo.x"
+# mb27 + hermiticity test of the tabulated vertex matrices (FUTUREB_HERM_TEST=1).
+BIN_MB28 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb28/pert-src/perturbo.x"
+# mb28 + external add/remove replicating native proposal densities (FUTUREB_EXTAR_MIMIC=1).
+BIN_MB29 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb29/pert-src/perturbo.x"
+# mb29 + opt-in reference-trace fix in native remove_external_ph (FUTUREB_EXTRMFIX=1).
+BIN_MB30 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb30/pert-src/perturbo.x"
+# mb30 + separate external-move restrictions (FUTUREB_EXTAR_RPOS outermost, FUTUREB_EXTAR_RTAU tau range).
+BIN_MB31 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb31/pert-src/perturbo.x"
+# mb31 + general external add respects native ordering (head-type before tail-type external vertices).
+BIN_MB32 = "/work/build/q-e-qe-6.5/perturbo-fep-dmc-mb32/pert-src/perturbo.x"
 
 # Band windows follow the paper's dataset notebooks (Figure-2/3/4):
 # LiF-hole and STO use three bands, anatase and LiF-electron one band.
@@ -149,7 +171,10 @@ def ez_chain(ws: Path, mat: str, i: int, seed: int, nmcmc: int = NMCMC_1E4, tag:
              bchain: str = "", pa: str = "0.1 0.1 0.1 0.1 0.10 0.10 0.1", temp: float = T_KELVIN,
              srule: str = "greedy", block: int = 1, mode_rb: bool = False, mode_svd: bool = False,
              chq: float = 0.0, chq_ext: bool = False, chq_rt: bool = False,
-             wqfix: bool = False, any_p: float = 0.0, pnu_fro: bool = False) -> int:
+             wqfix: bool = False, any_p: float = 0.0, pnu_fro: bool = False,
+             mv_until: int = 0, extar: float = 0.0, extfix: bool = False,
+             ext_outer: bool = False, herm_test: bool = False, ext_mimic: bool = False,
+             extrmfix: bool = False, rpos: bool = False, rtau: bool = False) -> int:
     m = MATERIALS[mat]
     run = ws / tag / mat / f"chain{i:02d}"
     run.mkdir(parents=True, exist_ok=True)
@@ -168,7 +193,7 @@ def ez_chain(ws: Path, mat: str, i: int, seed: int, nmcmc: int = NMCMC_1E4, tag:
         f"{pa}\n")
     rb = "1" if (rb_force or (m["bands"] == (1, 1) and not m["hole"])) else "0"
     meta = dict(material=mat, chain=i, seed=seed, FUTUREB_RB=rb, T=temp, nk=NK, nsvd=NSVD,
-                Nmcmc_1e4=nmcmc, maxOrder=max_order, binary=bin_path, bchain=bchain, update_probs=pa, srule=srule, block=block, chq=chq, chq_ext=chq_ext, wqfix=wqfix, any_p=any_p, pnu_fro=pnu_fro, **{k: v for k, v in m.items() if k != "tables"})
+                Nmcmc_1e4=nmcmc, maxOrder=max_order, binary=bin_path, bchain=bchain, update_probs=pa, srule=srule, block=block, chq=chq, chq_ext=chq_ext, wqfix=wqfix, any_p=any_p, pnu_fro=pnu_fro, mv_until=mv_until, extar=extar, extfix=extfix, ext_outer=ext_outer, herm_test=herm_test, ext_mimic=ext_mimic, extrmfix=extrmfix, rpos=rpos, rtau=rtau, **{k: v for k, v in m.items() if k != "tables"})
     (run / "run_meta.json").write_text(json.dumps(meta, indent=2))
     h5 = Path(m["h5"]).name
     cmd = (f"ln -sfn /data/{m['h5']} {h5} && "
@@ -191,7 +216,15 @@ def ez_chain(ws: Path, mat: str, i: int, seed: int, nmcmc: int = NMCMC_1E4, tag:
                        "FUTUREB_CHQ_EXT": "1" if chq_ext else "0", "FUTUREB_CHQ_RT": "1" if chq_rt else "0",
                        "FUTUREB_WQFIX": "1" if wqfix else "0",
                        "FUTUREB_ANY": "1" if any_p > 0 else "0", "FUTUREB_ANY_P": str(any_p),
-                       "FUTUREB_PNU_FRO": "1" if pnu_fro else "0"})
+                       "FUTUREB_PNU_FRO": "1" if pnu_fro else "0",
+                       **({"FUTUREB_MV_UNTIL": str(mv_until)} if mv_until > 0 else {}),
+                       "FUTUREB_EXTAR": "1" if extar > 0 else "0", "FUTUREB_EXTAR_P": str(extar),
+                       "FUTUREB_EXTFIX": "1" if extfix else "0",
+                       "FUTUREB_EXTAR_OUTER": "1" if ext_outer else "0",
+                       "FUTUREB_HERM_TEST": "1" if herm_test else "0",
+                       "FUTUREB_EXTAR_MIMIC": "1" if ext_mimic else "0",
+                       "FUTUREB_EXTRMFIX": "1" if extrmfix else "0",
+                       "FUTUREB_EXTAR_RPOS": "1" if rpos else "0", "FUTUREB_EXTAR_RTAU": "1" if rtau else "0"})
 
 
 def main() -> int:
@@ -205,7 +238,7 @@ def main() -> int:
     ap.add_argument("--ws", default=str(WS))
     ap.add_argument("--nmcmc", type=int, default=NMCMC_1E4)
     ap.add_argument("--tag", default="runs")
-    ap.add_argument("--bin", choices=["default", "mb", "mb2", "mb3", "mb4", "mb5", "mb6", "mb7", "mb8", "mb9", "mb10", "mb11", "mb12", "mb13", "mb14", "mb15", "mb16", "mb17", "mb18", "mb19", "mb20", "mb21"], default="default")
+    ap.add_argument("--bin", choices=["default", "mb", "mb2", "mb3", "mb4", "mb5", "mb6", "mb7", "mb8", "mb9", "mb10", "mb11", "mb12", "mb13", "mb14", "mb15", "mb16", "mb17", "mb18", "mb19", "mb20", "mb21", "mb22", "mb23", "mb24", "mb25", "mb26", "mb27", "mb28", "mb29", "mb30", "mb31", "mb32"], default="default")
     ap.add_argument("--modes", action="store_true", help="FUTUREB_MODES=1 (needs --bin mb2/mb3 --rb)")
     ap.add_argument("--k4", action="store_true", help="FUTUREB_MODES_K4=1 (mb3)")
     ap.add_argument("--qgroup", action="store_true", help="FUTUREB_QGROUP=1 (mb4)")
@@ -218,6 +251,15 @@ def main() -> int:
     ap.add_argument("--wqfix", action="store_true", help="fix stale external-phonon frequency (mb19)")
     ap.add_argument("--any", type=float, default=0.0, help="general-span add/remove probability per step (mb20)")
     ap.add_argument("--pnu-fro", action="store_true", help="gauge-invariant mode proposal in the Future B moves (mb21)")
+    ap.add_argument("--mv-until", type=int, default=0, help="apply Future B moves only for the first N steps (mb22)")
+    ap.add_argument("--extar", type=float, default=0.0, help="general external add/remove probability per step (mb24)")
+    ap.add_argument("--extfix", action="store_true", help="support fix for native remove_external_ph (mb25)")
+    ap.add_argument("--ext-outer", action="store_true", help="restrict the external add/remove to native support (mb27)")
+    ap.add_argument("--herm-test", action="store_true", help="hermiticity test of vertex tables at setup (mb28)")
+    ap.add_argument("--ext-mimic", action="store_true", help="external add/remove with native proposal densities (mb29)")
+    ap.add_argument("--extrmfix", action="store_true", help="reference-trace fix in native remove_external_ph (mb30)")
+    ap.add_argument("--rpos", action="store_true", help="external move: outermost pairs only (mb31)")
+    ap.add_argument("--rtau", action="store_true", help="external move: tau1 < tmax/2 < tau2 only (mb31)")
     ap.add_argument("--block", type=int, default=1, help="native steps per B second stage (divides 100)")
     ap.add_argument("--srule", choices=["greedy", "max"], default="greedy", help="B-chain line-set rule")
     ap.add_argument("--temp", type=float, default=T_KELVIN, help="temperature (K); EZ uses tau_max = 1/kT")
@@ -234,8 +276,8 @@ def main() -> int:
     idx = range(a.first, a.first + a.n_chains)
     with ThreadPoolExecutor(a.parallel) as ex:
         codes = list(ex.map(lambda i: ez_chain(ws, a.material, i, a.seed0 + 7919 * i, a.nmcmc, a.tag, a.maxorder,
-                                                       {"mb": BIN_MB, "mb2": BIN_MB2, "mb3": BIN_MB3, "mb4": BIN_MB4, "mb5": BIN_MB5, "mb6": BIN_MB6, "mb7": BIN_MB7, "mb8": BIN_MB8, "mb9": BIN_MB9, "mb10": BIN_MB10, "mb11": BIN_MB11, "mb12": BIN_MB12, "mb13": BIN_MB13, "mb14": BIN_MB14, "mb15": BIN_MB15, "mb16": BIN_MB16, "mb17": BIN_MB17, "mb18": BIN_MB18, "mb19": BIN_MB19, "mb20": BIN_MB20, "mb21": BIN_MB21}.get(a.bin, BIN), a.rb,
-                                                       a.modes, a.k4, a.qgroup, a.q_every, a.bchain, a.pa, a.temp, a.srule, a.block, a.mode_rb, a.mode_svd, a.chq, a.chq_ext, a.chq_rt, a.wqfix, a.any, a.pnu_fro), idx))
+                                                       {"mb": BIN_MB, "mb2": BIN_MB2, "mb3": BIN_MB3, "mb4": BIN_MB4, "mb5": BIN_MB5, "mb6": BIN_MB6, "mb7": BIN_MB7, "mb8": BIN_MB8, "mb9": BIN_MB9, "mb10": BIN_MB10, "mb11": BIN_MB11, "mb12": BIN_MB12, "mb13": BIN_MB13, "mb14": BIN_MB14, "mb15": BIN_MB15, "mb16": BIN_MB16, "mb17": BIN_MB17, "mb18": BIN_MB18, "mb19": BIN_MB19, "mb20": BIN_MB20, "mb21": BIN_MB21, "mb22": BIN_MB22, "mb23": BIN_MB23, "mb24": BIN_MB24, "mb25": BIN_MB25, "mb26": BIN_MB26, "mb27": BIN_MB27, "mb28": BIN_MB28, "mb29": BIN_MB29, "mb30": BIN_MB30, "mb31": BIN_MB31, "mb32": BIN_MB32}.get(a.bin, BIN), a.rb,
+                                                       a.modes, a.k4, a.qgroup, a.q_every, a.bchain, a.pa, a.temp, a.srule, a.block, a.mode_rb, a.mode_svd, a.chq, a.chq_ext, a.chq_rt, a.wqfix, a.any, a.pnu_fro, a.mv_until, a.extar, a.extfix, a.ext_outer, a.herm_test, a.ext_mimic, a.extrmfix, a.rpos, a.rtau), idx))
     print(a.material, "exit codes", codes)
     return max(codes)
 
