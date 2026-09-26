@@ -22,6 +22,7 @@ include docs/METHOD_P1.md
 include docs/LIMITATIONS.md
 include docs/MAINTENANCE_1.1.0.md
 include docs/FEP_DMC_TOOLKIT.md
+include docs/CONTRIBUTIONS.md
 include provenance/UPSTREAM_FEP_DMC.json
 include provenance/C0_PUBLIC_PATCH.json
 include provenance/P1_PUBLIC_PATCH.json
@@ -63,6 +64,9 @@ include release/v1.3.0/RELEASE_NOTES.md
 include release/v1.3.1/SHA256SUMS.txt
 include release/v1.3.1/PROVENANCE.json
 include release/v1.3.1/RELEASE_NOTES.md
+include release/v1.3.2/SHA256SUMS.txt
+include release/v1.3.2/PROVENANCE.json
+include release/v1.3.2/RELEASE_NOTES.md
 recursive-include tests *.py
 recursive-include src/future_b *.py *.f90
 recursive-include src/future_b/fepdmc/data *

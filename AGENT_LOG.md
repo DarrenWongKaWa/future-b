@@ -1,5 +1,13 @@
 # Agent log
 
+## 2026-09-26 — Future B v1.3.2: sdist self-test and optional scipy
+
+- PR CI on v1.3.1 failed: two analysis modules imported scipy at module
+  level (CI has no scipy), and the sdist lacked `docs/CONTRIBUTIONS.md`,
+  which the v1.3.1 checksum list names. Both fixed; scipy is the optional
+  extra `analysis`; a test now imports every analysis module with scipy absent.
+- Reproduced both CI jobs in a clean venv without scipy before pushing.
+
 ## 2026-09-26 — Future B v1.3.1: toolkit bug attribution corrected
 
 - v1.3.0 presented `FUTUREB_WQFIX` as a new finding. It is the C0 defect

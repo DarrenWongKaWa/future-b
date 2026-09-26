@@ -1,8 +1,8 @@
 # What the public snapshot actually provides
 
-v1.3.1 is a **methods-study archive** (science frozen at v1.0.0;
+v1.3.2 is a **methods-study archive** (science frozen at v1.0.0;
 v1.0.1–v1.2.0 are maintenance; v1.3.0 adds a research toolkit; v1.3.1
-corrects its documentation), not a general DiagMC library.
+corrects its documentation; v1.3.2 fixes packaging), not a general DiagMC library.
 
 | Capability | In this snapshot | Entry |
 |---|---|---|

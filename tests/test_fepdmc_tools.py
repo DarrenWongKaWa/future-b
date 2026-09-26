@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import sys
+
 from pathlib import Path
 
 import numpy as np
@@ -115,11 +117,26 @@ def test_cli_dispatch_and_help():
     assert set(cli.COMMANDS) == {"prepare", "run", "compare", "validate"}
 
 
+ANALYSIS_MODULES = ("analyze_mode_rb", "analyze_modes", "analyze_q", "analyze_rb", "analyze_svd",
+                    "collect_sign", "compare_bchain", "compare_between", "decompose_native",
+                    "estimate_groups", "summarize_materials", "summarize_sign")
+
+
+def test_analysis_modules_import_without_scipy(monkeypatch):
+    # scipy is optional (future-b[analysis]); importing a module must not need it.
+    import importlib
+
+    for mod in list(sys.modules):
+        if mod.startswith(("future_b.fepdmc.analysis.", "scipy.")) or mod == "scipy":
+            monkeypatch.delitem(sys.modules, mod)
+    monkeypatch.setitem(sys.modules, "scipy", None)
+    for name in ANALYSIS_MODULES:
+        importlib.import_module(f"future_b.fepdmc.analysis.{name}")
+
+
 def test_analysis_modules_import_without_side_effects():
     import importlib
 
-    for name in ("analyze_mode_rb", "analyze_modes", "analyze_q", "analyze_rb", "analyze_svd",
-                 "collect_sign", "compare_bchain", "compare_between", "decompose_native",
-                 "estimate_groups", "summarize_materials", "summarize_sign"):
+    for name in ANALYSIS_MODULES:
         mod = importlib.import_module(f"future_b.fepdmc.analysis.{name}")
         assert callable(getattr(mod, "main", None)), name

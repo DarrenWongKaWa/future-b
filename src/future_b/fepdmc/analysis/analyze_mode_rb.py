@@ -11,7 +11,6 @@ Usage: python -m future_b.fepdmc.analysis.analyze_mode_rb <runs_mrb> <runs_plain
 import json, math, re, sys
 from pathlib import Path
 import numpy as np
-from scipy import stats
 
 NB = 50
 
@@ -27,6 +26,8 @@ def user(c):
     return int(t.group(1)) * 60 + float(t.group(2)) if t else float("nan")
 
 def main(argv: list[str] | None = None) -> int:
+    from scipy import stats  # optional dependency: pip install 'future-b[analysis]'
+
     argv = [""] + list(sys.argv[1:] if argv is None else argv)
     runs, plain, mat, eb = argv[1:5]; eb = float(eb)
     tau = float(argv[5]) if len(argv) > 5 else 232.09011

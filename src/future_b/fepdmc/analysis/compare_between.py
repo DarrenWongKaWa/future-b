@@ -17,7 +17,6 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from scipy import stats
 
 
 def wall(c: Path):
@@ -27,6 +26,8 @@ def wall(c: Path):
 
 
 def main():
+    from scipy import stats  # optional dependency: pip install 'future-b[analysis]'
+
     a_runs, b_runs, mat, e_bare = sys.argv[1:5]
     tau = float(sys.argv[5]) if len(sys.argv) > 5 else 232.09011
     e_bare = float(e_bare)
