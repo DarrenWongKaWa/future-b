@@ -1145,3 +1145,21 @@ under-equilibration, not a bias of the move.
   the above within 1–3 meV.
 - **Toolkit:** `prepare_fepdmc.py`, `validate_exactness.py` and `README.md`,
   verified from a pristine pin to a working build.
+
+**Move-probability scan** (all fixes, 24 chains each,
+[evidence/lif_hole500_ext_pscan.json](evidence/lif_hole500_ext_pscan.json)):
+
+| p | Q | ⟨s⟩ | pairs (by quarter) | τ_int(pairs) | CPU |
+|---|---|---|---|---|---|
+| 0, fixed native | −1.627 ± 0.040 | 0.111 | 8.4, 9.5, 8.9, 9.2 | 231* | 41 s |
+| 0.02 | −1.772 ± 0.044 | 0.053 | 12.0, 12.1, 12.0, 12.1 | 135 | 78 s |
+| 0.05 | −1.791 ± 0.033 | 0.063 | 11.9, 11.9, 11.8, 12.0 | 94 | 85 s |
+| 0.1 | −1.798 ± 0.041 | 0.062 | 12.1, 11.7, 11.8, 11.9 | 56 | 75 s |
+
+\* Blocking within 2×10⁶-step chains; the long runs give ≳ 1800.
+
+Already p = 0.02 reaches the equilibrium. The CPU is nearly independent of
+p, so the cost relative to native reflects the larger equilibrium diagrams,
+not move overhead. **Recommended: `FUTUREB_EXTAR=1 FUTUREB_EXTAR_P=0.02`
+with the three native fixes.**
+

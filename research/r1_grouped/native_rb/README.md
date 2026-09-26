@@ -55,15 +55,19 @@ the sign cannot be resolved, so the effect is not quantified.
 | goal | switches |
 |---|---|
 | correct native target | `FUTUREB_WQFIX=1 FUTUREB_EXTFIX=1 FUTUREB_EXTRMFIX=1` |
-| where external pairs are abundant (low sign, multiband, e.g. LiF-hole at T = 500 K) | the above plus `FUTUREB_EXTAR=1 FUTUREB_EXTAR_P=0.1` |
+| where external pairs are abundant (low sign, multiband, e.g. LiF-hole at T = 500 K) | the above plus `FUTUREB_EXTAR=1 FUTUREB_EXTAR_P=0.02` (anything in 0.02–0.1 reaches the same equilibrium) |
 
 **Why the external move is needed there.** From the empty start, native
 equilibrates the external-pair count far too slowly (τ_int ≳ 1800
 measurements). A standard 2×10⁶-step run sits in a quasi-stationary state
 with about 9 pairs instead of about 11.5. That biases Q by about 10% and
 ⟨s⟩ by about 2×. The ordered external move reaches the equilibrium and is
-exact (maxOrder 7, 21, 51). It costs about 1.8× CPU and does not reduce
-per-step variance.
+exact (maxOrder 7, 21, 51). p = 0.02, 0.05 and 0.1 all give the same
+Q (−1.77 to −1.80) and pair count (11.9–12.0)
+([evidence/lif_hole500_ext_pscan.json](evidence/lif_hole500_ext_pscan.json)).
+CPU is about 1.9× native at every p. That is mostly physical: the correct
+equilibrium has larger diagrams, so native moves cost more. It is not move
+overhead, and the move does not reduce per-step variance.
 
 ## Future B moves (all exact; inert unless enabled)
 
