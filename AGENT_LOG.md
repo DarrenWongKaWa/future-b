@@ -1,5 +1,15 @@
 # Agent log
 
+## 2026-09-26 — Future B v1.3.1: toolkit bug attribution corrected
+
+- v1.3.0 presented `FUTUREB_WQFIX` as a new finding. It is the C0 defect
+  (recorded in v1.0, adapter in v1.1.0, same line of `add_external_ph`).
+  Docs, docstrings and the native report now say so; the two
+  `remove_external_ph` bugs remain new.
+- Checked composition on a pin clone: C0 then `prepare --profile fixes`
+  succeeds (redundant guarded call); `prepare` then C0 is refused.
+- Documentation only; `release/v1.3.0/SHA256SUMS.txt` frozen by hash.
+
 ## 2026-09-26 — Future B v1.3.0: FEP-DMC toolkit in the package
 
 - Moved the native FEP-DMC toolkit from `research/r1_grouped/native_rb` into

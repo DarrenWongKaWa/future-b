@@ -589,7 +589,7 @@ head, tail and last vertex share one eigenvector set, as the native code
 keeps the periodic segment. In smoke tests it accepts 26–31%, and every
 check, including head/tail periodicity, is clean.
 
-**An upstream bug, found by the round trip.** The change-q move for external
+**A known upstream bug, re-found by the round trip.** The change-q move for external
 pairs failed the maxOrder-7 exactness test: native −0.87393 ± 0.00039
 against −0.87232 ± 0.00014, 3.9σ. The internal-only move had passed. A
 round-trip check (C → C′ → C, `FUTUREB_CHQ_RT`, mb18) restored g, u and Pnu
@@ -604,6 +604,15 @@ The cause is in `multiphonon_update_matrix::add_external_ph` at pin 05d08449:
 add_ph makes the call at the same point, and every other update computes or
 copies wq. [fepdmc/patches/wqfix.py](../../../src/future_b/fepdmc/patches/wqfix.py) adds the call as an opt-in
 (`FUTUREB_WQFIX=1`, mb19). With it, the round-trip error is **3.6e-15**.
+
+*Correction (v1.3.1).* This is not a new finding. It is the defect that
+Future B's C0 adapter already fixes, on the same line: C0 was recorded in
+v1.0 ([SCIENTIFIC_RESULT.md](../../../docs/SCIENTIFIC_RESULT.md) §4.3) and
+published as a source transform in v1.1.0
+([C0_PUBLIC_ADAPTER.md](../../../docs/C0_PUBLIC_ADAPTER.md)). This work
+re-found it independently, without cross-checking C0, and is the first to
+measure its effect on EZ energies (the table below). `FUTUREB_WQFIX` is the
+run-time-switchable form, for A/B comparison against unfixed native.
 
 *Effect of the fix, fixed minus native, pooled:*
 
@@ -667,7 +676,8 @@ slow fluctuation. What remains in var(h) is the slow O and order part
   | order reweighting (offline) | < 1 |
 
 - **Side result.** An upstream FEP-DMC bug (stale external-phonon frequency),
-  with an opt-in fix and no detectable effect on the paper's energies.
+  with an opt-in fix and no detectable effect on the paper's energies. It is
+  the C0 defect, known since v1.0 and re-found here.
 - **Where Q's variance now sits.** In the slow order and energy
   fluctuation (τ_order ≈ 200 measurements, not shortened by any move so
   far). The sign's slow component is reachable (external moves), but for Q
@@ -1132,8 +1142,9 @@ under-equilibration, not a bias of the move.
 - **The slow variable is the size of the phonon cloud.** Its slowest
   coordinate is the external-pair count.
 - **Three upstream FEP-DMC bugs, all in external-pair handling.** Each has
-  an opt-in fix:
-  1. stale phonon frequency in `add_external_ph`;
+  an opt-in fix. Bugs 2 and 3 are new here; bug 1 is the C0 defect, known
+  since v1.0 and re-found here:
+  1. stale phonon frequency in `add_external_ph` (= C0);
   2. wrong reference trace in `remove_external_ph` (multiband);
   3. missing support check in `remove_external_ph`.
 - **Native's diagram space has a constraint** that exact moves must

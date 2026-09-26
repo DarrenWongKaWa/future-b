@@ -6,7 +6,8 @@ statistics, fixed-order graph reuse, and negative/unresolved benchmark
 results.
 
 **Project status: CLOSED** (`v1.0.0` science frozen; `v1.0.1`–`v1.2.0`
-maintenance; `v1.3.0` adds the FEP-DMC research toolkit). This is a **methods-study archive**, not an AI
+maintenance; `v1.3.0` adds the FEP-DMC research toolkit; `v1.3.1` corrects
+its bug attribution). This is a **methods-study archive**, not an AI
 acceleration framework and not a drop-in FEP-DMC plugin. C0 and P1 are
 LEVEL 0 source transforms of the pinned public tree, not a compiled
 extension and not the historical 0.956 binary.
@@ -80,7 +81,9 @@ Quantum ESPRESSO 6.5, Perturbo/FEP-DMC, Intel Fortran, HDF5 Fortran
 
 ## FEP-DMC toolkit (`future_b.fepdmc`, v1.3.0)
 
-Opt-in fixes for three native FEP-DMC bugs in external-phonon add/remove,
+Opt-in fixes for three native FEP-DMC bugs in external-phonon add/remove
+(two new in v1.3.0; the third is the C0 stale-frequency defect known since
+v1.0, made switchable),
 exact Future B moves, a Docker run driver and the pooled ratio estimator,
 as source patches of the pinned public tree:
 

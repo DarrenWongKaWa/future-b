@@ -9,6 +9,10 @@ add_ph calls cal_wq_int at the same point.
 
 With FUTUREB_WQFIX=1 the missing call is made; otherwise the code is unchanged.
 
+This is the defect the C0 source adapter (integration/c0, v1.1.0) fixes
+unconditionally on the same line; this patch is its run-time-switchable form,
+for A/B runs against unfixed native. On a C0 tree the switch is redundant.
+
 Usage: python -m future_b.fepdmc.patches.wqfix <perturbo-fep-dmc dir>
 """
 

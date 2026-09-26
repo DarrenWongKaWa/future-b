@@ -6,7 +6,8 @@ user's QE 6.5 toolchain.
 
   prepare    one-step patching of a pristine tree (profiles "fixes", "research")
   patches    the individual patches; the three native fixes are opt-in at run time
-             (FUTUREB_WQFIX, FUTUREB_EXTFIX, FUTUREB_EXTRMFIX)
+             (FUTUREB_WQFIX, FUTUREB_EXTFIX, FUTUREB_EXTRMFIX). WQFIX is the C0
+             defect (integration/c0) made switchable; the other two are new.
   runner     Docker driver for diagmc-EZ chains with the Future B switches
   pooled     pooled ratio estimator over chains, variance ratio and efficiency
   validate   end-to-end exactness check: independent kernels must agree

@@ -5,7 +5,8 @@ FEP-DMC (Luo–Bernardi), pinned at `05d08449cffdbd0dfbbbf5009add5cc887bc754b`
 ([provenance/UPSTREAM_FEP_DMC.json](../provenance/UPSTREAM_FEP_DMC.json)).
 It has three parts:
 
-- **three native bug fixes**, all opt-in at run time;
+- **three native bug fixes**, all opt-in at run time (two new; the third is
+  the C0 defect, made switchable);
 - **exact Future B Monte Carlo moves**;
 - **diagnostics and estimators** for the low-sign regime.
 
@@ -59,9 +60,18 @@ switches, command). Materials: `lif_elec`, `lif_hole`, `sto`, `anatase`,
 
 | switch (`run` flag) | patch | bug |
 |---|---|---|
-| `FUTUREB_WQFIX=1` (`--wqfix`) | [wqfix](../src/future_b/fepdmc/patches/wqfix.py) | `add_external_ph` never calls `cal_wq_int`, so external pairs keep the stale phonon frequency of the recycled vertex slot |
+| `FUTUREB_WQFIX=1` (`--wqfix`) | [wqfix](../src/future_b/fepdmc/patches/wqfix.py) | `add_external_ph` never calls `cal_wq_int`, so external pairs keep the stale phonon frequency of the recycled vertex slot. **Known since v1.0: the same defect C0 fixes** (below) |
 | `FUTUREB_EXTRMFIX=1` (`--extrmfix`) | [extrmfix](../src/future_b/fepdmc/patches/extrmfix.py) | `remove_external_ph` builds the pair-less reference trace at momentum k − q instead of k; multiband only |
 | `FUTUREB_EXTFIX=1` (`--extfix`) | [extfix](../src/future_b/fepdmc/patches/extfix.py) | `remove_external_ph` evaluates the reverse-add density without a range check, so pairs outside add's τ support are removable |
+
+**Relation to C0.** The stale-frequency bug is not new in v1.3.0. Future B
+recorded it in v1.0 and ships the unconditional fix as the C0 source
+adapter ([C0_PUBLIC_ADAPTER.md](C0_PUBLIC_ADAPTER.md)), on the same line.
+The toolkit re-found it independently and measured its effect on EZ
+energies; `FUTUREB_WQFIX` makes it switchable for A/B runs against unfixed
+native. The two `remove_external_ph` bugs are new. On a tree with C0
+applied, `prepare` still works and `--wqfix` is redundant. C0 refuses a
+tree that `prepare` has already patched.
 
 **Effect of the fixes.** Use all three for a correct target.
 

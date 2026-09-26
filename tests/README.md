@@ -1,6 +1,6 @@
 # Public tests
 
-Layers (v1.3.0):
+Layers (v1.3.1):
 
 | file | layer |
 |---|---|

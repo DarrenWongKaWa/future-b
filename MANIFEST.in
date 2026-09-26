@@ -60,6 +60,9 @@ include release/v1.2.0/NATIVE_VALIDATION.md
 include release/v1.3.0/SHA256SUMS.txt
 include release/v1.3.0/PROVENANCE.json
 include release/v1.3.0/RELEASE_NOTES.md
+include release/v1.3.1/SHA256SUMS.txt
+include release/v1.3.1/PROVENANCE.json
+include release/v1.3.1/RELEASE_NOTES.md
 recursive-include tests *.py
 recursive-include src/future_b *.py *.f90
 recursive-include src/future_b/fepdmc/data *
