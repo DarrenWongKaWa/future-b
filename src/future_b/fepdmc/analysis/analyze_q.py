@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """One-line momentum group vs mode group on the same line (q_trace.dat).
 
 Each q_trace row is one native sample (fixed stride) and one line chosen by a

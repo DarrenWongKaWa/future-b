@@ -1,6 +1,6 @@
 """Collection boundary for the GitHub-only Diagram Compiler evidence suite.
 
-The frozen v1.2.0 sdist intentionally omits the compiler's research evidence,
+The sdist (v1.2.0 onward) intentionally omits the compiler's research evidence,
 generated Fortran fixture, and FEP-DMC validation bridge.  Source-tree and CI
 runs include those artifacts and collect the full compiler suite.  An unpacked
 sdist therefore skips only the tests whose declared inputs are absent.

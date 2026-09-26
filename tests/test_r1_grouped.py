@@ -1,19 +1,15 @@
-"""Stage R1-F1..F3 grouped-measure toy (research/r1_grouped)."""
+"""Stage R1-F1..F3 grouped-measure toy (future_b.r1_grouped)."""
 
 from __future__ import annotations
 
 import dataclasses
-import sys
 from collections import Counter
-from pathlib import Path
 
 import numpy as np
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "research" / "r1_grouped"))
-
-from dense_oracle import Oracle  # noqa: E402
-from grouped_toy import (  # noqa: E402
+from future_b.r1_grouped.dense_oracle import Oracle
+from future_b.r1_grouped.grouped_toy import (
     CompilerWindowOp,
     MeasureA,
     MeasureB,
@@ -27,7 +23,7 @@ from grouped_toy import (  # noqa: E402
     observables,
     partition_violations,
 )
-from kernels import DRAWERS, ENUMERATORS, Kernel, stationarity_residual  # noqa: E402
+from future_b.r1_grouped.kernels import DRAWERS, ENUMERATORS, Kernel, stationarity_residual
 
 SIGNED = dict(eta=1.0, zeta=0.0, delta=2.0, dtau=0.25, g=1.2, gap=0.5, omega=0.2, k_ext=1, theta0=3.46)
 

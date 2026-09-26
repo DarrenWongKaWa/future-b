@@ -18,11 +18,8 @@ from pathlib import Path
 
 import numpy as np
 
-HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
-
-from dense_oracle import Oracle  # noqa: E402
-from grouped_toy import (  # noqa: E402
+from .dense_oracle import Oracle
+from .grouped_toy import (
     CompilerWindowOp,
     MeasureA,
     MeasureB,
@@ -38,7 +35,7 @@ from grouped_toy import (  # noqa: E402
     partition_violations,
     tiled_windows,
 )
-from kernels import (  # noqa: E402
+from .kernels import (
     Kernel,
     asymptotic_variance,
     detailed_balance_residual,
@@ -266,7 +263,7 @@ def run_regime(name, params, steps, seed):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=str(HERE / "evidence"))
+    ap.add_argument("--out", default="r1_f1_f3_evidence")
     ap.add_argument("--steps", type=int, default=400_000)
     ap.add_argument("--seed", type=int, default=20260925)
     ap.add_argument("--regimes", default=",".join(REGIMES))

@@ -10,9 +10,9 @@ it accumulates `gtrue = Re D_num / |Re D_samp|`, and it writes the average
 to `sign.dat-*` and to stdout as `<g/Z>`. In general the numerator uses
 `gkq_full` and the sampling weight uses `gkq`. Under `DMC_Method = 0`,
 however, `cal_gkq_vtex_int` also calls `solve_gkq_full_fast`, so
-`gkq ≡ gkq_full` and `gtrue` is a pure ±1 sign. [collect_sign.py](collect_sign.py) reads those files read-only from
+`gkq ≡ gkq_full` and `gtrue` is a pure ±1 sign. [fepdmc/analysis/collect_sign.py](../../../src/future_b/fepdmc/analysis/collect_sign.py) reads those files read-only from
 the local run tree into [native_sign_runs.csv](native_sign_runs.csv) (177
-runs). [summarize_sign.py](summarize_sign.py) then pools the production
+runs). [fepdmc/analysis/summarize_sign.py](../../../src/future_b/fepdmc/analysis/summarize_sign.py) then pools the production
 campaigns into [lif_sign_summary.json](lif_sign_summary.json).
 
 Rules for the pooled number:

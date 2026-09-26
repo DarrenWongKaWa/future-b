@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Offline estimate of wider mode groups (crossing lines carried) from lines_dump.dat.
 
 For every dumped native sample: the internal lines (la, lb) and their exact
@@ -13,7 +12,7 @@ Estimates, using the validated per-line independence (pair tests ~1e-3):
   Z_B/Z_A ~ E_A[prod_{l in S} rho_l],   <s>_B ~ <s>_A / E_A[...]
 plus a cost proxy sum over positions of n^{width at that position}.
 
-Usage: estimate_groups.py <runs> <material> [n_modes]
+Usage: python -m future_b.fepdmc.analysis.estimate_groups <runs> <material> [n_modes]
 """
 
 from __future__ import annotations

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Native EZ average sign and formation energy per material.
 
 For every <runs>/<material>/chain*/stdout.log read <g/Z> (the average sign

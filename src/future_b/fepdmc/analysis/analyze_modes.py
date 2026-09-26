@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Phonon-mode grouping diagnostics on native chains (mode_trace.dat + rb_trace.dat).
 
 Exact under the native measure (E[rho] = Z_B/Z_A for each nu-independent partition):

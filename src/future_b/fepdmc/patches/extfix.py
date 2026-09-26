@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Opt-in support fix for FEP-DMC's remove_external_ph (detailed balance).
 
 add_external_ph samples the head-side time only on [0, min(tau_next, tau_max/2)]
@@ -12,7 +11,7 @@ then not in detailed balance.
 With FUTUREB_EXTFIX=1 the removal is rejected when either stored time lies
 outside the add's proposal range; otherwise the code is unchanged.
 
-Usage: patch_extfix.py <perturbo-fep-dmc dir>
+Usage: python -m future_b.fepdmc.patches.extfix <perturbo-fep-dmc dir>
 """
 
 from __future__ import annotations

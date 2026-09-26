@@ -15,7 +15,7 @@ from collections import defaultdict
 
 import numpy as np
 
-from grouped_toy import (
+from .grouped_toy import (
     NATIVE_MOVES,
     canonical,
     first_eligible_members,

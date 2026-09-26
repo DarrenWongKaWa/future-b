@@ -1,10 +1,9 @@
-#!/usr/bin/env python3
 """Add the grouped-measure chain (bchain.f90) to a tree already prepared by
-patch_fepdmc.py. Hooks go only into diagmc_EZ_matrix, each asserted once:
+patches/base.py. Hooks go only into diagmc_EZ_matrix, each asserted once:
 around update_drive (second-stage correction, mode refresh) and around
 measure_EZ_wfn (grouped estimator). Inert unless FUTUREB_BCHAIN=1.
 
-Usage: patch_bchain.py <perturbo-fep-dmc dir>
+Usage: python -m future_b.fepdmc.patches.bchain <perturbo-fep-dmc dir>
 """
 
 from __future__ import annotations
@@ -13,7 +12,7 @@ import shutil
 import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parent
+DATA = Path(__file__).resolve().parents[1] / "data"
 
 
 def once(text: str, old: str, new: str, label: str) -> str:
@@ -25,7 +24,7 @@ def once(text: str, old: str, new: str, label: str) -> str:
 
 def main(root: str) -> None:
     src = Path(root) / "pert-src"
-    shutil.copy(HERE / "bchain.f90", src / "bchain.f90")
+    shutil.copy(DATA / "bchain.f90", src / "bchain.f90")
     p = src / "diagMC_gt.f90"
     t = p.read_text()
     start = t.index("subroutine diagmc_EZ_matrix()")

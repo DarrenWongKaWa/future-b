@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Raw vs window-Rao-Blackwellized Luo EZ energy estimator on native chains.
 
 Reads <runs>/<material>/chain*/rb_trace.dat (one line per measurement: raw and

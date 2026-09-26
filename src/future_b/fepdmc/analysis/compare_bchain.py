@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Native chain A vs grouped chain B (laminar phonon-mode groups) on the same material.
 
 A: per-measurement native estimator (raw_num, raw_den) from rb_trace.dat of runs
@@ -7,7 +6,7 @@ A: per-measurement native estimator (raw_num, raw_den) from rb_trace.dat of runs
 B: bchain_trace.dat (f_O, f_1) from FUTUREB_BCHAIN=1 runs.
 E = sum(num)/(tau_max sum(den)), Q = E - E_bare; 50-block jackknife per chain.
 
-Usage: compare_bchain.py <runs_A_trace> <runs_A_walltime> <runs_B> <material> <E_bare> [tau_max]
+Usage: python -m future_b.fepdmc.analysis.compare_bchain <runs_A_trace> <runs_A_walltime> <runs_B> <material> <E_bare> [tau_max]
 """
 
 from __future__ import annotations

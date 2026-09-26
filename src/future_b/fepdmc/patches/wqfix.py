@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Opt-in fix for a stale phonon frequency in FEP-DMC's add_external_ph.
 
 At the pinned commit, multiphonon_update_matrix::add_external_ph samples a new
@@ -10,7 +9,7 @@ add_ph calls cal_wq_int at the same point.
 
 With FUTUREB_WQFIX=1 the missing call is made; otherwise the code is unchanged.
 
-Usage: patch_wqfix.py <perturbo-fep-dmc dir>
+Usage: python -m future_b.fepdmc.patches.wqfix <perturbo-fep-dmc dir>
 """
 
 from __future__ import annotations

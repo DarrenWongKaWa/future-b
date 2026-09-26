@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Opt-in fix for the reference trace in FEP-DMC's remove_external_ph.
 
 When the diagram has internal vertices, remove_external_ph builds the trace of
@@ -13,7 +12,7 @@ empty-diagram branch of the removal, which already uses vn1%ekout.
 With FUTUREB_EXTRMFIX=1 the reference wrap segment uses vn1%ekout; otherwise the
 code is unchanged.
 
-Usage: patch_extrmfix.py <perturbo-fep-dmc dir>
+Usage: python -m future_b.fepdmc.patches.extrmfix <perturbo-fep-dmc dir>
 """
 
 from __future__ import annotations

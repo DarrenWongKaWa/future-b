@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """End-to-end exactness check of the native fixes and the Future B moves.
 
 Runs independent kernels on the same target at low order, where every kernel
@@ -14,10 +13,11 @@ Q = -0.8763..-0.8767 at LiF-hole T = 500 K, maxOrder 7; unfixed native gives
 -0.87311.
 
 Usage:
-  validate_exactness.py --bin mb32 [--chains 8] [--maxorder 7] [--tag val]
-                        [--kernels native,pure,mixed] [--analyze-only]
-Each kernel is launched through run_native.py (Docker image and tables as
-configured there). Exit status 0 if all pairs agree within --nsigma.
+  future-b-fepdmc validate [--build TREE] [--chains 8] [--maxorder 7] [--tag val]
+                           [--kernels native,pure,mixed] [--analyze-only]
+                           [--ws DIR] [--data DIR] [--image IMAGE]
+Each kernel is launched through future_b.fepdmc.runner (workspace, dataset and
+image as configured there). Exit status 0 if all pairs agree within --nsigma.
 """
 
 from __future__ import annotations
@@ -25,6 +25,7 @@ from __future__ import annotations
 import argparse
 import itertools
 import math
+import os
 import re
 import subprocess
 import sys
@@ -32,9 +33,7 @@ from pathlib import Path
 
 import numpy as np
 
-HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
-import run_native  # noqa: E402
+from . import runner
 
 FIXES = ["--wqfix", "--extfix", "--extrmfix"]
 KERNELS = {
@@ -64,9 +63,13 @@ def pooled(run_dir: Path, mat: str):
     return float(R), float(h.std(ddof=1) / math.sqrt(len(E))), len(E)
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--bin", default="mb32")
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(prog="future-b-fepdmc validate", description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--build", default=runner.DEFAULT_BUILD)
+    ap.add_argument("--ws", default=os.environ.get("FUTUREB_FEPDMC_WS", "fepdmc_ws"))
+    ap.add_argument("--data", default=os.environ.get("FUTUREB_FEPDMC_DATA"))
+    ap.add_argument("--image", default=os.environ.get("FUTUREB_FEPDMC_IMAGE", runner.DEFAULT_IMAGE))
     ap.add_argument("--material", default="lif_hole")
     ap.add_argument("--temp", type=float, default=500.0)
     ap.add_argument("--maxorder", type=int, default=7)
@@ -76,21 +79,24 @@ def main() -> int:
     ap.add_argument("--kernels", default="native,pure,mixed")
     ap.add_argument("--nsigma", type=float, default=3.0)
     ap.add_argument("--analyze-only", action="store_true")
-    a = ap.parse_args()
+    a = ap.parse_args(argv)
     names = [k.strip() for k in a.kernels.split(",") if k.strip()]
     procs = []
     if not a.analyze_only:
         for k in names:
-            cmd = [sys.executable, str(HERE / "run_native.py"), "ez", a.material, str(a.chains),
-                   "--bin", a.bin, "--temp", str(a.temp), "--maxorder", str(a.maxorder),
+            cmd = [sys.executable, "-m", "future_b.fepdmc.runner", "ez", a.material, str(a.chains),
+                   "--build", a.build, "--ws", a.ws, "--image", a.image,
+                   "--temp", str(a.temp), "--maxorder", str(a.maxorder),
                    "--tag", f"{a.tag}_{k}", "--parallel", str(a.parallel)] + KERNELS[k]
+            if a.data:
+                cmd += ["--data", a.data]
             print("+", " ".join(cmd[1:]))
             procs.append(subprocess.Popen(cmd))
         codes = [p.wait() for p in procs]
         if any(codes):
             print("run failures:", codes, file=sys.stderr)
             return 2
-    res = {k: pooled(Path(run_native.WS) / f"{a.tag}_{k}", a.material) for k in names}
+    res = {k: pooled(Path(a.ws) / f"{a.tag}_{k}", a.material) for k in names}
     for k, (q, se, n) in res.items():
         print(f"{k:7s} n={n:2d}  E = {q:.5f} +- {se:.5f}")
     ok = True

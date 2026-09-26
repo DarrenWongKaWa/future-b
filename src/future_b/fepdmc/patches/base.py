@@ -1,11 +1,10 @@
-#!/usr/bin/env python3
 """Prepare a pristine FEP-DMC pert-src (pin 05d08449) for a gfortran build with
 the opt-in Rao-Blackwell window estimator.
 
-Usage: patch_fepdmc.py <perturbo-fep-dmc dir> <mkl_vsl shim>
+Usage: python -m future_b.fepdmc.patches.base <perturbo-fep-dmc dir> [mkl_vsl shim]
 
 Two groups of edits, each asserted to apply exactly once:
-  1. gfortran portability (as in prototypes/r5_p0_native_chain_audit): Intel
+  1. gfortran portability : Intel
      2**31 constants, '.' component syntax, logical .eq., module wrapping of
      diagMC_gt/diagMC_JJ, HDF5 link order, MKL VSL shim. No Metropolis change.
   2. rb_window.f90 added to the build and two measurement-only hooks in
@@ -21,7 +20,7 @@ import shutil
 import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parent
+DATA = Path(__file__).resolve().parents[1] / "data"
 
 
 def once(text: str, old: str, new: str, label: str) -> str:
@@ -31,10 +30,11 @@ def once(text: str, old: str, new: str, label: str) -> str:
     return text.replace(old, new)
 
 
-def main(root: str, shim: str) -> None:
+def main(root: str, shim: str | None = None) -> None:
+    shim = shim or str(DATA / "mkl_vsl.f90")
     src = Path(root) / "pert-src"
     shutil.copy(shim, src / "mkl_vsl.f90")
-    shutil.copy(HERE / "rb_window.f90", src / "rb_window.f90")
+    shutil.copy(DATA / "rb_window.f90", src / "rb_window.f90")
 
     p = src / "random_tool.f90"
     t = p.read_text()
@@ -100,9 +100,9 @@ def main(root: str, shim: str) -> None:
     t = once(t, "$(QELIBS) -lstdc++", "$(QELIBS) $(HDF5_LIB) -lstdc++", "HDF5 link order")
     p.write_text(t)
 
-    shutil.copy(HERE / "make.sys", Path(root) / "make.sys")
+    shutil.copy(DATA / "make.sys", Path(root) / "make.sys")
     print("patched", root)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)

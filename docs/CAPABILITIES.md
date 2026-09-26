@@ -1,7 +1,8 @@
 # What the public snapshot actually provides
 
-v1.2.0 is a **methods-study archive** (science frozen at v1.0.0;
-v1.0.1–v1.2.0 are maintenance), not a general DiagMC library.
+v1.3.0 is a **methods-study archive** (science frozen at v1.0.0;
+v1.0.1–v1.2.0 are maintenance; v1.3.0 adds a research toolkit), not a
+general DiagMC library.
 
 | Capability | In this snapshot | Entry |
 |---|---|---|
@@ -17,6 +18,8 @@ v1.0.1–v1.2.0 are maintenance), not a general DiagMC library.
 | Public FEP-DMC source identity | pin | `provenance/UPSTREAM_FEP_DMC.json` |
 | C0 `wq` refresh on pinned public source | source transform only | `integration/c0` |
 | Public P1 delayed acceptance on pinned FEP-DMC | source transform + native JJ validation fixture (not 50 K 0.956) | `integration/p1`, `release/v1.2.0/NATIVE_VALIDATION.md` |
+| Opt-in fixes of three native external-pair bugs; exact Future B moves; Docker driver; pooled estimator | source transform + Python drivers; no speedup claim | `future_b.fepdmc`, `future-b-fepdmc`, [FEP_DMC_TOOLKIT.md](FEP_DMC_TOOLKIT.md) |
+| Finite R1 grouped toy with dense oracle | yes (toy, not a material consumer) | `future_b.r1_grouped` |
 | R1 recursive evaluator / CSE kernels | **no** | `r1_fixed_order` is metadata |
 | Wheel = full research archive | **no** | wheel is the Python helper |
 

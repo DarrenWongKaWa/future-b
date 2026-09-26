@@ -3,8 +3,8 @@
 Research continuation of
 [`docs/future_work/R1_REAL_MATERIAL_GROUPED_CONSUMER.md`](../../docs/future_work/R1_REAL_MATERIAL_GROUPED_CONSUMER.md).
 This is a new research line, not a Future B v1.x change. No material file is
-read. Section numbers are cited by `grouped_toy.py`, `kernels.py` and
-`run_f1_f3.py`.
+read. Section numbers are cited by `future_b.r1_grouped` (`grouped_toy.py`,
+`kernels.py` and `run_f1_f3.py`).
 
 ## 1. Configuration space and signed weight
 

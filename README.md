@@ -6,7 +6,7 @@ statistics, fixed-order graph reuse, and negative/unresolved benchmark
 results.
 
 **Project status: CLOSED** (`v1.0.0` science frozen; `v1.0.1`–`v1.2.0`
-maintenance). This is a **methods-study archive**, not an AI
+maintenance; `v1.3.0` adds the FEP-DMC research toolkit). This is a **methods-study archive**, not an AI
 acceleration framework and not a drop-in FEP-DMC plugin. C0 and P1 are
 LEVEL 0 source transforms of the pinned public tree, not a compiled
 extension and not the historical 0.956 binary.
@@ -78,6 +78,22 @@ Quantum ESPRESSO 6.5, Perturbo/FEP-DMC, Intel Fortran, HDF5 Fortran
 [docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md),
 [docs/DATA_AND_LICENSE.md](docs/DATA_AND_LICENSE.md).
 
+## FEP-DMC toolkit (`future_b.fepdmc`, v1.3.0)
+
+Opt-in fixes for three native FEP-DMC bugs in external-phonon add/remove,
+exact Future B moves, a Docker run driver and the pooled ratio estimator,
+as source patches of the pinned public tree:
+
+```bash
+future-b-fepdmc prepare <perturbo-fep-dmc> --profile fixes   # or: research
+future-b-fepdmc run ez lif_hole 8 --wqfix --extfix --extrmfix --extar 0.02
+future-b-fepdmc validate
+```
+
+No speedup claim; the frozen v1.0.0 result is unchanged. See
+[docs/FEP_DMC_TOOLKIT.md](docs/FEP_DMC_TOOLKIT.md) and
+[the native report](research/r1_grouped/native_rb/NATIVE_REPORT.md).
+
 ## Documentation
 
 - [What is actually shipped](docs/CAPABILITIES.md)
@@ -85,6 +101,7 @@ Quantum ESPRESSO 6.5, Perturbo/FEP-DMC, Intel Fortran, HDF5 Fortran
 - [Public FEP-DMC pin](docs/UPSTREAM_FEP_DMC.md)
 - [Public C0 source adapter](docs/C0_PUBLIC_ADAPTER.md)
 - [Public P1 source adapter](docs/P1_PUBLIC_ADAPTER.md)
+- [FEP-DMC toolkit](docs/FEP_DMC_TOOLKIT.md)
 - [v1.0.1 maintenance](docs/MAINTENANCE_1.0.1.md)
 - [v1.0.2 provenance repair](docs/MAINTENANCE_1.0.2.md)
 - [v1.0.3 packaging and public FEP-DMC pin](docs/MAINTENANCE_1.0.3.md)

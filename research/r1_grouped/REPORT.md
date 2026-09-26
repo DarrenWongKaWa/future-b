@@ -9,7 +9,7 @@ The run below produces `evidence/*.json` and `evidence/run.log`, with
 118/118 checks PASS:
 
 ```
-.venv/bin/python research/r1_grouped/run_f1_f3.py --steps 400000
+.venv/bin/python -m future_b.r1_grouped.run_f1_f3 --steps 400000 --out research/r1_grouped/evidence
 ```
 
 The regression tests are `tests/test_r1_grouped.py` (8 tests, about 2 s).

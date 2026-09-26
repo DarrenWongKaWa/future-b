@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Native chain A vs a modified chain C, by the pooled ratio estimator over chains.
 
 All chains of one side sample the same measure, so the estimate is the pooled
@@ -13,7 +12,9 @@ Optional trace diagnostics (--trace-a/--trace-c: files with numerator, sign and
 order columns): spread of chain signs, drift of 10 block means of the order, and
 blocking tau_int of the order.
 
-Usage: compare_pooled.py <runs_A> <runs_C> <material> <E_bare> <tau_max>
+The 90% F interval needs scipy; without it the interval is reported as null.
+
+Usage: future-b-fepdmc compare <runs_A> <runs_C> <material> <E_bare> <tau_max>
          [--trace-a DIR FILE NUMCOL SIGNCOL ORDERCOL] [--trace-c DIR FILE NUMCOL SIGNCOL ORDERCOL]
 """
 
@@ -85,8 +86,9 @@ def traces(spec, mat: str) -> dict:
                 tau_int_sign=float(np.mean(tsign)))
 
 
-def main() -> None:
-    ap = argparse.ArgumentParser()
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(prog="future-b-fepdmc compare", description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("runs_a")
     ap.add_argument("runs_c")
     ap.add_argument("material")
@@ -94,25 +96,30 @@ def main() -> None:
     ap.add_argument("tau", type=float)
     ap.add_argument("--trace-a", nargs=5)
     ap.add_argument("--trace-c", nargs=5)
-    a = ap.parse_args()
-    from scipy import stats  # only needed for the F interval
+    a = ap.parse_args(argv)
     A = side(a.runs_a, a.material, a.tau, a.e_bare)
     C = side(a.runs_c, a.material, a.tau, a.e_bare)
     ratio = A["var_h"] / C["var_h"]
-    lo = ratio / stats.f.ppf(0.95, A["n_chains"] - 1, C["n_chains"] - 1)
-    hi = ratio / stats.f.ppf(0.05, A["n_chains"] - 1, C["n_chains"] - 1)
+    try:
+        from scipy import stats  # only needed for the F interval
+        lo = ratio / stats.f.ppf(0.95, A["n_chains"] - 1, C["n_chains"] - 1)
+        hi = ratio / stats.f.ppf(0.05, A["n_chains"] - 1, C["n_chains"] - 1)
+    except ImportError:
+        lo = hi = None
     cost = C["cpu_s"] / A["cpu_s"]
     out = dict(material=a.material, A=A, C=C, comparison=dict(
         Q_difference=C["Q_pooled"] - A["Q_pooled"],
         Q_difference_sigma=(C["Q_pooled"] - A["Q_pooled"]) / math.hypot(A["se_jackknife"], C["se_jackknife"]),
         variance_ratio_A_over_C=ratio, variance_ratio_90CI=[lo, hi], cpu_ratio_C_over_A=cost,
-        efficiency=ratio / cost, efficiency_90CI=[lo / cost, hi / cost]))
+        efficiency=ratio / cost,
+        efficiency_90CI=[lo / cost, hi / cost] if lo is not None else None))
     if a.trace_a:
         out["A"]["traces"] = traces(a.trace_a, a.material)
     if a.trace_c:
         out["C"]["traces"] = traces(a.trace_c, a.material)
     json.dump(out, sys.stdout, indent=2)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

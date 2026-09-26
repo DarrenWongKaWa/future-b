@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Native chain A vs grouped chain B by between-chain variance (no tau_int needed).
 
 A: hook-free native runs; Q_i = Etrue_i - E_bare from each chain's stdout.
@@ -6,7 +5,7 @@ B: FUTUREB_BCHAIN runs; Q_i from bchain_trace.dat (sum f_O / (tau_max sum f_1)).
 Reports Q +- SE for each, the variance ratio var_A/var_B with a 90% F interval,
 and the wall-normalized efficiency (var_A t_A) / (var_B t_B).
 
-Usage: compare_between.py <runs_A_plain> <runs_B> <material> <E_bare> [tau_max]
+Usage: python -m future_b.fepdmc.analysis.compare_between <runs_A_plain> <runs_B> <material> <E_bare> [tau_max]
 """
 
 from __future__ import annotations

@@ -18,20 +18,20 @@ and 7.75 GiB inside the Docker VM).
   OpenMPI and serial HDF5. `OMP_NUM_THREADS=1`, one chain per container.
 - **Source.** Pinned public FEP-DMC
   `05d08449cffdbd0dfbbbf5009add5cc887bc754b`, overlaid on a QE 6.5 tree
-  already compiled with gfortran. [patch_fepdmc.py](patch_fepdmc.py)
+  already compiled with gfortran. [fepdmc/patches/base.py](../../../src/future_b/fepdmc/patches/base.py)
   applies, and asserts, three kinds of edit:
   - gfortran portability, plus an MKL VSL shim (xorshift64 in place of
     MT19937), with no Metropolis change;
-  - the measurement-only [rb_window.f90](rb_window.f90), inert unless
+  - the measurement-only [rb_window.f90](../../../src/future_b/fepdmc/data/rb_window.f90), inert unless
     `FUTUREB_RB=1`;
   - an opt-in `FUTUREB_SEED` that replaces the wall-clock seed value.
-- **Flags.** [make.sys](make.sys) needs `-fmax-stack-var-size=1` for EZ.
+- **Flags.** [make.sys](../../../src/future_b/fepdmc/data/make.sys) needs `-fmax-stack-var-size=1` for EZ.
   Without it, the local `diagrams(200)` arrays overflow the stack and
   `perturbo.x` segfaults at start. The table steps (svd-elph,
   tabulate-H) use a second build of the same source without that flag,
   because it breaks their re-allocated local arrays. Binary hashes are in
   [evidence/BINARY_SHA256.txt](evidence/BINARY_SHA256.txt).
-- **Driver.** [run_native.py](run_native.py) runs every chain with
+- **Driver.** [fepdmc/runner.py](../../../src/future_b/fepdmc/runner.py) runs every chain with
   T = 50 K (β = 232.09 eV⁻¹), a 20³ grid, `nsvd = 20`, `Nmcmc = 200×10⁴`,
   `maxOrder = 500` and `DMC_Method = 0`. The band windows follow the
   paper's dataset notebooks.
@@ -114,7 +114,7 @@ reach for LiF-hole. An energy from these runs means nothing.
 
 ## (a′) Multiband window Rao–Blackwellization and the exact grouped sign on STO
 
-The general [rb_window.f90](rb_window.f90) handles any number of bands.
+The general [rb_window.f90](../../../src/future_b/fepdmc/data/rb_window.f90) handles any number of bands.
 It builds prefix products X_s and suffix products Z_s once per
 measurement, together with their H-insertion sums Y_s and V_s. Around a
 window it then writes the chain as `M = R · W · L`, so that
@@ -265,7 +265,7 @@ stronger per line but correlated across lines.
 
 The sign ceiling 1/⟨s⟩² assumes that removing the sign leaves everything
 else unchanged. On the native chains it does not.
-[decompose_native.py](decompose_native.py) compares two per-measurement
+[fepdmc/analysis/decompose_native.py](../../../src/future_b/fepdmc/analysis/decompose_native.py) compares two per-measurement
 variances, each with a blocking τ_int:
 - the actual ratio-estimator influence, `h = s(O − R)/⟨s⟩`;
 - the same chain with the sign set to +1, `h_O = O − ⟨O⟩`.
@@ -299,7 +299,7 @@ This is 3 chains with order 93–97 and every self-check clean.
   lines E[∏ρ] ≈ 0.20, so ⟨s⟩ would be ≈0.47.
 - **4-vertex windows:** 0.9996, useless.
 
-## (e) A real grouped chain B on native FEP-DMC ([bchain.f90](bchain.f90), [patch_bchain.py](patch_bchain.py))
+## (e) A real grouped chain B on native FEP-DMC ([bchain.f90](../../../src/future_b/fepdmc/data/bchain.f90), [fepdmc/patches/bchain.py](../../../src/future_b/fepdmc/patches/bchain.py))
 
 **Target.** w_B(C) = |Re F_G|/|G|. G sums the live phonon modes of every
 line in the greedy non-crossing set. F_G is computed *exactly* by folding
@@ -416,7 +416,7 @@ the variance ratio is 1.38 (90% CI 0.49–3.9) at a CPU cost of 3.46×, so
 the **net efficiency is 0.40 (CI 0.14–1.13)**.
 
 **Stage 2: wider groups** (offline, from native topology dumps;
-[estimate_groups.py](estimate_groups.py),
+[fepdmc/analysis/estimate_groups.py](../../../src/future_b/fepdmc/analysis/estimate_groups.py),
 [evidence/lif_hole500_group_rules_estimate.json](evidence/lif_hole500_group_rules_estimate.json)).
 Crossing lines are carried with a bounded width K, nested ones folded:
 
@@ -442,7 +442,7 @@ kernel and mixing are unchanged and the cost is ≈ 1. Implemented in
 the native numerator (≤ 1.4e-12).
 
 **Stage 3 result: mode Rao–Blackwell on the native chain**
-([analyze_mode_rb.py](analyze_mode_rb.py),
+([fepdmc/analysis/analyze_mode_rb.py](../../../src/future_b/fepdmc/analysis/analyze_mode_rb.py),
 [evidence/lif_hole500_mode_rb.json](evidence/lif_hole500_mode_rb.json)).
 Twelve chains, compared paired on identical trajectories:
 - the SE² ratio raw/RB is **1.083 ± 0.037**;
@@ -457,7 +457,7 @@ information sits in the *joint* mode sum over all lines (∏ρ ≈ 0.18), and a
 mean of single-line conditionals cannot multiply it.
 
 **Stage 4 probe: a sign-optimized local mode basis**
-([analyze_svd.py](analyze_svd.py),
+([fepdmc/analysis/analyze_svd.py](../../../src/future_b/fepdmc/analysis/analyze_svd.py),
 [evidence/lif_hole500_svd_basis.json](evidence/lif_hole500_svd_basis.json)).
 Write a line's mode sum as a bilinear T = Σ_ν Dph_ν g_b(ν) ⊗ g_a(ν), whose
 rank is ≤ Nph, and take its SVD. That gives effective modes μ with the same
@@ -489,7 +489,7 @@ ranges from 0.01 to 0.26. The mean of per-chain ratios is then biased by
 the chains that sit in low-sign regions. All chains sample the same
 measure, so the estimate is the **pooled** ratio Σn_i/Σd_i. Its variance
 comes from the chain-level influence h_i = (n_i − R d_i)/d̄
-([compare_pooled.py](compare_pooled.py)).
+([fepdmc/pooled.py](../../../src/future_b/fepdmc/pooled.py)).
 
 Re-analysed this way, the (e)/(f) comparison of chain B with native
 changes:
@@ -520,7 +520,7 @@ variance ratio is about ×/÷ 2.8, and a single batch can mislead (below).
   (|corr| ≤ 0.03).
 
 **Lever 1: an exact change-q move for internal lines** (`FUTUREB_CHQ`, mb16,
-`change_q` in [bchain.f90](bchain.f90)). The native kernel changes a line's
+`change_q` in [bchain.f90](../../../src/future_b/fepdmc/data/bchain.f90)). The native kernel changes a line's
 momentum only by removing the line, and only span-1 lines are removable
 (3.6% of removal attempts). change_q:
 - picks a line uniformly and draws q′ ~ Pq and ν′ ~ Pnu(q′);
@@ -602,7 +602,7 @@ The cause is in `multiphonon_update_matrix::add_external_ph` at pin 05d08449:
 - those enter the pair's Dph, its time sampling and the energy estimator.
 
 add_ph makes the call at the same point, and every other update computes or
-copies wq. [patch_wqfix.py](patch_wqfix.py) adds the call as an opt-in
+copies wq. [fepdmc/patches/wqfix.py](../../../src/future_b/fepdmc/patches/wqfix.py) adds the call as an opt-in
 (`FUTUREB_WQFIX=1`, mb19). With it, the round-trip error is **3.6e-15**.
 
 *Effect of the fix, fixed minus native, pooled:*
@@ -683,7 +683,7 @@ More attempts do not help: native can remove only span-1 lines, so the
 supply of removable lines is the limit.
 
 **An exact general-span add/remove** (`FUTUREB_ANY`, mb20; `any_add` and
-`any_remove` in [bchain.f90](bchain.f90)).
+`any_remove` in [bchain.f90](../../../src/future_b/fepdmc/data/bchain.f90)).
 - *Remove:* any internal line. The pair is relabelled into the last slots
   with native `swap_vertex`, the interior momenta shift by −q, the eigen-
   systems of each changed segment are re-synced (copied, not recomputed,
@@ -970,7 +970,7 @@ identical line is correct, and so is the removal's empty-diagram branch.
 The removal acceptance therefore compares the with-pair trace with a
 reference on the wrong band energies. This only matters for multiband
 systems: with one band, E − E_min = 0 and the error cancels exactly.
-Opt-in fix: [patch_extrmfix.py](patch_extrmfix.py) (`FUTUREB_EXTRMFIX=1`).
+Opt-in fix: [fepdmc/patches/extrmfix.py](../../../src/future_b/fepdmc/patches/extrmfix.py) (`FUTUREB_EXTRMFIX=1`).
 
 **Bug 3, `remove_external_ph` support.**
 - `add_external_ph` draws τ₁ only on [0, min(τ_first, τ_max/2)] and τ₂
@@ -980,7 +980,7 @@ Opt-in fix: [patch_extrmfix.py](patch_extrmfix.py) (`FUTUREB_EXTRMFIX=1`).
 - The removal evaluates the reverse-add densities with `exp_sample_omp`
   in density mode, which has no range check, so such pairs are removable
   although add can never recreate them.
-- Opt-in fix: [patch_extfix.py](patch_extfix.py) (`FUTUREB_EXTFIX=1`). Fixing
+- Opt-in fix: [fepdmc/patches/extfix.py](../../../src/future_b/fepdmc/patches/extfix.py) (`FUTUREB_EXTFIX=1`). Fixing
   the trace alone still leaves a 3σ offset.
 
 **The crux.** With both fixes, native (−0.87630) equals the
@@ -1036,15 +1036,16 @@ real and shift low-order results: LiF-hole at maxOrder 7 moves 0.37% (11σ).
 
 ## (k) Toolkit, and the open full-order question for the external move
 
-**Toolkit** (see [README.md](README.md)).
-- [prepare_fepdmc.py](prepare_fepdmc.py) patches a pristine FEP-DMC tree at
+**Toolkit** (now the `future_b.fepdmc` package; see
+[docs/FEP_DMC_TOOLKIT.md](../../../docs/FEP_DMC_TOOLKIT.md)).
+- [fepdmc/prepare.py](../../../src/future_b/fepdmc/prepare.py) patches a pristine FEP-DMC tree at
   the pin in one step: make.sys, portability, the moves and the three opt-in
   native fixes. Applied to a clean checkout, it reproduces the mb32 sources
   byte for byte, and a from-scratch build succeeds.
-- [validate_exactness.py](validate_exactness.py) is the end-to-end check:
+- [fepdmc/validate.py](../../../src/future_b/fepdmc/validate.py) is the end-to-end check:
   independent kernels (fixed native, pure Future B moves, mixed) must agree
   on pooled Q at low order. It passes on the maxOrder-7 runs (−0.02σ).
-- The pooled estimator is unit-tested in `tests/test_native_rb_tools.py`.
+- The pooled estimator is unit-tested in `tests/test_fepdmc_tools.py`.
 
 **Full order, LiF-hole T = 500 K, all native fixes on, 24 vs 24 chains**
 ([evidence/lif_hole500_ext_allfix_pooled.json](evidence/lif_hole500_ext_allfix_pooled.json),
@@ -1143,8 +1144,8 @@ under-equilibration, not a bias of the move.
   removes that bias; its benefit is correctness, not per-step variance.
 - **The paper's β = 232 cases (LiF-electron, STO) are unaffected** by all of
   the above within 1–3 meV.
-- **Toolkit:** `prepare_fepdmc.py`, `validate_exactness.py` and `README.md`,
-  verified from a pristine pin to a working build.
+- **Toolkit:** `future-b-fepdmc prepare`, `validate` and
+  `docs/FEP_DMC_TOOLKIT.md`, verified from a pristine pin to a working build.
 
 **Move-probability scan** (all fixes, 24 chains each,
 [evidence/lif_hole500_ext_pscan.json](evidence/lif_hole500_ext_pscan.json)):

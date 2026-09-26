@@ -8,7 +8,7 @@ There are **three** identities:
 
 | identity | what it is | where it lives |
 |---|---|---|
-| **A. Public repository source** | the GitHub tree you cloned (`v1.2.0` maintenance) | this checkout; `release/v1.2.0/` |
+| **A. Public repository source** | the GitHub tree you cloned (`v1.3.0`) | this checkout; `release/v1.3.0/` |
 | **B. Historical timed experiment source** | Fortran compiled into the 0.956 binary | SHA256 pins below; **not** byte-identical to A |
 | **C. Frozen scientific result** | LiF Q, wall ratio, HAC, K, classification | `benchmarks/` from **v1.0.0**; unchanged since |
 
@@ -16,9 +16,9 @@ A is **not** B. v1.0.1 gated `C2_FORCE_A1` behind `P1_FIXTURE` (F03).
 That is a fixture-safety edit. It is **not** a new timing run and it
 does **not** change the frozen result (C).
 
-Canonical machine-readable record: [`release/v1.2.0/PROVENANCE.json`](../release/v1.2.0/PROVENANCE.json).
-Current-tree checksums: [`release/v1.2.0/SHA256SUMS.txt`](../release/v1.2.0/SHA256SUMS.txt).
-v1.0.2, v1.0.3, and v1.1.0 provenance records are historical and immutable.
+Canonical machine-readable record: [`release/v1.3.0/PROVENANCE.json`](../release/v1.3.0/PROVENANCE.json).
+Current-tree checksums: [`release/v1.3.0/SHA256SUMS.txt`](../release/v1.3.0/SHA256SUMS.txt).
+v1.0.2, v1.0.3, v1.1.0, and v1.2.0 provenance records are historical and immutable.
 Do **not** use [`release/2026-09-16/SHA256SUMS.txt`](../release/2026-09-16/SHA256SUMS.txt)
 as a checksum of the current tree (see [PUBLIC_MANIFEST.md](PUBLIC_MANIFEST.md)).
 
