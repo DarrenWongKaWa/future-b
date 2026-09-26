@@ -4,10 +4,13 @@
 question: what is the average sign ⟨s⟩ of native LiF sampling under
 `|Re D|`? It bounds how much any sign-based grouped measure could help.
 
-**Source.** No new run was needed. FEP-DMC already records the sign:
-`measure_gt` (`diagMC_gt.f90`) accumulates `gtrue = weight/abs(real(weight))`
-at every measurement and writes the average to `sign.dat-*` and stdout as
-`<g/Z>`. [collect_sign.py](collect_sign.py) reads those files read-only from
+**Source.** No new run was needed. In `diagmc-EZ` mode, FEP-DMC records
+the sign through `measure_EZ_wfn` (`diagMC_gt.f90`). At every measurement
+it accumulates `gtrue = Re D_num / |Re D_samp|`, and it writes the average
+to `sign.dat-*` and to stdout as `<g/Z>`. In general the numerator uses
+`gkq_full` and the sampling weight uses `gkq`. Under `DMC_Method = 0`,
+however, `cal_gkq_vtex_int` also calls `solve_gkq_full_fast`, so
+`gkq ≡ gkq_full` and `gtrue` is a pure ±1 sign. [collect_sign.py](collect_sign.py) reads those files read-only from
 the local run tree into [native_sign_runs.csv](native_sign_runs.csv) (177
 runs). [summarize_sign.py](summarize_sign.py) then pools the production
 campaigns into [lif_sign_summary.json](lif_sign_summary.json).
@@ -68,8 +71,12 @@ single band. R1 grouping could still pay off only through:
 
 ## Limits
 
-- ⟨s⟩ is an average over all measured τ and orders. It is not resolved
-  per τ bin, and `sign.dat` holds only the aggregate.
+- **EZ mode only.** EZ fixes the external time at `τ = 1/kT = 232 eV⁻¹`
+  (T = 50 K). So ⟨s⟩ = 0.944 is already the sign at a very long time. The
+  paper's `dataset/Figure-1` shows a different estimator: the G(τ)
+  "matrix product" mode, whose S(τ) falls to 0.33 at τ = 11.5 eV⁻¹ and to
+  0.24 at τ = 14. In G(τ) mode the sign problem is severe, and grouping
+  might matter there. That case is not assessed here.
 - The measured weight is the trace with normalized `gkq`. A positive
   rescaling does not change the sign.
 - Each chain's own error is not used. Chains within a campaign are
