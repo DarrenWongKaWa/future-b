@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "future-b"
-version = "1.2.0"
+version = "1.3.2"
 description = "Future B (closed): methods-study archive of exact-corrected delayed acceptance for first-principles DiagMC"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -22,6 +22,10 @@ dependencies = ["numpy>=1.26"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+analysis = ["scipy>=1.11"]
+
+[project.scripts]
+future-b-fepdmc = "future_b.fepdmc.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/DarrenWongKaWa/future-b"
@@ -33,7 +37,7 @@ Issues = "https://github.com/DarrenWongKaWa/future-b/issues"
 where = ["src"]
 
 [tool.setuptools.package-data]
-future_b = ["fortran/*.f90"]
+future_b = ["fortran/*.f90", "fepdmc/data/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

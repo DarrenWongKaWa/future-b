@@ -54,6 +54,14 @@ SDIST_TEST_DATA = (
     "release/v1.2.0/SHA256SUMS.txt",
     "release/v1.2.0/PROVENANCE.json",
     "release/v1.2.0/NATIVE_VALIDATION.json",
+    "release/v1.3.0/SHA256SUMS.txt",
+    "release/v1.3.0/PROVENANCE.json",
+    "release/v1.3.1/SHA256SUMS.txt",
+    "release/v1.3.1/PROVENANCE.json",
+    "release/v1.3.2/SHA256SUMS.txt",
+    "release/v1.3.2/PROVENANCE.json",
+    "docs/FEP_DMC_TOOLKIT.md",
+    "docs/CONTRIBUTIONS.md",
 )
 
 PRIVATE_PATH_NEEDLES = (

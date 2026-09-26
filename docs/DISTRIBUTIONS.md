@@ -23,5 +23,9 @@ They are **not** in the wheel. The pin
 ([UPSTREAM_FEP_DMC.md](UPSTREAM_FEP_DMC.md)) is required before apply.
 This is not a compiled plugin.
 
+The FEP-DMC toolkit is different: `future_b.fepdmc` (patches, the
+patched Fortran under `fepdmc/data/`, and the `future-b-fepdmc` command)
+**is** in the wheel. Its research evidence under `research/` is not.
+
 See [CAPABILITIES.md](CAPABILITIES.md) for what the snapshot can and
 cannot do.

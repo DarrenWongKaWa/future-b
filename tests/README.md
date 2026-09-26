@@ -1,6 +1,6 @@
 # Public tests
 
-Layers (v1.2.0):
+Layers (v1.3.2):
 
 | file | layer |
 |---|---|
@@ -15,6 +15,8 @@ Layers (v1.2.0):
 | `test_p1_public_fortran_contract.py` | public P1 module bans and DA falsifiers |
 | `test_r1_oracles.py` | historical R1 *metadata* only |
 | `test_c5_formation_q.py` | frozen C5 Q / HAC labels |
+| `test_fepdmc_tools.py` | FEP-DMC toolkit: pooled estimator, patch registry, CLI, run configuration (no Docker) |
+| `test_r1_grouped.py` | finite R1 grouped toy: exactness against the dense oracle |
 
 These do not compile `perturbo.x` and are not a native LiF pass.
 

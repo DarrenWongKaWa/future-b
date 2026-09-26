@@ -1,0 +1,49 @@
+{
+  "campaigns": {
+    "FEP-DMC-Data/FEP-DMC-Dataset/LiF-electron/E-nk/reference": {
+      "chains": 3,
+      "mean_sign": 0.9426249703328108,
+      "stderr": 0.0016470947625997826
+    },
+    "closure/2026-09-16-final/p1_confirm": {
+      "chains": 12,
+      "mean_sign": 0.9483888888888888,
+      "stderr": 0.004402553845116153
+    },
+    "research/luo_energy_1pct/2026-09-12_review": {
+      "chains": 12,
+      "mean_sign": 0.9481555555555555,
+      "stderr": 0.002985253694144987
+    },
+    "research/mainline/CLOSURE/2026-09-14": {
+      "chains": 44,
+      "mean_sign": 0.9423030303030303,
+      "stderr": 0.004770541038703248
+    },
+    "research/mainline/QREF/2026-09-13": {
+      "chains": 30,
+      "mean_sign": 0.9438128888888889,
+      "stderr": 0.0024048205724181908
+    },
+    "research/scheme_d_physics_first/2026-09-12/agents/F25": {
+      "chains": 1,
+      "mean_sign": 0.9509066666666667,
+      "stderr": NaN
+    }
+  },
+  "pooled": {
+    "chains": 102,
+    "mean_sign": 0.9442454403039061,
+    "stderr": 0.0022564663062100533
+  },
+  "variance_ceiling_perfect_grouping": 1.121579873427122,
+  "toy_deficit_recovered": {
+    "R1_signed_interband": 0.09276728230258201,
+    "R2_signed_mixed": 0.15851857771054895
+  },
+  "lif_projection_best_toy_transfer": {
+    "sign_A": 0.9442454403039061,
+    "sign_B": 0.9530835738078088,
+    "variance_gain": 1.0188076014388334
+  }
+}

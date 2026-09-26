@@ -56,6 +56,24 @@ V111_SUMS_FILE_SHA256 = (
     "8b5752fb65c1feb82308a3d63452fe76504f45e39dc8d5ffaf5a2a20ba4ff158"
 )
 V111_CANDIDATE_COMMIT = "3bc9098888cafc8c88eaa19ad63009fcae56f6a6"
+V120_SUMS = ROOT / "release/v1.2.0/SHA256SUMS.txt"
+V120_PROVENANCE = ROOT / "release/v1.2.0/PROVENANCE.json"
+# v1.2.0 SHA256SUMS.txt is immutable. Do not rewrite it for v1.3.0.
+V120_SUMS_FILE_SHA256 = (
+    "829f3d0533783c6a0952c80b7874fe60adbd22c9da8c3ea0f42f2b862fd862f8"
+)
+V130_SUMS = ROOT / "release/v1.3.0/SHA256SUMS.txt"
+V130_PROVENANCE = ROOT / "release/v1.3.0/PROVENANCE.json"
+# v1.3.0 SHA256SUMS.txt is immutable. Do not rewrite it for v1.3.1.
+V130_SUMS_FILE_SHA256 = (
+    "3d50ac8dc2bc771c6b263355005208a8f27bc337a6c27861c8b1ab235fa4c059"
+)
+V131_SUMS = ROOT / "release/v1.3.1/SHA256SUMS.txt"
+V131_PROVENANCE = ROOT / "release/v1.3.1/PROVENANCE.json"
+# v1.3.1 SHA256SUMS.txt is immutable. Do not rewrite it for v1.3.2.
+V131_SUMS_FILE_SHA256 = (
+    "bfcff0bf46a7170ac3a0801c5ac63623d7d8a0ecad5cb6d2ac94383a00ff42de"
+)
 FROZEN_P1 = ROOT / "benchmarks/p1_vs_bbest/frozen_results.json"
 LINEAR_DA = ROOT / "src/future_b/fortran/linear_da_mod.f90"
 
@@ -159,6 +177,57 @@ def test_v111_checksum_file_is_immutable():
     assert _sha256(V111_SUMS) == V111_SUMS_FILE_SHA256
     rec = json.loads(V111_PROVENANCE.read_text())
     assert rec["public_version"] == "1.1.0"
+
+
+def test_v120_checksum_file_is_immutable():
+    assert V120_SUMS.is_file()
+    assert _sha256(V120_SUMS) == V120_SUMS_FILE_SHA256
+    rec = json.loads(V120_PROVENANCE.read_text())
+    assert rec["public_version"] == "1.2.0"
+
+
+def test_v130_checksum_file_is_immutable():
+    assert V130_SUMS.is_file()
+    assert _sha256(V130_SUMS) == V130_SUMS_FILE_SHA256
+    rec = json.loads(V130_PROVENANCE.read_text())
+    assert rec["public_version"] == "1.3.0"
+
+
+def test_v131_checksum_file_is_immutable():
+    assert V131_SUMS.is_file()
+    assert _sha256(V131_SUMS) == V131_SUMS_FILE_SHA256
+    rec = json.loads(V131_PROVENANCE.read_text())
+    assert rec["public_version"] == "1.3.1"
+
+
+def test_v130_patched_fortran_and_frozen_science_still_match_v130_sums():
+    # v1.3.1 corrects documentation only; the patched Fortran is unchanged.
+    sums = _parse_sums(V130_SUMS)
+    for rel in (
+        "benchmarks/p1_vs_bbest/frozen_results.json",
+        "src/future_b/fepdmc/data/bchain.f90",
+        "src/future_b/fepdmc/data/rb_window.f90",
+        "src/future_b/fepdmc/data/mkl_vsl.f90",
+        "src/future_b/fepdmc/data/make.sys",
+        "src/future_b/fepdmc/patches/extfix.py",
+        "src/future_b/fepdmc/patches/extrmfix.py",
+    ):
+        assert _sha256(ROOT / rel) == sums[rel], rel
+
+
+def test_v120_science_production_fortran_and_adapters_still_match_v120_sums():
+    sums = _parse_sums(V120_SUMS)
+    for rel in (
+        "benchmarks/p1_vs_bbest/frozen_results.json",
+        "benchmarks/c5_dev/frozen_results.json",
+        "src/future_b/fortran/linear_da_mod.f90",
+        "src/future_b/fortran/update_swap_p1_excerpt.f90",
+        "integration/c0/apply_c0.py",
+        "integration/p1/apply_p1.py",
+        "integration/p1/linear_da_mod.f90",
+        "provenance/UPSTREAM_FEP_DMC.json",
+    ):
+        assert _sha256(ROOT / rel) == sums[rel], rel
 
 
 def test_v102_science_and_production_fortran_still_match_v102_sums():
