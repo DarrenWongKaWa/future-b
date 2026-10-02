@@ -81,6 +81,13 @@ V132_PROVENANCE = ROOT / "release/v1.3.2/PROVENANCE.json"
 V132_SUMS_FILE_SHA256 = (
     "6cc38959567937add3af24845612e63e1c7024e7ff9d7e7a4908e6b99ff6f80e"
 )
+
+V133_SUMS = ROOT / "release/v1.3.3/SHA256SUMS.txt"
+V133_PROVENANCE = ROOT / "release/v1.3.3/PROVENANCE.json"
+# v1.3.3 SHA256SUMS.txt is immutable. Do not rewrite it for v1.3.4.
+V133_SUMS_FILE_SHA256 = (
+    "ec3511ab97497a8b0095fb0dba90ba96ada07d3bf0a93c2ada0bed7dc84504ed"
+)
 FROZEN_P1 = ROOT / "benchmarks/p1_vs_bbest/frozen_results.json"
 LINEAR_DA = ROOT / "src/future_b/fortran/linear_da_mod.f90"
 
@@ -205,6 +212,13 @@ def test_v131_checksum_file_is_immutable():
     assert _sha256(V131_SUMS) == V131_SUMS_FILE_SHA256
     rec = json.loads(V131_PROVENANCE.read_text())
     assert rec["public_version"] == "1.3.1"
+
+
+def test_v133_checksum_file_is_immutable():
+    assert V133_SUMS.is_file()
+    assert _sha256(V133_SUMS) == V133_SUMS_FILE_SHA256
+    rec = json.loads(V133_PROVENANCE.read_text())
+    assert rec["public_version"] == "1.3.3"
 
 
 def test_v132_checksum_file_is_immutable():

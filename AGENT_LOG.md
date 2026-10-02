@@ -1,5 +1,13 @@
 # Agent log
 
+## 2026-10-02 — Future B v1.3.4: draft methods note, significance correction
+
+- Filed the external-phonon defects upstream: yaoluo/FEP-DMC#1.
+- Added `paper/methods_note/` (revtex draft, PDF, number-to-evidence table).
+- Checking the note's numbers found that the maxOrder-7 shift was quoted as
+  11σ using one error bar; with both combined it is about 6σ. Corrected in
+  the toolkit doc and native report; v1.3.3 checksums frozen.
+
 ## 2026-10-02 — Future B v1.3.3: project status aligned with v1.3.x
 
 - README/CITATION said the whole project was CLOSED while v1.3.x adds a
