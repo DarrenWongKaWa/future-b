@@ -15,7 +15,8 @@ Build (TeX Live with revtex4-2; TikZ for the figure):
 pdflatex main.tex && pdflatex main.tex
 ```
 
-`main.pdf` is the build of the committed `main.tex`.
+The repository ignores `*.pdf`, so the PDF is not committed. Build it
+locally, or download it from the v1.3.4 GitHub release.
 
 ## Where every number comes from
 
