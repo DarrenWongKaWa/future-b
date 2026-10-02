@@ -14,6 +14,13 @@
 
 - native bug audit and repairs (`add_external_ph` \(\omega_q\) refresh;
   `NEWUNIT` logger; reverse double-flip)
+- v1.3.0: two further `remove_external_ph` bugs (reference trace at
+  k − q in the multiband case; reverse-add density without a support check),
+  the native ordering constraint on external vertices, and the external-pair
+  under-equilibration of native chains in the low-sign multiband regime;
+  the first measurement of the \(\omega_q\) bug's effect on EZ energies
+- v1.3.0: exact change-q, general-span and ordered external add/remove
+  moves; the pooled ratio estimator and the sign-variance decomposition
 - exclusive nested timers and swap hotspot profile
 - exact-corrected analytic P1 delayed acceptance in the swap update
 - event-level validation (stage-1 g/env skip, occupancy reverse,

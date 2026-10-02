@@ -1,0 +1,465 @@
+{
+  "Z_A": 92.48118314024582,
+  "Z_B": 86.22676224122876,
+  "Z_phys": 51.90037521390718,
+  "all_pass": true,
+  "asymptotic_variance": {
+    "crossings": {
+      "A_heatbath": 54.57219259233347,
+      "A_native": 38.4150765021497,
+      "B_native": 35.567128549321865,
+      "B_refresh": 51.93238728904663
+    },
+    "order_n": {
+      "A_heatbath": 26.741655316689872,
+      "A_native": 18.86546094061612,
+      "B_native": 23.605404753332866,
+      "B_refresh": 33.26865323443305
+    }
+  },
+  "checks": [
+    {
+      "check_id": "F2_D_vs_oracle",
+      "expected": "<= 1e-12",
+      "observed": "2.48e-15",
+      "scope": "per-diagram D(C): eigh propagators vs Taylor expm, positions vs time-stamped lines",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F2_state_count",
+      "expected": 5937,
+      "observed": 5937,
+      "scope": "finite configuration space enumeration",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F2_Z_phys",
+      "expected": "<= 1e-12",
+      "observed": "1.23e-15",
+      "scope": "signed normalization sum Re D",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F1_lemma3_tiled_partition",
+      "expected": 0,
+      "observed": 0,
+      "scope": "tiled-window groups are equivalence classes",
+      "status": "PASS"
+    },
+    {
+      "check_id": "NC3_first_eligible_not_partition",
+      "expected": "> 0",
+      "observed": 512,
+      "scope": "first-eligible-window grouping breaks closure (negative control)",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F2_group_count",
+      "expected": 4801,
+      "observed": 4801,
+      "scope": "oracle key-based classes == orbit construction",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F1_lemma4_factorized_group_sum",
+      "expected": "<= 1e-12",
+      "observed": "2.96e-16",
+      "scope": "product of summed window operators == explicit member sum (own window Op)",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F2_Z_B",
+      "expected": "<= 1e-12",
+      "observed": "4.12e-15",
+      "scope": "grouped normalization vs oracle",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F1_sign_theorem",
+      "expected": "<= 1",
+      "observed": "Z_B/Z_A=0.932371",
+      "scope": "Z_B = sum_G |Re F(G)| <= Z_A = sum_C |Re D(C)|",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F1_unbiased_A_order_n",
+      "expected": "<= 1e-12",
+      "observed": "5.83e-15",
+      "scope": "E_w[f_O]/E_w[f_1] equals the signed physical expectation",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F1_unbiased_A_crossings",
+      "expected": "<= 1e-12",
+      "observed": "4.50e-15",
+      "scope": "E_w[f_O]/E_w[f_1] equals the signed physical expectation",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F1_unbiased_B_order_n",
+      "expected": "<= 1e-12",
+      "observed": "5.99e-15",
+      "scope": "E_w[f_O]/E_w[f_1] equals the signed physical expectation",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F1_unbiased_B_crossings",
+      "expected": "<= 1e-12",
+      "observed": "4.29e-15",
+      "scope": "E_w[f_O]/E_w[f_1] equals the signed physical expectation",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F1_unbiased_NC2b_order_n",
+      "expected": "<= 1e-12",
+      "observed": "5.83e-15",
+      "scope": "E_w[f_O]/E_w[f_1] equals the signed physical expectation",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F1_unbiased_NC2b_crossings",
+      "expected": "<= 1e-12",
+      "observed": "4.29e-15",
+      "scope": "E_w[f_O]/E_w[f_1] equals the signed physical expectation",
+      "status": "PASS"
+    },
+    {
+      "check_id": "NC1_biased",
+      "expected": ">= 1e-06",
+      "observed": "6.08e-01",
+      "scope": "negative control (missing 1/|G| multiplicity) must be biased",
+      "status": "PASS"
+    },
+    {
+      "check_id": "NC3_biased",
+      "expected": ">= 1e-06",
+      "observed": "1.87e-03",
+      "scope": "negative control (non-partition grouping) must be biased",
+      "status": "PASS"
+    },
+    {
+      "check_id": "NC2_biased",
+      "expected": ">= 1e-06",
+      "observed": "4.42e-03",
+      "scope": "negative control (|D| sampled but sgn(Re D) reweighting) must be biased",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_stationary_A_native",
+      "expected": "<= 1e-11",
+      "observed": "1.49e-15",
+      "scope": "pi P == pi on the finite space",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_detailed_balance_A_native",
+      "expected": "<= 1e-11",
+      "observed": "5.83e-18",
+      "scope": "every component is reversible",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_irreducible_A_native",
+      "expected": true,
+      "observed": true,
+      "scope": "support is one communicating class",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_stationary_A_heatbath",
+      "expected": "<= 1e-11",
+      "observed": "9.33e-16",
+      "scope": "pi P == pi on the finite space",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_detailed_balance_A_heatbath",
+      "expected": "<= 1e-11",
+      "observed": "5.83e-18",
+      "scope": "every component is reversible",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_irreducible_A_heatbath",
+      "expected": true,
+      "observed": true,
+      "scope": "support is one communicating class",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_stationary_B_refresh",
+      "expected": "<= 1e-11",
+      "observed": "1.39e-15",
+      "scope": "pi P == pi on the finite space",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_detailed_balance_B_refresh",
+      "expected": "<= 1e-11",
+      "observed": "8.16e-18",
+      "scope": "every component is reversible",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_irreducible_B_refresh",
+      "expected": true,
+      "observed": true,
+      "scope": "support is one communicating class",
+      "status": "PASS"
+    },
+    {
+      "check_id": "NC4_A_eligible_only_not_stationary",
+      "expected": ">= 1e-06",
+      "observed": "6.41e-02",
+      "scope": "negative control must break pi P == pi",
+      "status": "PASS"
+    },
+    {
+      "check_id": "NC3_refresh_first_not_stationary",
+      "expected": ">= 1e-06",
+      "observed": "6.21e-02",
+      "scope": "negative control must break pi P == pi",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_stationary_NC1_refresh",
+      "expected": "<= 1e-11",
+      "observed": "1.32e-15",
+      "scope": "pi P == pi on the finite space",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_detailed_balance_NC1_refresh",
+      "expected": "<= 1e-11",
+      "observed": "4.11e-18",
+      "scope": "every component is reversible",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_irreducible_NC1_refresh",
+      "expected": true,
+      "observed": true,
+      "scope": "support is one communicating class",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_stationary_B_native",
+      "expected": "<= 1e-11",
+      "observed": "1.04e-15",
+      "scope": "pi P == pi on the finite space",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_detailed_balance_B_native",
+      "expected": "<= 1e-11",
+      "observed": "1.09e-17",
+      "scope": "every component is reversible",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_irreducible_B_native",
+      "expected": true,
+      "observed": true,
+      "scope": "support is one communicating class",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_mc_A_heatbath_order_n",
+      "expected": "exact 2.74125, z <= 4.0",
+      "observed": "2.74493+-0.00918 (z=0.40)",
+      "scope": "direct-draw MH chain, 50-batch jackknife",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_mc_A_heatbath_crossings",
+      "expected": "exact 0.25888, z <= 4.0",
+      "observed": "0.27023+-0.01451 (z=0.78)",
+      "scope": "direct-draw MH chain, 50-batch jackknife",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_mc_B_refresh_order_n",
+      "expected": "exact 2.74125, z <= 4.0",
+      "observed": "2.73703+-0.00938 (z=0.45)",
+      "scope": "direct-draw MH chain, 50-batch jackknife",
+      "status": "PASS"
+    },
+    {
+      "check_id": "F3_mc_B_refresh_crossings",
+      "expected": "exact 0.25888, z <= 4.0",
+      "observed": "0.25239+-0.01262 (z=0.51)",
+      "scope": "direct-draw MH chain, 50-batch jackknife",
+      "status": "PASS"
+    }
+  ],
+  "exact_estimator_values": {
+    "A": {
+      "crossings": 0.2588774217072596,
+      "order_n": 2.741249410912911
+    },
+    "B": {
+      "crossings": 0.2588774217072595,
+      "order_n": 2.7412494109129115
+    },
+    "NC1": {
+      "crossings": 0.10142691616429256,
+      "order_n": 2.541697482976359
+    },
+    "NC2": {
+      "crossings": 0.25773361978575743,
+      "order_n": 2.741103310530816
+    },
+    "NC2b": {
+      "crossings": 0.2588774217072595,
+      "order_n": 2.741249410912911
+    },
+    "NC3": {
+      "crossings": 0.25839277167625585,
+      "order_n": 2.742993956625677
+    }
+  },
+  "exact_mean_crossings": 0.2588774217072584,
+  "exact_mean_n": 2.741249410912895,
+  "frac_negative_states": 0.3055415192858346,
+  "group_size_histogram": {
+    "1": 4281,
+    "3": 504,
+    "9": 16
+  },
+  "kernels": {
+    "A_heatbath": {
+      "detailed_balance_rel": 5.832070290852858e-18,
+      "irreducible": true,
+      "rowsum_err": 2.220446049250313e-15,
+      "stationarity_rel": 9.331312465364573e-16
+    },
+    "A_native": {
+      "detailed_balance_rel": 5.832070290852858e-18,
+      "irreducible": true,
+      "rowsum_err": 7.771561172376096e-16,
+      "stationarity_rel": 1.4930099944583316e-15
+    },
+    "B_native": {
+      "detailed_balance_rel": 1.0875305035423155e-17,
+      "irreducible": true,
+      "rowsum_err": 7.771561172376096e-16,
+      "stationarity_rel": 1.0440292834006228e-15
+    },
+    "B_refresh": {
+      "detailed_balance_rel": 8.156478776567366e-18,
+      "irreducible": true,
+      "rowsum_err": 2.220446049250313e-15,
+      "stationarity_rel": 1.3920390445341638e-15
+    },
+    "NC1_refresh": {
+      "detailed_balance_rel": 4.1128117972550226e-18,
+      "irreducible": true,
+      "rowsum_err": 2.220446049250313e-15,
+      "stationarity_rel": 1.3160997751216073e-15
+    },
+    "NC3_refresh_first": {
+      "rowsum_err": 2.220446049250313e-15,
+      "stationarity_rel": 0.062113373562731604
+    },
+    "NC4_A_eligible_only": {
+      "rowsum_err": 2.220446049250313e-15,
+      "stationarity_rel": 0.06407462235704582
+    }
+  },
+  "mc": {
+    "A_heatbath": {
+      "burn_in": 40000,
+      "crossings": {
+        "estimate": 0.2702271410474217,
+        "exact": 0.2588774217072584,
+        "stderr": 0.01451156761244121,
+        "z": 0.7821153195353482
+      },
+      "order_n": {
+        "estimate": 2.744925415639638,
+        "exact": 2.741249410912895,
+        "stderr": 0.009179885327639806,
+        "z": 0.4004412468721032
+      },
+      "seconds": 1.7262699604034424,
+      "steps": 400000
+    },
+    "B_refresh": {
+      "burn_in": 40000,
+      "crossings": {
+        "estimate": 0.25238858313477236,
+        "exact": 0.2588774217072584,
+        "stderr": 0.012620626414400335,
+        "z": 0.514145523322217
+      },
+      "order_n": {
+        "estimate": 2.737026332088362,
+        "exact": 2.741249410912895,
+        "stderr": 0.009379923371826112,
+        "z": 0.4502253011168309
+      },
+      "seconds": 1.5046772956848145,
+      "steps": 400000
+    }
+  },
+  "n_states": 5937,
+  "oracle_seconds": 0.13077569007873535,
+  "params": {
+    "G": 8,
+    "L": 2,
+    "delta": 2.0,
+    "dtau": 0.25,
+    "eta": 1.0,
+    "g": 1.2,
+    "gap": 0.5,
+    "k_ext": 1,
+    "n_max": 4,
+    "omega": 0.2,
+    "t": 1.0,
+    "theta0": 3.46,
+    "zeta": 0.0
+  },
+  "regime": "R1_signed_interband",
+  "sign_A": 0.5611992997018791,
+  "sign_B": 0.6019056481410056,
+  "sign_gain_B_over_A": 1.0725345674179396,
+  "variance_decomposition": {
+    "crossings": {
+      "A_heatbath": {
+        "static": 3.8685461845890234,
+        "tau_int": 14.106641096784779
+      },
+      "A_native": {
+        "static": 3.8685461845890234,
+        "tau_int": 9.930106729805203
+      },
+      "B_native": {
+        "static": 3.807679604137861,
+        "tau_int": 9.34089320715707
+      },
+      "B_refresh": {
+        "static": 3.807679604137861,
+        "tau_int": 13.638854286114553
+      }
+    },
+    "order_n": {
+      "A_heatbath": {
+        "static": 1.532132794793466,
+        "tau_int": 17.453875674200088
+      },
+      "A_native": {
+        "static": 1.532132794793466,
+        "tau_int": 12.313202226807773
+      },
+      "B_native": {
+        "static": 1.3292043531806257,
+        "tau_int": 17.759048634506787
+      },
+      "B_refresh": {
+        "static": 1.3292043531806257,
+        "tau_int": 25.02899810313228
+      }
+    }
+  },
+  "weight_fraction_m_ge_1": 0.2964284645802251
+}

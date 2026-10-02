@@ -66,3 +66,12 @@ jobs:
           python integration/p1/apply_p1.py --tree /tmp/fep --dry-run
           python integration/p1/apply_p1.py --tree /tmp/fep
           python integration/p1/verify_p1.py --tree /tmp/fep
+      - name: FEP-DMC toolkit prepare (both profiles)
+        run: |
+          python -m pip install .
+          git -C /tmp/fep checkout --quiet -- .
+          git -C /tmp/fep clean -fdq
+          future-b-fepdmc prepare /tmp/fep/perturbo-fep-dmc --profile fixes
+          git -C /tmp/fep checkout --quiet -- .
+          git -C /tmp/fep clean -fdq
+          future-b-fepdmc prepare /tmp/fep/perturbo-fep-dmc --profile research

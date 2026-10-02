@@ -1,0 +1,117 @@
+{
+  "schema": "future-b-maintenance-provenance-v1",
+  "public_version": "1.3.2",
+  "public_git_tag": "v1.3.2",
+  "public_git_commit_binding": "git_tag",
+  "public_git_commit": null,
+  "public_git_commit_note": "This JSON is part of the tagged tree, so it does not store a self-referential commit SHA. After tagging, verify with: git rev-parse v1.3.2^{}.",
+  "parent_public_release": {
+    "version": "1.3.1",
+    "git_commit": "868fa2c4fab9b06a179097e951fcf4e8178c6b72",
+    "git_tag": "v1.3.1",
+    "note": "v1.3.1 documentation correction. Its sdist self-test failed (missing docs/CONTRIBUTIONS.md; top-level scipy import)."
+  },
+  "science_origin": {
+    "scientific_result_origin_release": "v1.0.0",
+    "git_commit": "77835ca15e5846863aeab8ad32ebfbb46f66353c",
+    "classification": "P1_UNRESOLVED_WITHIN_BUDGET",
+    "benchmark_record_paths": [
+      "benchmarks/p1_vs_bbest/frozen_results.json",
+      "benchmarks/c5_dev/frozen_results.json"
+    ]
+  },
+  "timed_historical_source": {
+    "timed_binary_sha256": "f9518a21fc2b8750fb3b7ed6f6e065db398cb2f425969cd718d1dcdef2b2c25c",
+    "timed_linear_da_mod_sha256": "004b23b66e00f4ca20e2cc683c8e99124f12713549fcc02363e0e0afc37854df",
+    "historical_experiment_id": "closure/2026-09-16-final/p1_confirm"
+  },
+  "current_public_source": {
+    "linear_da_mod_sha256": "c541444f2d591d4e280e12c28958534b6a89a2fd7f91dabb7df46223fac9acd8",
+    "linear_da_mod_differs_from_timed": true,
+    "diff": "Historical archive src/future_b/fortran/linear_da_mod.f90 is unchanged. Public production module is integration/p1/linear_da_mod.f90."
+  },
+  "packaging": {
+    "c2_oracle_runtime_module": false,
+    "sdist_self_testing": true,
+    "wheel_is_not_research_archive": true,
+    "p1_adapter_in_wheel": false,
+    "p1_adapter_in_sdist": true,
+    "fepdmc_toolkit_in_wheel": true,
+    "fepdmc_research_evidence_in_wheel": false,
+    "console_scripts": [
+      "future-b-fepdmc"
+    ],
+    "optional_dependencies": {
+      "analysis": [
+        "scipy>=1.11"
+      ],
+      "dev": [
+        "pytest>=8"
+      ]
+    }
+  },
+  "fepdmc_toolkit": {
+    "package": "future_b.fepdmc",
+    "docs": "docs/FEP_DMC_TOOLKIT.md",
+    "report": "research/r1_grouped/native_rb/NATIVE_REPORT.md",
+    "evidence": "research/r1_grouped/native_rb/evidence/",
+    "upstream_pin": "05d08449cffdbd0dfbbbf5009add5cc887bc754b",
+    "kind": "source_transform",
+    "profiles": {
+      "fixes": [
+        "base",
+        "wqfix",
+        "extfix",
+        "extrmfix"
+      ],
+      "research": [
+        "base",
+        "bchain",
+        "wqfix",
+        "extfix",
+        "extrmfix"
+      ]
+    },
+    "native_fixes_opt_in": [
+      "FUTUREB_WQFIX",
+      "FUTUREB_EXTFIX",
+      "FUTUREB_EXTRMFIX"
+    ],
+    "recommended_low_sign_multiband": "FUTUREB_WQFIX=1 FUTUREB_EXTFIX=1 FUTUREB_EXTRMFIX=1 FUTUREB_EXTAR=1 FUTUREB_EXTAR_P=0.02",
+    "build_level_established": 2,
+    "prepare_reproduces_research_sources": true,
+    "exactness_check": "independent kernels agree on pooled Q, LiF-hole T=500 K, maxOrder 7",
+    "binary_hashes": "research/r1_grouped/native_rb/evidence/BINARY_SHA256.txt",
+    "toolchain": "gfortran QE 6.5 in Docker image r5p0-env:ubuntu2004 (local image, not shipped); MKL VSL replaced by a xorshift64 shim",
+    "net_efficiency_gain_demonstrated": false,
+    "native_fixes_new_in_v1_3_0": [
+      "FUTUREB_EXTRMFIX",
+      "FUTUREB_EXTFIX"
+    ],
+    "native_fix_known_before": {
+      "switch": "FUTUREB_WQFIX",
+      "same_defect_as": "C0 (integration/c0, provenance/C0_PUBLIC_PATCH.json)",
+      "first_recorded": "v1.0.0 (docs/SCIENTIFIC_RESULT.md section 4.3)",
+      "v1_3_0_contribution": "independent re-finding and first measurement of its effect on EZ energies"
+    },
+    "composition_with_c0": "prepare works on a C0 tree (--wqfix then redundant); C0 refuses a tree prepare has patched"
+  },
+  "historical_checksum_files": [
+    "release/2026-09-16/SHA256SUMS.txt",
+    "release/v1.0.2/SHA256SUMS.txt",
+    "release/v1.0.3/SHA256SUMS.txt",
+    "release/v1.1.0/SHA256SUMS.txt",
+    "release/v1.2.0/SHA256SUMS.txt",
+    "release/v1.3.0/SHA256SUMS.txt",
+    "release/v1.3.1/SHA256SUMS.txt"
+  ],
+  "this_release_checksum_file": "release/v1.3.2/SHA256SUMS.txt",
+  "scientific_result_unchanged": true,
+  "performance_experiment_rerun": false,
+  "algorithm_changed": false,
+  "algorithm_changed_note": "The frozen P1 algorithm and the C0/P1 adapters are unchanged. The toolkit adds opt-in native fixes and new exact moves, inert unless enabled.",
+  "speedup_claim_added": false,
+  "code_changed": true,
+  "packaging_fix": "scipy imported lazily in two analysis modules and offered as the optional extra 'analysis'; docs/CONTRIBUTIONS.md shipped in the sdist.",
+  "code_changed_note": "Import location of scipy only; no computation changed."
+}

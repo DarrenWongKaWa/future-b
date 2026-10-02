@@ -9,6 +9,9 @@ Public excerpts are GPL-3 because they derive from Perturbo/FEP-DMC.
 | `src/future_b/fortran/closure_observer.f90` | Future B C1 observer | GPL-3 | timers; physics path unchanged when profile off |
 | `patches/p1_clean/apply_p1_clean.py` | Future B | GPL-3 | historical gating script |
 | `src/future_b/*.py` | Future B analysis layer | GPL-3 | original |
+| `src/future_b/fepdmc/data/bchain.f90`, `rb_window.f90` | Future B, written against FEP-DMC `pert-src` interfaces | GPL-3 | exact moves, chain B, measurement-side diagnostics |
+| `src/future_b/fepdmc/data/mkl_vsl.f90` | Future B RNG shim for the MKL VSL symbols used by FEP-DMC | GPL-3 | xorshift64 uniforms when MKL is absent; no Metropolis change |
+| `src/future_b/fepdmc/patches/*.py` | Future B source transforms of the pinned FEP-DMC tree | GPL-3 | anchored edits; the patched files remain Perturbo-derived |
 
 Upstream citations: Luo, Park, Bernardi, Nat. Phys. **21**, 1275 (2025);
 Perturbo https://perturbo-code.github.io/ ; QE 6.5.
