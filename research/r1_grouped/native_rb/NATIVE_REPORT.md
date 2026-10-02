@@ -958,11 +958,12 @@ and recomputes the vertex matrices that changed. A round trip (C → add →
 remove the same pair) returns log w and both proposal probabilities to
 ≤ 4e-15.
 
-**What it found** (LiF-hole T = 500 K, maxOrder 7, 8 chains per set):
+**What it found** (LiF-hole T = 500 K, maxOrder 7, 8 chains per set except the first row, which has 4).
+The column is the pooled *total* energy E, not Q (E_bare = −0.7417 eV, so Q ≈ −0.135 eV):
 
-| kernel | Q |
+| kernel | E (total energy) |
 |---|---|
-| native, pin 05d08449 (wq fix only) | −0.87311 ± 0.00040 |
+| native, pin 05d08449 (wq fix only; 4 chains) | −0.87311 ± 0.00074 |
 | native + support fix only | −0.87177 ± 0.00022 |
 | native + reference-trace fix only | −0.87728 ± 0.00014 |
 | **native + both removal fixes** | **−0.87630 ± 0.00033** |
@@ -1033,9 +1034,14 @@ The table's other false leads were cleared along the way:
 | STO (6 + 6) | 11.68550 ± 0.00079 | 11.68575 ± 0.00064 | +0.25 ± 1.01 meV (0.2σ); the fixes act (multiband) but the effect is below 1 meV |
 
 The published energies are unaffected at the 1–3 meV level. The bugs are
-real and shift low-order results: LiF-hole at maxOrder 7 moves 0.36%
-(−0.00319 ± 0.00052, about 6σ). *Correction (v1.3.4):* versions up to
-v1.3.3 said 11σ, which divided the shift by one error bar only.
+real and shift low-order results: LiF-hole at maxOrder 7 moves by
+ΔE = −0.00319 ± 0.00081 (about 4σ, against the 4-chain wq-only native run),
+which is 2.4% of Q (Q ≈ −0.135 eV; 0.36% of the total energy).
+Against the fully unfixed native run (−0.87393 ± 0.00039, section (g)) the
+three fixes together move it by −0.00237 ± 0.00051 (0.27%, about 4.7σ).
+*Correction (v1.3.5):* versions up to v1.3.3 said 11σ (one error bar only)
+and v1.3.4 said 6σ (from a mistyped ±0.00040 in the table above; the
+evidence file gives ±0.00074 from 4 chains).
 
 **Lessons.**
 1. An exact replica of a native move, with only the weight computation

@@ -64,6 +64,8 @@ SDIST_TEST_DATA = (
     "release/v1.3.3/PROVENANCE.json",
     "release/v1.3.4/SHA256SUMS.txt",
     "release/v1.3.4/PROVENANCE.json",
+    "release/v1.3.5/SHA256SUMS.txt",
+    "release/v1.3.5/PROVENANCE.json",
     "docs/FEP_DMC_TOOLKIT.md",
     "docs/CONTRIBUTIONS.md",
 )

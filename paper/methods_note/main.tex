@@ -19,10 +19,11 @@
 \author{Kawa Wong}
 \affiliation{[Affiliation]}
 
-\date{Draft, October 2026}
+\date{Withdrawn draft, October 2026}
 
 \begin{abstract}
-Diagrammatic Monte Carlo with first-principles electron--phonon couplings, as implemented in the FEP-DMC code, gives access to polaron energies of real materials. Its many update types and its low-sign regime also make it easy to lose exactness without noticing. While building exact acceleration moves on top of the public FEP-DMC code, we used a four-level validation ladder: finite-state transition-matrix checks, single-step round trips of the configuration weight, agreement of independent kernels at low order, and reproduction of published energies. The ladder exposed three defects in the updates that add and remove external (boundary-wrapping) phonon pairs. Together they shift a low-order LiF-hole energy by 0.36\% (about $6\sigma$), while the published LiF-electron and SrTiO$_3$ energies are unchanged within 1--3~meV. We also find that, at low sign, native chains equilibrate the number of external pairs so slowly that a standard LiF-hole run at 500~K is biased by about 9\% in the energy; an exact ordered external move removes the bias. Finally, averaging per-chain ratios misleads in this regime, and the variance reduction available from removing the sign is far below $1/\avg{s}^2$: 1.01, 1.14 and 4.3 instead of 1.10, 2.17 and 110 for three test cases. None of the exact moves we tested improves the cost-normalized variance of the energy.
+\textbf{Withdrawn draft.} An independent review found errors and overclaims; see REVIEW.md in this folder before using any statement here.\\[4pt]
+Diagrammatic Monte Carlo with first-principles electron--phonon couplings, as implemented in the FEP-DMC code, gives access to polaron energies of real materials. Its many update types and its low-sign regime also make it easy to lose exactness without noticing. While building exact acceleration moves on top of the public FEP-DMC code, we used a four-level validation ladder: finite-state transition-matrix checks, single-step round trips of the configuration weight, agreement of independent kernels at low order, and reproduction of published energies. The ladder exposed three defects in the updates that add and remove external (boundary-wrapping) phonon pairs. Two of them are new; together they shift a low-order LiF-hole formation energy by about 2.4\% (about $4\sigma$), while the published LiF-electron and SrTiO$_3$ energies are unchanged within 1--3~meV. We also find that, at low sign, native chains equilibrate the number of external pairs so slowly that a standard LiF-hole run at 500~K is biased by about 9\% in the energy; an exact ordered external move removes the bias. Finally, averaging per-chain ratios misleads in this regime, and the variance attributable to the sign under native dynamics is far below $1/\avg{s}^2$: about 1.01, 1.14 and 4 instead of 1.10, 2.17 and 110 for three test cases. No exact move we tested showed a statistically resolved gain against native chains started from the bare electron.
 \end{abstract}
 
 \maketitle
@@ -58,7 +59,7 @@ Each new update or fix passes four levels in order.
 
 \emph{L3, independent kernels.} At low maximal order (maxOrder 7) every kernel mixes quickly. Native updates with fixes, a kernel that uses only our moves (native updates restricted to phonon-mode changes), and their mixture must give the same pooled $Q$ within errors.
 
-\emph{L4, published values.} STO gives $Q=-0.1420\pm0.0008$~eV against $-0.1419$~eV at $20^3$ in Ref.~\onlinecite{Luo2025}. The LiF electron gives $-0.2511\pm0.0015$~eV, consistent with $\approx-0.25$~eV at $20^3$.
+\emph{L4, published values.} STO gives $Q=-0.1420\pm0.0008$~eV against $-0.1419$~eV at $20^3$ in Ref.~\onlinecite{Luo2025}. The LiF electron gives $-0.2511\pm0.0015$~eV against the published $-0.25311\pm0.00027$~eV. For the LiF hole, the published $20^3$ value is $2.10\pm0.01$~eV (hole sign convention); our runs at $\tau_{\max}=23.2$~eV$^{-1}$ give $|Q|\approx1.6$--1.8~eV with settings not matched to the published ones. This is unreconciled.
 
 L2 and L3 test different things. L2 tests the internal consistency of one move. L3 tests whether different kernels sample the same distribution, which is where a defect in an existing update shows up.
 
@@ -73,15 +74,15 @@ All three defects are in the file \code{diagMC\_JJ\_updates.f90}, in the module 
 
 \emph{(c) Removal outside the addition's support.} The addition draws the head-side time only on $[0,\min(\tau_{\mathrm{first}},\tau_{\max}/2)]$ and the tail-side time only on $[\max(\tau_{\mathrm{last}},\tau_{\max}/2),\tau_{\max}]$. Later time moves can carry an outermost external vertex outside these ranges. The removal evaluates the reverse-addition densities without a range check, so such a pair can be removed although no addition can create it. The addition--removal pair then violates detailed balance. The fix rejects such removals.
 
-Table~\ref{tab:maxorder7} isolates the effects at maxOrder 7, where all kernels mix well. With both removal fixes, native agrees with a replica of its own proposal that uses the exact configuration weight. The replica differs from native only in how the weight ratio is computed, so the error is in native's acceptance ratio. The combined shift is $\Delta Q=-0.00319\pm0.00052$ (0.36\%, about $6\sigma$).
+Table~\ref{tab:maxorder7} isolates the effects at maxOrder 7, where all kernels mix well. With both removal fixes, native agrees with a replica of its own proposal that uses the exact configuration weight. The replica differs from native only in how the weight ratio is computed, so the error is in native's acceptance ratio. The shift from fixes (b) and (c) is $\Delta E=-0.00319\pm0.00081$ (about $4\sigma$; four chains in the baseline), which is 2.4\% of $Q\approx-0.135$~eV. Against the pristine code ($-0.87393\pm0.00039$) all three fixes give $-0.00237\pm0.00051$.
 
 \begin{table}
-\caption{\label{tab:maxorder7}LiF hole, $T=500$~K, maxOrder 7, pooled $Q$ over eight chains per row. ``Native'' includes fix (a); fixes (b) and (c) are applied as indicated.}
+\caption{\label{tab:maxorder7}LiF hole, $\tau_{\max}=23.2$~eV$^{-1}$ ($T=500$~K), maxOrder 7: pooled \emph{total} energy $E$ (not $Q$; $E_{\mathrm{bare}}=-0.7417$~eV), eight chains per row except the first (four). ``Native'' includes fix (a); fixes (b) and (c) are applied as indicated.}
 \begin{ruledtabular}
 \begin{tabular}{lr}
-Kernel & $Q$ (eV) \\
+Kernel & $E$ (eV) \\
 \midrule
-Native & $-0.87311\pm0.00040$ \\
+Native & $-0.87311\pm0.00074$ \\
 Native + (c) & $-0.87177\pm0.00022$ \\
 Native + (b) & $-0.87728\pm0.00014$ \\
 Native + (b) + (c) & $-0.87630\pm0.00033$ \\
@@ -95,7 +96,7 @@ At full order and $T=500$~K, the removal fixes move $Q$ from $-1.722\pm0.037$ to
 
 \section{An ordering constraint of the native diagram space}
 
-\code{update\_swap} refuses to exchange a head-attached external vertex with a tail-attached one. Native additions are outermost, and time moves do not reorder vertices. Native's diagram space therefore has the invariant that \emph{every head-attached external vertex precedes every tail-attached one}. This invariant is part of the estimator's definition. A general external addition that ignored it sampled a larger space and gave a consistent $-0.8749$ at maxOrder 7, about $4\sigma$ from the native value. Once it rejected placements that break the ordering, every exact kernel agreed at $-0.8763$ to $-0.8767$.
+\code{update\_swap} refuses to exchange a head-attached external vertex with a tail-attached one. Native additions are outermost, and time moves do not reorder vertices. Native's diagram space therefore has the invariant that \emph{every head-attached external vertex precedes every tail-attached one}. This invariant is part of the estimator's definition. A general external addition that ignored it sampled a larger space and gave a consistent total energy $E=-0.8749$ at maxOrder 7, about $4\sigma$ from the native value. Once it rejected placements that break the ordering, every exact kernel agreed at $-0.8763$ to $-0.8767$.
 
 \section{Slow equilibration of the external-pair number}
 \label{sec:equilibration}
@@ -173,13 +174,13 @@ The mean of per-chain ratios is biased when the chain signs scatter. At $T=500$~
 
 \emph{Do not trust few batches.} The chain-level variance is heavy-tailed: at full order the top two of 24 chains carried about half of $\mathrm{var}(h)$. At maxOrder 31 and $T=500$~K, $\mathrm{var}(h)$ of the \emph{same} kernel varied by a factor of about five between batches of 16 chains, and the net-efficiency estimate for the general-span move went from 2.35 to 2.62 to 1.08 as batches were added. Variance ratios from fewer than several such batches should not be reported.
 
-\emph{The sign ceiling.} The usual estimate of what sign reduction can gain is $1/\avg{s}^2$. It assumes that removing the sign leaves the other fluctuations unchanged. We measure the gain directly by comparing two per-measurement variances on the same chain, each with its blocking autocorrelation time~\cite{FlyvbjergPetersen1989,Sokal1997}. The first is the ratio-estimator influence $h=s(O-R)/\avg{s}$. The second is the same quantity with the sign set to $+1$, $h_O=O-\avg{O}$. Their ratio bounds the variance reduction of $Q$ that any sign-removal method can achieve (Table~\ref{tab:ceiling}). It is far below $1/\avg{s}^2$, because the sign is fast noise that also decorrelates the slow fluctuations of $O$. In STO, for example, $\tauint(h)=17$ while $\tauint(h_O)=32$.
+\emph{The sign ceiling.} The usual estimate of what sign reduction can gain is $1/\avg{s}^2$. It assumes that removing the sign leaves the other fluctuations unchanged. We measure the gain directly by comparing two per-measurement variances on the same chain, each with its blocking autocorrelation time~\cite{FlyvbjergPetersen1989,Sokal1997}. The first is the ratio-estimator influence $h=s(O-R)/\avg{s}$. The second is the same quantity with the sign set to $+1$, $h_O=O-\avg{O}$. Their ratio estimates how much of the estimator variance the sign causes under the same chain dynamics (Table~\ref{tab:ceiling}); it is not a bound on methods that change the chain. It is far below $1/\avg{s}^2$, because the sign is fast noise that also decorrelates the slow fluctuations of $O$. In STO, for example, $\tauint(h)=17$ while $\tauint(h_O)=32$.
 
 \begin{table}
-\caption{\label{tab:ceiling}Upper bound on the variance reduction of $Q$ from removing the sign, compared with $1/\avg{s}^2$.}
+\caption{\label{tab:ceiling}Sign-attributable variance ratio at fixed chain dynamics (chain-jackknife errors about $\pm0.01$, $\pm0.12$ and $\pm2.7$; the last from three chains), compared with $1/\avg{s}^2$.}
 \begin{ruledtabular}
 \begin{tabular}{lrrrr}
-Case & chains & $\avg{s}$ & $1/\avg{s}^2$ & bound \\
+Case & chains & $\avg{s}$ & $1/\avg{s}^2$ & ratio \\
 \midrule
 LiF electron, $\beta=232$ & 12 & 0.951 & 1.10 & 1.01 \\
 STO, $\beta=232$ & 6 & 0.680 & 2.17 & 1.14 \\
@@ -188,16 +189,16 @@ LiF hole, $T=500$~K & 3 & 0.096 & 110 & 4.3 \\
 \end{ruledtabular}
 \end{table}
 
-For the published cases no sign-reduction scheme can improve $Q$ by more than 1--14\%. Over 102 production chains of the LiF electron, $\avg{s}=0.944\pm0.002$. A sign-based grouping there could at best gain a factor 1.12, and a four-vertex window grouping would recover about 1.02.
+For the published cases the sign causes little of the variance under native dynamics. Over about 70 independent production chains of the LiF electron (102 values, some from re-runs of the same chain), $\avg{s}\approx0.944$.
 
 \section{Exact moves and their efficiency}
 \label{sec:negative}
 
-Table~\ref{tab:efficiency} lists the levers we tested; all pass L1--L3. We define the net efficiency as the per-step variance ratio divided by the CPU cost ratio, so a value above one is a gain. None exceeds one.
+Table~\ref{tab:efficiency} lists the levers we tested; all pass L1--L3. We define the net efficiency as the per-step variance ratio divided by the CPU cost ratio, so a value above one is a gain. None is resolved above one against native chains started from the bare electron; those baselines are themselves not equilibrated (Sec.~\ref{sec:equilibration}).
 
 One example shows why. The grouped chain sums phonon modes over the non-crossing lines of a configuration. It raises the sign from 0.68 to 0.91 in STO and from 0.087 to 0.147 for the LiF hole at 500~K, but each step costs several times more.
 
-The moves do mix the slow coordinates faster. With the ordered external move, $\tauint(n_{\mathrm{ext}})$ drops to 56 measurements, and the chain-to-chain sign spread shrinks by a factor of 2--6. However, the variance of $Q$ sits in slow fluctuations of the order and the energy ($\tauint\approx150$--200 measurements), which none of the moves shortens. The slow component of the sign is largely cancelled by the ratio estimator already.
+The moves do mix the slow coordinates faster. With the ordered external move, $\tauint(n_{\mathrm{ext}})$ drops to 56 measurements, and the chain-to-chain sign spread shrinks by a factor of 2--6. Some moves also shorten the order autocorrelation, but against non-equilibrated baselines this did not translate into a resolved net gain.
 
 \begin{table}
 \caption{\label{tab:efficiency}Net efficiency for $Q$, LiF hole at $T=500$~K, full order, pooled over 12--24 chains per kernel, unless noted. General-span move at $p=0.1$ (0.21 at $p=0.3$). The external move's value is that it removes the bias of Sec.~\ref{sec:equilibration}.}
@@ -229,7 +230,7 @@ For users and developers of first-principles DiagMC codes we suggest:
 
 \section{Conclusion}
 
-A validation ladder applied to the public FEP-DMC code found three defects in the external-phonon updates, a constraint of the native diagram space, and a slow equilibration that biases low-sign multiband runs by about 9\%. The published LiF-electron and STO energies are unchanged within 1--3~meV. Every acceleration lever we tested was exact, but none improved the cost-normalized variance of the energy. The direct sign-ceiling measurement explains why for the published cases: the sign is not where the variance is. The low-sign multiband regime is where an exact grouped measure could still pay off. Doing so would need to include crossing lines and incremental evaluation.
+A validation ladder applied to the public FEP-DMC code found three defects in the external-phonon updates, a constraint of the native diagram space, and a slow equilibration that biases low-sign multiband runs by about 9\%. The published LiF-electron and STO energies are unchanged within 1--3~meV. Every acceleration lever we tested was exact, but none showed a resolved net gain against the (non-equilibrated) native baselines. The direct sign-ceiling measurement explains why for the published cases: the sign is not where the variance is. The low-sign multiband regime is where an exact grouped measure could still pay off. Doing so would need to include crossing lines and incremental evaluation.
 
 \section*{Code and data availability}
 Patches, fixes (as run-time switches), drivers, estimators and the evidence behind every number are in the Future B repository, package \code{future\_b.fepdmc}, releases v1.3.x~\cite{FutureB}. The defects are reported upstream~\cite{UpstreamIssue}.
