@@ -6,7 +6,7 @@ This is a finite, enumerable toy with no material file. The derivation is
 in [DERIVATION.md](DERIVATION.md).
 
 The run below produces `evidence/*.json` and `evidence/run.log`, with
-118/118 checks PASS:
+117/117 checks PASS:
 
 ```
 .venv/bin/python -m future_b.r1_grouped.run_f1_f3 --steps 400000 --out research/r1_grouped/evidence

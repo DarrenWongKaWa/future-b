@@ -1,5 +1,16 @@
 # Agent log
 
+## 2026-10-02 — Future B v1.3.5: corrections after an independent review
+
+- An independent multi-agent review (31 agents: referees, prior-art and
+  evidence skeptics, completeness critic) re-derived the v1.3.x claims.
+- It found that the v1.3.4 "6σ" used a mistyped ±0.00040 (evidence: 4 chains,
+  ±0.00074 → about 4σ), that the maxOrder-7 values are total energies E
+  (2.4% of Q), and that the LiF-hole published value (2.10 eV) is not
+  reproduced. Docs corrected; methods note withdrawn; REVIEW.md added.
+- The local workspace was replaced by a fresh clone of GitHub `main`; the old
+  private workspace was moved to the Trash intact.
+
 ## 2026-10-02 — Future B v1.3.4: draft methods note, significance correction
 
 - Filed the external-phonon defects upstream: yaoluo/FEP-DMC#1.
