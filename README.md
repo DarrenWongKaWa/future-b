@@ -5,9 +5,11 @@ screening, event-level correctness checks, correlated-Monte-Carlo
 statistics, fixed-order graph reuse, and negative/unresolved benchmark
 results.
 
-**Project status: CLOSED** (`v1.0.0` science frozen; `v1.0.1`–`v1.2.0`
-maintenance; `v1.3.0` adds the FEP-DMC research toolkit; `v1.3.1` corrects
-its bug attribution; `v1.3.2` fixes the sdist self-test). This is a **methods-study archive**, not an AI
+**Project status: core methods study CLOSED** (`v1.0.0` science frozen and
+unchanged; `v1.0.1`–`v1.2.0` maintenance). **Maintained extension:** `v1.3.x`
+adds the FEP-DMC research toolkit (`future_b.fepdmc`) and new native findings
+(`v1.3.0`; `v1.3.1` corrects its bug attribution; `v1.3.2` fixes the sdist
+self-test; `v1.3.3` aligns this status line and `CITATION.cff`). This is a **methods-study archive**, not an AI
 acceleration framework and not a drop-in FEP-DMC plugin. C0 and P1 are
 LEVEL 0 source transforms of the pinned public tree, not a compiled
 extension and not the historical 0.956 binary.

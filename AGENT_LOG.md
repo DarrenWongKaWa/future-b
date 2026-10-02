@@ -1,5 +1,12 @@
 # Agent log
 
+## 2026-10-02 — Future B v1.3.3: project status aligned with v1.3.x
+
+- README/CITATION said the whole project was CLOSED while v1.3.x adds a
+  maintained FEP-DMC toolkit and new findings. Status now separates the
+  closed v1.0.0 core study from the v1.3.x extension. Docs and release
+  metadata only; v1.3.2 checksums frozen.
+
 ## 2026-09-26 — Future B v1.3.2: sdist self-test and optional scipy
 
 - PR CI on v1.3.1 failed: two analysis modules imported scipy at module

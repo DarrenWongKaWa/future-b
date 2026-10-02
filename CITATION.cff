@@ -1,18 +1,20 @@
 cff-version: 1.2.0
 title: "Future B: Exact-corrected delayed acceptance and validation tools for first-principles diagrammatic Monte Carlo"
-message: "This project is closed. Cite the software record and the upstream FEP-DMC paper separately."
+message: "The core methods study is closed (v1.0.0 science frozen); v1.3.x adds a maintained FEP-DMC research toolkit. Cite the software record and the upstream FEP-DMC paper separately."
 type: software
 authors:
   - family-names: Wong
     given-names: Kawa
     alias: DarrenWongKaWa
-version: "1.3.2"
-date-released: "2026-09-26"
+version: "1.3.3"
+date-released: "2026-10-02"
 license: GPL-3.0-or-later
 repository-code: "https://github.com/DarrenWongKaWa/future-b"
 abstract: >
-  Closed methods study of exact-corrected analytic delayed acceptance
-  (P1) in Luo EZ / Perturbo FEP-DMC for the LiF electron polaron.
+  Methods study (closed at v1.0.0, science frozen) of exact-corrected
+  analytic delayed acceptance (P1) in Luo EZ / Perturbo FEP-DMC for the
+  LiF electron polaron, with a maintained v1.3.x FEP-DMC research toolkit
+  (future_b.fepdmc) and native findings.
   The public snapshot is a research archive (Python algebra, Fortran
   excerpts, frozen records). It does not ship the historical R1
   evaluator, a native one-click plugin, or a 1% ground-state result.
