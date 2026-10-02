@@ -1033,7 +1033,9 @@ The table's other false leads were cleared along the way:
 | STO (6 + 6) | 11.68550 ± 0.00079 | 11.68575 ± 0.00064 | +0.25 ± 1.01 meV (0.2σ); the fixes act (multiband) but the effect is below 1 meV |
 
 The published energies are unaffected at the 1–3 meV level. The bugs are
-real and shift low-order results: LiF-hole at maxOrder 7 moves 0.37% (11σ).
+real and shift low-order results: LiF-hole at maxOrder 7 moves 0.36%
+(−0.00319 ± 0.00052, about 6σ). *Correction (v1.3.4):* versions up to
+v1.3.3 said 11σ, which divided the shift by one error bar only.
 
 **Lessons.**
 1. An exact replica of a native move, with only the weight computation

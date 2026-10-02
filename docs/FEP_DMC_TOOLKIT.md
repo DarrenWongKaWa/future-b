@@ -10,7 +10,9 @@ It has three parts:
 - **exact Future B Monte Carlo moves**;
 - **diagnostics and estimators** for the low-sign regime.
 
-Results, failure lessons and retractions are in
+A short write-up of the main findings is the draft methods note
+[paper/methods_note](../paper/methods_note/README.md). Results, failure
+lessons and retractions are in
 [NATIVE_REPORT.md](../research/r1_grouped/native_rb/NATIVE_REPORT.md),
 sections (a)–(j). The toolkit is a LEVEL 0 source transform plus Python
 drivers. It is not a compiled plugin, and it makes no speedup claim.
@@ -77,7 +79,7 @@ tree that `prepare` has already patched.
 
 | case | unfixed | all fixes |
 |---|---|---|
-| LiF-hole, T = 500 K, maxOrder 7 | −0.87311 | −0.8763 (11σ) |
+| LiF-hole, T = 500 K, maxOrder 7 | −0.87311 ± 0.00040 | −0.87630 ± 0.00033 (Δ = −0.0032 ± 0.0005, about 6σ) |
 | LiF-hole, T = 500 K, full order | ⟨s⟩ 0.090 | ⟨s⟩ 0.111, about 3 fewer external pairs, Q +0.095 eV (1.7σ) |
 | LiF-electron and STO at β = 232 (paper cases) | — | unchanged within 1–3 meV |
 

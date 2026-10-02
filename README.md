@@ -9,7 +9,8 @@ results.
 unchanged; `v1.0.1`–`v1.2.0` maintenance). **Maintained extension:** `v1.3.x`
 adds the FEP-DMC research toolkit (`future_b.fepdmc`) and new native findings
 (`v1.3.0`; `v1.3.1` corrects its bug attribution; `v1.3.2` fixes the sdist
-self-test; `v1.3.3` aligns this status line and `CITATION.cff`). This is a **methods-study archive**, not an AI
+self-test; `v1.3.3` aligns this status line and `CITATION.cff`; `v1.3.4` adds a draft
+methods note and corrects one significance figure). This is a **methods-study archive**, not an AI
 acceleration framework and not a drop-in FEP-DMC plugin. C0 and P1 are
 LEVEL 0 source transforms of the pinned public tree, not a compiled
 extension and not the historical 0.956 binary.
@@ -95,7 +96,9 @@ future-b-fepdmc run ez lif_hole 8 --wqfix --extfix --extrmfix --extar 0.02
 future-b-fepdmc validate
 ```
 
-No speedup claim; the frozen v1.0.0 result is unchanged. See
+No speedup claim; the frozen v1.0.0 result is unchanged. The defects are
+reported upstream ([yaoluo/FEP-DMC#1](https://github.com/yaoluo/FEP-DMC/issues/1)),
+and a draft methods note is in [paper/methods_note](paper/methods_note/README.md). See
 [docs/FEP_DMC_TOOLKIT.md](docs/FEP_DMC_TOOLKIT.md) and
 [the native report](research/r1_grouped/native_rb/NATIVE_REPORT.md).
 
